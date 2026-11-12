@@ -1,0 +1,211 @@
+/* Font: public/index.html e ei line ta add korben (na thakle default sans-serif use hobe)
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> */
+
+.ach-section {
+    --ach-navy: #14214f;
+    --ach-red: #e8202a;
+    position: relative;
+    overflow: hidden;
+    padding: 56px 20px 64px;
+    background: #e0eefb;
+    font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+.ach-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+/* Background decoration */
+
+.ach-bg {
+    position: absolute;
+    pointer-events: none;
+}
+
+.ach-bg--heart {
+    left: 6%;
+    bottom: -30%;
+    width: min(420px, 45vw);
+    opacity: 0.55;
+}
+
+.ach-bg--ring {
+    top: 18px;
+    left: 17%;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 16px solid #c9e6ee;
+    box-shadow: 0 8px 20px rgba(120, 160, 190, 0.2);
+    opacity: 0.9;
+}
+
+
+/* Heading */
+
+.ach-eyebrow {
+    margin: 0 0 14px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ach-navy);
+}
+
+.ach-heading {
+    margin: 0 0 46px;
+    font-size: clamp(30px, 4.5vw, 42px);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--ach-navy);
+}
+
+
+/* Cards */
+
+.ach-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 34px;
+}
+
+.ach-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex: 0 0 212px;
+    height: 98px;
+    padding: 0 18px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 22px rgba(60, 100, 150, 0.14);
+}
+
+.ach-card__icon {
+    flex: none;
+    width: 46px;
+    height: 46px;
+    color: var(--ach-red);
+}
+
+.ach-card__icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.ach-card__info {
+    min-width: 0;
+    text-align: center;
+}
+
+.ach-card__num {
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--ach-navy);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.ach-card__num sup {
+    margin-left: 1px;
+    font-size: 0.45em;
+    font-weight: 600;
+    vertical-align: super;
+    line-height: 0;
+}
+
+.ach-card__label {
+    margin-top: 6px;
+    font-size: 13px;
+    line-height: 1.2;
+    color: var(--ach-navy);
+}
+
+
+/* ============ LAPTOP: 5 card ek row e rakhar jonno chhoto ============ */
+
+@media (max-width: 1160px) {
+    .ach-grid {
+        gap: 14px;
+    }
+    .ach-card {
+        flex: 0 0 196px;
+        gap: 10px;
+        padding: 0 14px;
+    }
+    .ach-card__num {
+        font-size: 34px;
+    }
+}
+
+
+/* ============ TABLET: 3 + 2 ============ */
+
+@media (max-width: 1040px) {
+    .ach-section {
+        padding: 48px 20px 56px;
+    }
+    .ach-card {
+        flex: 0 0 calc((100% - 28px) / 3);
+        max-width: 240px;
+    }
+    .ach-bg--ring {
+        left: 8%;
+    }
+}
+
+
+/* ============ MOBILE: 2 column ============ */
+
+@media (max-width: 640px) {
+    .ach-section {
+        padding: 40px 16px 48px;
+    }
+    .ach-heading {
+        margin-bottom: 30px;
+    }
+    .ach-grid {
+        gap: 12px;
+    }
+    .ach-card {
+        flex: 0 0 calc((100% - 12px) / 2);
+        max-width: none;
+        height: 88px;
+        gap: 8px;
+        padding: 0 10px;
+        border-radius: 14px;
+    }
+    .ach-card__icon {
+        width: 34px;
+        height: 34px;
+    }
+    .ach-card__num {
+        font-size: 26px;
+    }
+    .ach-card__label {
+        font-size: 11.5px;
+    }
+    .ach-bg--ring {
+        width: 50px;
+        height: 50px;
+        border-width: 11px;
+    }
+}
+
+
+/* ============ VERY SMALL PHONE: 1 column ============ */
+
+@media (max-width: 360px) {
+    .ach-card {
+        flex: 0 0 100%;
+    }
+}

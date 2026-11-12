@@ -1,0 +1,255 @@
+:root {
+    --b-green: #6a9f3e;
+    --b-orange: #ff8a3d;
+}
+
+.banner {
+    position: relative;
+    min-height: 720px;
+    color: #fff;
+    overflow: hidden;
+    display: flex;
+}
+
+
+/* Background slideshow */
+
+.banner-slides,
+.banner-slide,
+.banner-overlay {
+    position: absolute;
+    inset: 0;
+}
+
+.banner-slide {
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.banner-slide.active {
+    opacity: 1;
+}
+
+.banner-overlay {
+    background: rgba(20, 20, 20, 0.65);
+}
+
+
+/* Layout */
+
+.banner-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.banner-content {
+    padding-top: 150px;
+    max-width: 700px;
+}
+
+.banner-tag {
+    display: inline-block;
+    background: var(--b-green);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+}
+
+.banner-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 1.15;
+    margin: 22px 0;
+}
+
+.banner-title .highlight {
+    color: var(--b-green);
+}
+
+
+/* Blinking cursor */
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    height: 0.9em;
+    margin-left: 3px;
+    background: var(--b-green);
+    vertical-align: middle;
+    animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+.banner-text {
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 580px;
+    margin-bottom: 30px;
+}
+
+.banner-buttons {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 15px 28px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.25s;
+}
+
+.btn-green {
+    background: var(--b-green);
+    border: 2px solid var(--b-green);
+}
+
+.btn-green:hover {
+    background: #567f31;
+    border-color: #567f31;
+}
+
+.btn-outline {
+    border: 2px solid #fff;
+}
+
+.btn-outline:hover {
+    background: #fff;
+    color: #222;
+}
+
+
+/* Info cards */
+
+.info-cards {
+    display: flex;
+    margin-top: 60px;
+    border-radius: 6px 6px 0 0;
+    overflow: hidden;
+    box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.25);
+}
+
+.info-card {
+    flex: 1;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    margin-bottom: 5px;
+    padding: 28px;
+}
+
+.info-card.green {
+    background: var(--b-green);
+}
+
+.info-card.orange {
+    background: var(--b-orange);
+}
+
+.info-card.white {
+    background: #fff;
+    color: #222;
+}
+
+.info-card h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+    font-size: 21px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.info-card p {
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.info-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-card.green .info-icon {
+    color: var(--b-green);
+}
+
+.info-card.orange .info-icon {
+    color: var(--b-orange);
+}
+
+.info-icon.outline {
+    border: 1px solid #d9322d;
+    color: #d9322d;
+}
+
+.info-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+
+/* Responsive */
+
+@media (max-width: 992px) {
+    .banner-container {
+        padding: 0 20px;
+    }
+    .banner-content {
+        padding-top: 90px;
+    }
+    .banner-title {
+        font-size: 32px;
+    }
+    .info-cards {
+        flex-direction: column;
+        margin-top: 40px;
+    }
+}
+
+.banner-title {
+    color: #fff;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.banner-title .highlight {
+    color: var(--b-green);
+}
+
+.banner-content {
+    text-align: left;
+}
+
+.banner-text {
+    text-align: left;
+}

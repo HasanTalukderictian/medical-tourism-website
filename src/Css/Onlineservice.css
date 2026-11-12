@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+.os-section {
+    /* Brand colors: SEOK navy + light blue. Ekhane change korlei sob jaygay change hobe */
+    --os-brand: #14214d;
+    --os-brand-light: #2563eb;
+    --os-card-bg: #e8f0fe;
+    --os-text: #4b5a7a;
+    font-family: "Poppins", sans-serif;
+    background: #ffffff;
+    padding: 64px 20px 80px;
+}
+
+.os-heading {
+    margin: 0 0 48px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--os-brand);
+}
+
+
+/* ---------- Card ---------- */
+
+.os-card {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    max-width: 1200px;
+    min-height: 396px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 20px;
+    background: var(--os-card-bg);
+    box-shadow: 0 24px 64px rgba(20, 33, 77, 0.1);
+}
+
+
+/* ---------- Content ---------- */
+
+.os-content {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 52%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 48px;
+}
+
+.os-eyebrow {
+    margin: 0 0 14px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--os-brand-light);
+}
+
+.os-title {
+    margin: 0 0 16px;
+    max-width: 440px;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--os-brand);
+}
+
+.os-desc {
+    margin: 0 0 30px;
+    max-width: 430px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--os-text);
+}
+
+
+/* ---------- Button ---------- */
+
+.os-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    padding: 14px 20px 14px 20px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--os-brand-light), var(--os-brand));
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.3);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.os-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 34px rgba(37, 99, 235, 0.4);
+}
+
+.os-btn:focus-visible {
+    outline: 3px solid var(--os-brand-light);
+    outline-offset: 3px;
+}
+
+.os-btn svg {
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+}
+
+.os-btn:hover svg {
+    transform: translate(2px, -2px);
+}
+
+
+/* ---------- Image ---------- */
+
+.os-media {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 56%;
+}
+
+.os-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center right;
+    /* Image er bam dik ta card background e mishe jabe */
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 28%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 28%);
+}
+
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1024px) {
+    .os-content {
+        flex-basis: 58%;
+        padding: 36px 32px;
+    }
+    .os-title {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .os-section {
+        padding: 44px 16px 56px;
+    }
+    .os-heading {
+        margin-bottom: 28px;
+        font-size: 26px;
+    }
+    .os-card {
+        flex-direction: column;
+        min-height: 0;
+    }
+    .os-content {
+        flex-basis: auto;
+        padding: 28px 24px 32px;
+    }
+    .os-title {
+        font-size: 26px;
+    }
+    .os-media {
+        position: relative;
+        order: -1;
+        width: 100%;
+        height: 240px;
+    }
+    /* Mobile e image er niche dik ta fade hobe */
+    .os-media img {
+        -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+        mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .os-btn,
+    .os-btn svg {
+        transition: none;
+    }
+}

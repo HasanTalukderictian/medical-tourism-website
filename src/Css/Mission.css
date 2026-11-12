@@ -1,0 +1,259 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+.mv-section {
+    /* Brand colors (reference image theke): green + orange.
+     Exact shade alada hole sudhu ei duto change koro */
+    --mv-green: #689f38;
+    --mv-green-soft: #eef5e6;
+    --mv-orange: #f58a3c;
+    --mv-orange-soft: #fff1e6;
+    --mv-heading: #1f2937;
+    --mv-text: #5b6470;
+    --mv-bg: #f8f9f6;
+    overflow: hidden;
+    /* slide animation er somoy horizontal scroll bondho */
+    padding: 72px 20px 88px;
+    background: var(--mv-bg);
+    font-family: "Poppins", sans-serif;
+}
+
+.mv-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* ---------- Header ---------- */
+
+.mv-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 52px;
+    text-align: center;
+}
+
+.mv-badge {
+    padding: 7px 18px;
+    border-radius: 6px;
+    background: var(--mv-green);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(-14px);
+}
+
+.mv-heading {
+    margin: 18px 0 0;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--mv-heading);
+    opacity: 0;
+    transform: translateY(22px);
+}
+
+.mv-line {
+    display: block;
+    width: 0;
+    height: 4px;
+    margin-top: 18px;
+    border-radius: 4px;
+    background: var(--mv-orange);
+}
+
+.mv-section.is-visible .mv-badge {
+    animation: mv-fade-in 0.6s ease forwards;
+}
+
+.mv-section.is-visible .mv-heading {
+    animation: mv-fade-in 0.7s ease 0.15s forwards;
+}
+
+.mv-section.is-visible .mv-line {
+    animation: mv-grow 0.7s ease 0.4s forwards;
+}
+
+@keyframes mv-fade-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes mv-grow {
+    to {
+        width: 72px;
+    }
+}
+
+
+/* ---------- Grid ---------- */
+
+.mv-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+}
+
+
+/* ---------- Card ---------- */
+
+.mv-card {
+    --accent: var(--mv-green);
+    --accent-soft: var(--mv-green-soft);
+    position: relative;
+    padding: 40px 38px 34px;
+    border-radius: 16px;
+    border-top: 4px solid var(--accent);
+    background: #fff;
+    box-shadow: 0 8px 30px rgba(31, 41, 55, 0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* animation er initial state */
+    opacity: 0;
+}
+
+.mv-card--vision {
+    --accent: var(--mv-orange);
+    --accent-soft: var(--mv-orange-soft);
+}
+
+.mv-card.from-left {
+    transform: translateX(-80px);
+}
+
+.mv-card.from-right {
+    transform: translateX(80px);
+}
+
+.mv-section.is-visible .mv-card {
+    animation: mv-slide-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--delay) forwards;
+}
+
+@keyframes mv-slide-in {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* Hover: slide animation shesh hoye gele kaj korbe */
+
+.mv-section.is-visible .mv-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 44px rgba(31, 41, 55, 0.12);
+}
+
+
+/* ---------- Icon ---------- */
+
+.mv-icon {
+    display: grid;
+    place-items: center;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 22px;
+    border-radius: 14px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.mv-card:hover .mv-icon {
+    background: var(--accent);
+    color: #fff;
+    transform: scale(1.06);
+}
+
+
+/* ---------- Title ---------- */
+
+.mv-title {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--mv-heading);
+}
+
+.mv-title-line {
+    display: block;
+    width: 40px;
+    height: 3px;
+    margin: 12px 0 20px;
+    border-radius: 3px;
+    background: var(--accent);
+    transition: width 0.35s ease;
+}
+
+.mv-card:hover .mv-title-line {
+    width: 68px;
+}
+
+
+/* ---------- Text ---------- */
+
+.mv-text {
+    margin: 0 0 14px;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--mv-text);
+}
+
+.mv-text:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 860px) {
+    .mv-grid {
+        grid-template-columns: 1fr;
+    }
+    .mv-heading {
+        font-size: 34px;
+    }
+}
+
+@media (max-width: 600px) {
+    .mv-section {
+        padding: 52px 16px 64px;
+    }
+    .mv-header {
+        margin-bottom: 34px;
+    }
+    .mv-heading {
+        font-size: 28px;
+    }
+    .mv-card {
+        padding: 30px 22px 26px;
+    }
+    .mv-card.from-left {
+        transform: translateX(-44px);
+    }
+    .mv-card.from-right {
+        transform: translateX(44px);
+    }
+}
+
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .mv-badge,
+    .mv-heading,
+    .mv-card,
+    .mv-card.from-left,
+    .mv-card.from-right {
+        opacity: 1;
+        transform: none;
+        animation: none !important;
+    }
+    .mv-line {
+        width: 72px;
+        animation: none !important;
+    }
+}

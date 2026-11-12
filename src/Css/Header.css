@@ -1,0 +1,380 @@
+:root {
+    --navy: #12286b;
+    --hover-red: #e53935;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 75px;
+    padding: 0 40px;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 50px;
+    width: auto;
+    display: block;
+}
+
+
+/* Desktop e wrapper ta layout e kono effect felbe na */
+
+.nav-collapse {
+    display: contents;
+}
+
+.nav-menu,
+.dropdown-menu,
+.sub-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 26px;
+    height: 100%;
+    align-items: center;
+}
+
+.nav-menu>li {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--navy);
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.nav-menu>li>a:hover,
+.nav-menu>li>a.active {
+    color: var(--hover-red);
+}
+
+
+/* Toggle buttons (arrow) */
+
+.dd-toggle,
+.sub-toggle {
+    background: none;
+    border: 0;
+    color: var(--navy);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0 0 0 4px;
+    line-height: 1;
+}
+
+.dropdown:hover>.dd-toggle {
+    color: var(--hover-red);
+}
+
+.sub-toggle {
+    display: none;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+
+/* Dropdown */
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 260px;
+    background: #fff;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-menu li {
+    border-bottom: 1px solid #eee;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 11px 18px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.dropdown-menu li:hover {
+    background: #f7f8fc;
+}
+
+.dropdown-menu li:hover>a {
+    color: var(--hover-red);
+}
+
+
+/* Buttons */
+
+.nav-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.cta-btn {
+    background: var(--navy);
+    color: #fff !important;
+    padding: 11px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    white-space: nowrap;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+.cta-btn:hover {
+    background: #0b1a4a;
+}
+
+
+/* Hospitals nested menu */
+
+.country-menu {
+    width: 230px;
+    overflow: visible;
+    border-radius: 8px;
+}
+
+.has-sub {
+    position: relative;
+}
+
+.sub-row {
+    display: flex;
+    align-items: center;
+}
+
+.sub-row>a {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.arrow {
+    font-size: 11px;
+}
+
+.sub-menu {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 300px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ============ DESKTOP: hover ============ */
+
+@media (min-width: 993px) {
+    .dropdown:hover>.dropdown-menu {
+        display: block;
+    }
+    .has-sub:hover>.sub-menu {
+        display: block;
+    }
+}
+
+
+/* ============ LAPTOP / SMALL DESKTOP ============ */
+
+@media (max-width: 1200px) {
+    .navbar {
+        padding: 0 20px;
+    }
+    .nav-menu {
+        gap: 16px;
+    }
+    .nav-menu a {
+        font-size: 14px;
+    }
+    .cta-btn {
+        padding: 9px 16px;
+        font-size: 13px;
+    }
+    .nav-actions {
+        gap: 8px;
+    }
+}
+
+
+/* ============ TABLET + MOBILE ============ */
+
+@media (max-width: 992px) {
+    .navbar {
+        height: 65px;
+        padding: 0 16px;
+    }
+    .logo-img {
+        height: 42px;
+    }
+    /* Hamburger */
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 42px;
+        height: 42px;
+        padding: 9px;
+        background: none;
+        border: 0;
+        cursor: pointer;
+    }
+    .menu-toggle span {
+        display: block;
+        height: 3px;
+        width: 100%;
+        background: var(--navy);
+        border-radius: 3px;
+        transition: transform 0.3s, opacity 0.3s;
+    }
+    .menu-toggle.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    /* Slide-in panel */
+    .nav-collapse {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 65px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #fff;
+        padding: 10px 20px 30px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        transform: translateX(100%);
+        visibility: hidden;
+        transition: transform 0.3s ease, visibility 0.3s;
+    }
+    .nav-collapse.open {
+        transform: translateX(0);
+        visibility: visible;
+    }
+    .nav-menu {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        height: auto;
+    }
+    .nav-menu>li {
+        height: auto;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #eee;
+    }
+    .nav-menu>li>a {
+        flex: 1;
+        padding: 15px 4px;
+        font-size: 16px;
+    }
+    .dd-toggle,
+    .sub-toggle {
+        display: block;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        font-size: 16px;
+        transition: transform 0.2s;
+    }
+    .dropdown.open>.dd-toggle,
+    .has-sub.open .sub-toggle {
+        transform: rotate(180deg);
+        color: var(--hover-red);
+    }
+    /* Dropdowns accordion */
+    .dropdown-menu,
+    .country-menu {
+        position: static;
+        display: none;
+        flex-basis: 100%;
+        width: 100%;
+        background: #f7f8fc;
+        border-radius: 8px;
+        box-shadow: none;
+        margin-bottom: 10px;
+    }
+    .dropdown.open>.dropdown-menu {
+        display: block;
+    }
+    .dropdown-menu li:last-child {
+        border-bottom: 0;
+    }
+    .dropdown-menu li a {
+        padding: 12px 16px;
+    }
+    /* Nested country -> hospitals */
+    .arrow {
+        display: none;
+    }
+    .sub-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+        background: #eef1f9;
+        padding-left: 12px;
+    }
+    .has-sub.open>.sub-menu {
+        display: block;
+    }
+    /* Buttons niche full width */
+    .nav-actions {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 24px;
+    }
+    .cta-btn {
+        padding: 13px 24px;
+        font-size: 15px;
+    }
+}
+
+
+/* ============ SMALL PHONE ============ */
+
+@media (max-width: 480px) {
+    .logo-img {
+        height: 36px;
+    }
+}

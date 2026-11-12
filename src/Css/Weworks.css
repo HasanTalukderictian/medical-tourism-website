@@ -1,0 +1,452 @@
+/* Font: public/index.html e Poppins add korben (na thakle default sans-serif)
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet"> */
+
+.wk-section {
+    --wk-navy: #14214f;
+    --wk-ring: #1e2f6b;
+    --wk-red: #e8202a;
+    background: #fff;
+    padding: 56px 20px 72px;
+    overflow: hidden;
+}
+
+.wk-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+
+/* ---------- Heading ---------- */
+
+.wk-head {
+    margin-bottom: 28px;
+}
+
+.wk-heading {
+    margin: 0;
+    font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 4.5vw, 44px);
+    line-height: 1.2;
+    color: var(--wk-navy);
+}
+
+.wk-underline {
+    position: relative;
+    display: block;
+    width: 80px;
+    height: 3px;
+    margin: 6px 0 0 5px;
+    background: var(--wk-red);
+    transform-origin: left center;
+}
+
+.wk-underline::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: -5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 2px solid var(--wk-red);
+    background: radial-gradient(circle, var(--wk-red) 0 2px, #fff 2.5px);
+}
+
+
+/* ================================================================
+   DESKTOP: winding road
+   ================================================================ */
+
+.wk-stage-wrap {
+    container-type: inline-size;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.wk-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1010 / 600;
+}
+
+.wk-deco,
+.wk-road {
+    position: absolute;
+    pointer-events: none;
+}
+
+.wk-road {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.wk-deco--heart {
+    left: 3%;
+    top: 16%;
+    width: 12.5%;
+}
+
+.wk-deco--shield {
+    right: 0;
+    bottom: 0;
+    width: 16%;
+    opacity: 0.85;
+}
+
+
+/* Circle (illustration) */
+
+.wk-circle {
+    position: absolute;
+    z-index: 2;
+    width: 8.8%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border: 0.7cqw solid var(--wk-ring);
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 40%, #fff, #dfe3ea);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.25s ease;
+}
+
+.wk-circle:hover {
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+.wk-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+/* Dotted line + dot + number badge */
+
+.wk-line {
+    position: absolute;
+    width: 0;
+    border-left: 0.2cqw dotted #444;
+    transform: translateX(-50%);
+}
+
+.wk-dot {
+    position: absolute;
+    width: 0.95cqw;
+    height: 0.95cqw;
+    border-radius: 50%;
+    background: var(--wk-ring);
+    transform: translate(-50%, -50%);
+}
+
+.wk-badge {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3cqw;
+    height: 3cqw;
+    border: 0.22cqw solid var(--wk-ring);
+    border-radius: 50%;
+    background: #fff;
+    transform: translate(-50%, -50%);
+    font-family: 'Times New Roman', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.7cqw;
+    line-height: 1;
+    color: var(--wk-ring);
+}
+
+
+/* Text */
+
+.wk-text {
+    position: absolute;
+    z-index: 2;
+    width: 13.5cqw;
+    font-family: 'Times New Roman', Georgia, serif;
+    color: #111;
+}
+
+.wk-text h3 {
+    margin: 0 0 0.4cqw;
+    font-size: 1.75cqw;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.wk-text p {
+    margin: 0;
+    font-size: 1.2cqw;
+    line-height: 1.35;
+    color: #222;
+}
+
+
+/* ---------- Animations (section screen e ashle) ---------- */
+
+.wk-stage:not(.in-view) .wk-anim {
+    opacity: 0;
+}
+
+.wk-stage:not(.in-view) .wk-mask-path {
+    stroke-dashoffset: 1;
+}
+
+.wk-mask-path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+
+.wk-stage.in-view .wk-mask-path {
+    animation: wk-draw 2.8s ease-in-out forwards;
+}
+
+.wk-stage.in-view .wk-anim {
+    --d: calc(0.35s + var(--i) * 0.3s);
+}
+
+.wk-stage.in-view .wk-anim--pop {
+    animation: wk-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d) backwards;
+}
+
+.wk-stage.in-view .wk-anim--fade {
+    animation: wk-fade 0.5s ease-out calc(var(--d) + 0.25s) backwards;
+}
+
+.wk-stage.in-view .wk-anim--slide {
+    animation: wk-slide 0.6s ease-out calc(var(--d) + 0.3s) backwards;
+}
+
+.wk-stage.in-view .wk-anim--slide.from-left {
+    animation-name: wk-slide-left;
+}
+
+
+/* Step grouping element ta layout e kono effect felbe na */
+
+.wk-step {
+    display: contents;
+}
+
+@keyframes wk-draw {
+    from {
+        stroke-dashoffset: 1;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes wk-pop {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.2);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes wk-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes wk-slide {
+    from {
+        opacity: 0;
+        transform: translateX(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes wk-slide-left {
+    from {
+        opacity: 0;
+        transform: translateX(-18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* ================================================================
+   TABLET / MOBILE: vertical timeline
+   ================================================================ */
+
+.wk-list {
+    display: none;
+}
+
+@media (max-width: 899px) {
+    .wk-section {
+        padding: 44px 20px 56px;
+    }
+    .wk-stage-wrap {
+        display: none;
+    }
+    .wk-list {
+        position: relative;
+        display: block;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        max-width: 560px;
+    }
+    /* Rasta */
+    .wk-m-road {
+        position: absolute;
+        top: 20px;
+        bottom: 20px;
+        left: 34px;
+        width: 16px;
+        background: #4b4b4b;
+        box-shadow: 0 0 0 2px #fff, 0 0 0 3px #b9b9b9;
+        transform-origin: top center;
+        transform: scaleY(0);
+    }
+    .wk-m-road::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 7px;
+        width: 2px;
+        background: repeating-linear-gradient(to bottom, #fff 0 8px, transparent 8px 16px);
+    }
+    .wk-list.in-view .wk-m-road {
+        transform: scaleY(1);
+        transition: transform 1.8s ease-out;
+    }
+    /* Item */
+    .wk-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding-bottom: 34px;
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .wk-item:last-child {
+        padding-bottom: 0;
+    }
+    .wk-item.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .wk-m-circle {
+        position: relative;
+        z-index: 1;
+        flex: none;
+        width: 84px;
+        height: 84px;
+        border: 6px solid var(--wk-ring);
+        border-radius: 50%;
+        background: radial-gradient(circle at 50% 40%, #fff, #dfe3ea);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .wk-m-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        display: block;
+    }
+    .wk-m-badge {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border: 2px solid var(--wk-ring);
+        border-radius: 50%;
+        background: #fff;
+        font-family: 'Times New Roman', Georgia, serif;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 1;
+        color: var(--wk-ring);
+    }
+    .wk-m-text h3 {
+        margin: 0 0 4px;
+        font-family: 'Times New Roman', Georgia, serif;
+        font-size: 19px;
+        font-weight: 700;
+        line-height: 1.25;
+        color: #111;
+    }
+    .wk-m-text p {
+        margin: 0;
+        font-family: 'Times New Roman', Georgia, serif;
+        font-size: 15.5px;
+        line-height: 1.5;
+        color: #333;
+    }
+}
+
+@media (max-width: 420px) {
+    .wk-section {
+        padding: 36px 16px 48px;
+    }
+    .wk-m-circle {
+        width: 72px;
+        height: 72px;
+        border-width: 5px;
+    }
+    .wk-m-road {
+        left: 28px;
+    }
+    .wk-item {
+        gap: 14px;
+    }
+    .wk-m-text h3 {
+        font-size: 17px;
+    }
+    .wk-m-text p {
+        font-size: 14.5px;
+    }
+}
+
+
+/* ---------- Motion kom chay emon user der jonno ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .wk-stage .wk-anim {
+        opacity: 1 !important;
+        animation: none !important;
+    }
+    .wk-stage .wk-mask-path {
+        stroke-dashoffset: 0 !important;
+        animation: none !important;
+    }
+    .wk-m-road {
+        transform: scaleY(1) !important;
+        transition: none !important;
+    }
+    .wk-item {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
