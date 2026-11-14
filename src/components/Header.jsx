@@ -7,7 +7,6 @@ const slugify = (text) =>
     text.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
 const services = [
-   
     { to: '/services/medical-consultation', label: 'Medical Consultation' },
     { to: '/services/tele-consultation', label: 'Tele Consultation' },
     { to: '/services/doctor-appointment', label: 'Doctor Appointment' },
@@ -50,11 +49,18 @@ const more = [
     { to: '/events', label: 'Events' },
 ];
 
-function SimpleDropdown({ id, to, label, items, openId, setOpenId }) {
+function SimpleDropdown({ id, label, items, openId, setOpenId }) {
     const isOpen = openId === id;
     return (
         <li className={`dropdown ${isOpen ? 'open' : ''}`}>
-            <NavLink to={to}>{label}</NavLink>
+            <button
+                type="button"
+                className="dd-label"
+                aria-expanded={isOpen}
+                onClick={() => setOpenId(isOpen ? null : id)}
+            >
+                {label}
+            </button>
             <button
                 type="button"
                 className="dd-toggle"
@@ -77,18 +83,16 @@ function SimpleDropdown({ id, to, label, items, openId, setOpenId }) {
 
 function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [openId, setOpenId] = useState(null);       // which main dropdown is open (mobile)
-    const [openCountry, setOpenCountry] = useState(null); // which country is open (mobile)
+    const [openId, setOpenId] = useState(null);
+    const [openCountry, setOpenCountry] = useState(null);
     const location = useLocation();
 
-    // Page change hole menu bondho
     useEffect(() => {
         setMenuOpen(false);
         setOpenId(null);
         setOpenCountry(null);
     }, [location.pathname]);
 
-    // Menu khola thakle background scroll lock
     useEffect(() => {
         document.body.style.overflow = menuOpen ? 'hidden' : '';
         return () => {
@@ -96,7 +100,6 @@ function Header() {
         };
     }, [menuOpen]);
 
-    // Desktop size e gele mobile menu reset
     useEffect(() => {
         const onResize = () => {
             if (window.innerWidth > 992) setMenuOpen(false);
@@ -132,11 +135,18 @@ function Header() {
                             <NavLink to="/" end>Home</NavLink>
                         </li>
 
-                        <SimpleDropdown id="services" to="/services" label="Services" items={services} {...dropdownProps} />
+                        <SimpleDropdown id="services" label="Services" items={services} {...dropdownProps} />
 
                         {/* Hospitals: nested menu */}
                         <li className={`dropdown ${openId === 'hospitals' ? 'open' : ''}`}>
-                            <NavLink to="/hospitals" end>Hospitals</NavLink>
+                            <button
+                                type="button"
+                                className="dd-label"
+                                aria-expanded={openId === 'hospitals'}
+                                onClick={() => setOpenId(openId === 'hospitals' ? null : 'hospitals')}
+                            >
+                                Hospitals
+                            </button>
                             <button
                                 type="button"
                                 className="dd-toggle"
@@ -182,13 +192,12 @@ function Header() {
                             </ul>
                         </li>
 
-                        <SimpleDropdown id="packages" to="/packages" label="Packages" items={packages} {...dropdownProps} />
-                        <SimpleDropdown id="more" to="/more" label="More" items={more} {...dropdownProps} />
+                        <SimpleDropdown id="packages" label="Packages" items={packages} {...dropdownProps} />
+                        <SimpleDropdown id="more" label="More" items={more} {...dropdownProps} />
 
                         <li>
                             <NavLink to="/gallery" end>Gallery</NavLink>
                         </li>
-
                     </ul>
 
                     <div className="nav-actions">

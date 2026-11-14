@@ -40,7 +40,7 @@ function App() {
                     <Route index element={<Home />} />
 
                     {/* Services */}
-                    <Route path="services" element={<Services />} />
+                 
                 
 
                     <Route path="services/medical-consultation" element={<MedicalConsultation/>} />
@@ -55,16 +55,16 @@ function App() {
                     <Route path="services/training-development" element={<ServicePage title="Training & Development" />} />
 
                     {/* Hospitals */}
-                    <Route path="hospitals" element={<ServicePage title="Hospitals" />} />
+              
                     <Route path="hospitals/:country" element={<HospitalPage />} />
                     <Route path="hospitals/:country/:slug" element={<HospitalPage />} />
 
                     {/* Packages */}
-                    <Route path="packages" element={<ServicePage title="Packages" />} />
+               
                     <Route path="packages/:slug" element={<ServicePage title="Package Details" />} />
 
                     {/* More */}
-                    <Route path="more" element={<ServicePage title="More" />} />
+                  
                     <Route path="about" element={<About />} />
                     <Route path="contact" element={<Contact />} />
                     <Route path="blog" element={<Blog />} />
