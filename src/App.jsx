@@ -5,9 +5,10 @@ import MainLayout from './layouts/MainLayout';
 import Home from './assets/Home';
 import Telemedicine from './assets/Frontend/Telemedicine';
 import About from './assets/Frontend/About';
-import ScrollToTop from './components/ScrollToTop';
 import Contact from './assets/Frontend/Contact';
 import Blog from './assets/Frontend/Blog';
+import Gallery from './assets/Frontend/Gallery';
+import ScrollToTop from './components/ScrollToTop';
 
 function Services() {
     return <h2>Services Page</h2>;
@@ -62,8 +63,9 @@ function App() {
                     {/* More */}
                     <Route path="more" element={<ServicePage title="More" />} />
                     <Route path="about" element={<About />} />
-                    <Route path="contact" element={<Contact/>} />
-                    <Route path="blog" element={<Blog/>} />
+                    <Route path="contact" element={<Contact />} />
+                    <Route path="blog" element={<Blog />} />
+                    <Route path="gallery" element={<Gallery />} />
                     <Route path="partner" element={<ServicePage title="Become A Partner" />} />
                 </Route>
             </Routes>

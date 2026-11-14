@@ -1,5 +1,6 @@
 import Achievements from "./Frontend/Achievements";
 import Banner from "./Frontend/Banner";
+import Faq from "./Frontend/Faq";
 import Mission from "./Frontend/Mission";
 import OnlineService from "./Frontend/OnlineService";
 import Packages from "./Frontend/Packages";
@@ -17,6 +18,7 @@ function Home() {
               <Achievements/>
               <Weworks/>
               <OnlineService/>
+              <Faq />
               <Mission/>
               <Testominal/>
          

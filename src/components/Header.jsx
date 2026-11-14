@@ -183,6 +183,11 @@ function Header() {
 
                         <SimpleDropdown id="packages" to="/packages" label="Packages" items={packages} {...dropdownProps} />
                         <SimpleDropdown id="more" to="/more" label="More" items={more} {...dropdownProps} />
+
+                        <li>
+                            <NavLink to="/gallery" end>Gallery</NavLink>
+                        </li>
+
                     </ul>
 
                     <div className="nav-actions">

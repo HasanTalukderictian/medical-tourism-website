@@ -1,0 +1,672 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+.gl-page {
+    /* Brand colors: ekhane change korlei puro page er color change hobe */
+    --gl-primary: #689f38;
+    --gl-primary-dark: #4f7d29;
+    --gl-primary-soft: #eef5e6;
+    --gl-accent: #f58a3c;
+    --gl-accent-soft: #fff1e6;
+    --gl-heading: #1f2937;
+    --gl-text: #5b6470;
+    --gl-border: #e3e8df;
+    --gl-bg-soft: #f6f9f1;
+    font-family: "Poppins", sans-serif;
+    color: var(--gl-text);
+    background: #fff;
+    overflow-x: hidden;
+}
+
+.gl-page *,
+.gl-page *::before,
+.gl-page *::after {
+    box-sizing: border-box;
+}
+
+.gl-page h1,
+.gl-page h2,
+.gl-page p,
+.gl-page figure {
+    margin: 0;
+    padding: 0;
+}
+
+.gl-page a {
+    text-decoration: none;
+}
+
+.gl-container {
+    width: 100%;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+/* =====================================================
+   Animations
+   ===================================================== */
+
+.gl-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s ease var(--d, 0s), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
+}
+
+.gl-reveal.is-shown {
+    opacity: 1;
+    transform: none;
+}
+
+.gl-in {
+    opacity: 0;
+    animation: gl-in 0.8s ease var(--d, 0s) forwards;
+}
+
+@keyframes gl-in {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =====================================================
+   Hero
+   ===================================================== */
+
+.gl-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 72px 0 64px;
+    text-align: center;
+    background: linear-gradient(180deg, var(--gl-bg-soft) 0%, #fff 100%);
+}
+
+.gl-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.55;
+    pointer-events: none;
+    animation: gl-drift 12s ease-in-out infinite;
+}
+
+.gl-blob--one {
+    top: -90px;
+    left: -60px;
+    width: 300px;
+    height: 300px;
+    background: var(--gl-primary-soft);
+}
+
+.gl-blob--two {
+    right: -70px;
+    bottom: -50px;
+    width: 260px;
+    height: 260px;
+    background: var(--gl-accent-soft);
+    animation-delay: -6s;
+}
+
+@keyframes gl-drift {
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(22px, -20px);
+    }
+}
+
+.gl-hero-inner {
+    position: relative;
+    z-index: 1;
+}
+
+.gl-badge {
+    display: inline-block;
+    padding: 7px 18px;
+    border-radius: 6px;
+    background: var(--gl-primary);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.gl-hero-title {
+    margin-top: 20px;
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1.18;
+    color: var(--gl-heading);
+}
+
+.gl-hero-title em {
+    font-style: normal;
+    color: var(--gl-primary);
+    background: linear-gradient(transparent 68%, var(--gl-accent-soft) 68%);
+}
+
+.gl-hero-desc {
+    max-width: 540px;
+    margin: 16px auto 0;
+    font-size: 15.5px;
+    line-height: 1.75;
+}
+
+
+/* =====================================================
+   Filter chips
+   ===================================================== */
+
+.gl-section {
+    padding: 10px 0 72px;
+}
+
+.gl-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 36px;
+}
+
+.gl-chip {
+    padding: 9px 22px;
+    border: 1px solid var(--gl-border);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--gl-text);
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.gl-chip:hover {
+    border-color: var(--gl-primary);
+    color: var(--gl-primary-dark);
+}
+
+.gl-chip.is-active {
+    border-color: var(--gl-primary);
+    background: var(--gl-primary);
+    color: #fff;
+    font-weight: 500;
+    box-shadow: 0 6px 16px rgba(104, 159, 56, 0.3);
+}
+
+.gl-chip:focus-visible,
+.gl-tile:focus-visible,
+.gl-btn:focus-visible,
+.gl-lb-btn:focus-visible {
+    outline: 3px solid var(--gl-accent);
+    outline-offset: 3px;
+}
+
+
+/* =====================================================
+   Grid (prothom ta boro, baki gula choto)
+   ===================================================== */
+
+.gl-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 250px;
+    grid-auto-flow: dense;
+    gap: 18px;
+}
+
+.gl-item {
+    min-height: 0;
+}
+
+.gl-item:nth-child(7n+1) {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.gl-tile {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 18px;
+    background: var(--gl-primary-soft);
+    cursor: zoom-in;
+    box-shadow: 0 10px 30px rgba(31, 41, 55, 0.09);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.gl-tile:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 44px rgba(31, 41, 55, 0.18);
+}
+
+.gl-tile img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.gl-tile:hover img {
+    transform: scale(1.08);
+}
+
+
+/* Hover overlay */
+
+.gl-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 22px;
+    background: linear-gradient(180deg, rgba(20, 30, 15, 0) 40%, rgba(20, 30, 15, 0.78) 100%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.gl-tile:hover .gl-overlay,
+.gl-tile:focus-visible .gl-overlay {
+    opacity: 1;
+}
+
+.gl-zoom {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--gl-primary-dark);
+    transform: scale(0.7);
+    transition: transform 0.35s ease;
+}
+
+.gl-tile:hover .gl-zoom {
+    transform: scale(1);
+}
+
+.gl-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+    transform: translateY(10px);
+    transition: transform 0.35s ease;
+}
+
+.gl-tile:hover .gl-caption {
+    transform: translateY(0);
+}
+
+.gl-caption small {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #ffc58f;
+}
+
+.gl-caption strong {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: #fff;
+}
+
+.gl-empty {
+    padding: 56px 20px;
+    border: 1.5px dashed var(--gl-border);
+    border-radius: 18px;
+    background: var(--gl-bg-soft);
+    text-align: center;
+    font-size: 14.5px;
+}
+
+
+/* =====================================================
+   CTA
+   ===================================================== */
+
+.gl-cta-wrap {
+    padding: 0 0 90px;
+}
+
+.gl-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 44px 52px;
+    border-radius: 24px;
+    background: linear-gradient(120deg, var(--gl-primary) 0%, var(--gl-primary-dark) 100%);
+    color: #fff;
+    box-shadow: 0 24px 56px rgba(79, 125, 41, 0.3);
+}
+
+.gl-cta h2 {
+    margin-bottom: 8px;
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.gl-cta p {
+    max-width: 480px;
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.gl-btn {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--gl-primary-dark);
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.gl-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.26);
+}
+
+.gl-btn svg {
+    transition: transform 0.25s ease;
+}
+
+.gl-btn:hover svg {
+    transform: translate(2px, -2px);
+}
+
+
+/* =====================================================
+   Lightbox
+   ===================================================== */
+
+.gl-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    /* sticky header (1000) er upore */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 76px;
+    background: rgba(12, 18, 10, 0.92);
+    backdrop-filter: blur(6px);
+    animation: gl-fade 0.3s ease;
+}
+
+@keyframes gl-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.gl-lb-figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    max-height: 100%;
+    cursor: default;
+}
+
+.gl-lb-figure img {
+    display: block;
+    max-width: 100%;
+    max-height: calc(100vh - 130px);
+    border-radius: 14px;
+    object-fit: contain;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    animation: gl-zoom 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes gl-zoom {
+    from {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.gl-lb-figure figcaption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 16px;
+    color: #fff;
+    font-size: 14.5px;
+    text-align: center;
+}
+
+.gl-lb-figure figcaption em {
+    padding: 3px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    font-size: 12.5px;
+    font-style: normal;
+}
+
+.gl-lb-btn {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.gl-lb-btn:hover {
+    background: var(--gl-primary);
+    transform: scale(1.08);
+}
+
+.gl-lb-close {
+    top: 20px;
+    right: 20px;
+}
+
+.gl-lb-prev {
+    left: 16px;
+    top: 50%;
+    margin-top: -24px;
+}
+
+.gl-lb-next {
+    right: 16px;
+    top: 50%;
+    margin-top: -24px;
+}
+
+.gl-lb-prev:hover,
+.gl-lb-next:hover {
+    transform: scale(1.08);
+}
+
+
+/* =====================================================
+   Responsive
+   ===================================================== */
+
+@media (max-width: 1024px) {
+    .gl-hero-title {
+        font-size: 38px;
+    }
+    .gl-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 230px;
+    }
+    .gl-item:nth-child(7n+1) {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+}
+
+@media (max-width: 760px) {
+    .gl-cta {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 36px 28px;
+    }
+    .gl-lightbox {
+        padding: 70px 14px 24px;
+    }
+    .gl-lb-prev,
+    .gl-lb-next {
+        top: auto;
+        bottom: 18px;
+        margin-top: 0;
+        width: 44px;
+        height: 44px;
+    }
+    .gl-lb-prev {
+        left: calc(50% - 56px);
+    }
+    .gl-lb-next {
+        right: calc(50% - 56px);
+    }
+    .gl-lb-figure img {
+        max-height: calc(100vh - 220px);
+    }
+    .gl-lb-figure figcaption {
+        margin-bottom: 52px;
+    }
+}
+
+@media (max-width: 600px) {
+    .gl-hero {
+        padding: 52px 0 48px;
+    }
+    .gl-hero-title {
+        font-size: 30px;
+    }
+    .gl-hero-desc {
+        font-size: 14.5px;
+    }
+    .gl-section {
+        padding-bottom: 56px;
+    }
+    .gl-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 240px;
+        gap: 14px;
+    }
+    .gl-item:nth-child(7n+1) {
+        grid-column: auto;
+        grid-row: auto;
+    }
+    /* Touch device e hover nai, tai caption ta shobsomoy dekhabe */
+    .gl-overlay {
+        opacity: 1;
+        padding: 18px;
+    }
+    .gl-zoom {
+        display: none;
+    }
+    .gl-caption {
+        transform: none;
+    }
+    .gl-caption strong {
+        font-size: 15px;
+    }
+    .gl-chips {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        scrollbar-width: none;
+    }
+    .gl-chips::-webkit-scrollbar {
+        display: none;
+    }
+    .gl-chip {
+        flex-shrink: 0;
+    }
+    .gl-cta {
+        padding: 30px 22px;
+        border-radius: 20px;
+    }
+    .gl-cta h2 {
+        font-size: 22px;
+    }
+    .gl-btn {
+        width: 100%;
+    }
+}
+
+@media (hover: none) {
+    .gl-overlay {
+        opacity: 1;
+    }
+    .gl-zoom {
+        display: none;
+    }
+    .gl-caption {
+        transform: none;
+    }
+}
+
+
+/* =====================================================
+   Reduced motion
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .gl-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+    .gl-in {
+        opacity: 1;
+        animation: none;
+    }
+    .gl-blob,
+    .gl-lightbox,
+    .gl-lb-figure img {
+        animation: none;
+    }
+    .gl-tile img {
+        transition: none;
+    }
+}
