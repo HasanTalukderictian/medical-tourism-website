@@ -9,6 +9,9 @@ import Contact from './assets/Frontend/Contact';
 import Blog from './assets/Frontend/Blog';
 import Gallery from './assets/Frontend/Gallery';
 import ScrollToTop from './components/ScrollToTop';
+import Events from './assets/Frontend/Events';
+import MedicalConsultation from './assets/Frontend/MedicalConsultation';
+import DoctorAppointment from './assets/Frontend/DoctorAppointment';
 
 function Services() {
     return <h2>Services Page</h2>;
@@ -38,11 +41,11 @@ function App() {
 
                     {/* Services */}
                     <Route path="services" element={<Services />} />
-                    <Route path="healthcard" element={<HealthCard />} />
+                
 
-                    <Route path="services/medical-consultation" element={<ServicePage title="Medical Consultation" />} />
+                    <Route path="services/medical-consultation" element={<MedicalConsultation/>} />
                     <Route path="services/tele-consultation" element={<Telemedicine />} />
-                    <Route path="services/doctor-appointment" element={<ServicePage title="Doctor Appointment" />} />
+                    <Route path="services/doctor-appointment" element={<DoctorAppointment />} />
                     <Route path="services/medical-visa-assistance" element={<ServicePage title="Medical Visa Assistance" />} />
                     <Route path="services/air-ticket" element={<ServicePage title="Air Ticket" />} />
                     <Route path="services/medical-accommodation" element={<ServicePage title="Medical Accommodation" />} />
@@ -65,6 +68,7 @@ function App() {
                     <Route path="about" element={<About />} />
                     <Route path="contact" element={<Contact />} />
                     <Route path="blog" element={<Blog />} />
+                    <Route path="events" element={<Events />} />
                     <Route path="gallery" element={<Gallery />} />
                     <Route path="partner" element={<ServicePage title="Become A Partner" />} />
                 </Route>

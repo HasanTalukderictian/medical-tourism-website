@@ -7,7 +7,7 @@ const slugify = (text) =>
     text.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
 const services = [
-    { to: '/healthcard', label: 'Health Card' },
+   
     { to: '/services/medical-consultation', label: 'Medical Consultation' },
     { to: '/services/tele-consultation', label: 'Tele Consultation' },
     { to: '/services/doctor-appointment', label: 'Doctor Appointment' },
@@ -47,6 +47,7 @@ const more = [
     { to: '/about', label: 'About Us' },
     { to: '/contact', label: 'Contact' },
     { to: '/blog', label: 'Blog' },
+    { to: '/events', label: 'Events' },
 ];
 
 function SimpleDropdown({ id, to, label, items, openId, setOpenId }) {
