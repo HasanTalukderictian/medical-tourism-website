@@ -1,14 +1,17 @@
-import  { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../Css/MedicalConsultation.css";
 
 /* ---------------------------- IMAGES ----------------------------
-   Image pele import kore null er jaygay boshao. Jemon:
+   Ekhon DEMO image (Unsplash online link) use kora hocche.
+   Nijer image dite chaile import kore link er jaygay boshao. Jemon:
    import overviewImg from "../Image/consultation/overview.jpg";
-   Image na thakle sundor placeholder dekhabe.
+   Image load na hole sundor placeholder dekhabe.
 ------------------------------------------------------------------- */
-const overviewImg = null;
+const u = (id, w = 1000) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
+const overviewImg = u("photo-1576091160550-2173dba999ef"); // doctor + patient consultation
+const detailImg = u("photo-1579684385127-1ef15d508118", 500); // doctor (chhoto inset image)
 /* ---------------------------- DATA ---------------------------- */
 // Shob likha SAMPLE. Tomar asol service onujayi edit koro
 const trustPoints = ["Experienced specialists", "Partner hospitals in 5 countries", "Transparent cost estimate"];
@@ -215,8 +218,14 @@ const Reveal = ({ children, className = "", delay = 0, direction = "up" }) => {
   );
 };
 
+/* Image na thakle ba load na hole placeholder. src bodlale abar try kore. */
 const Pic = ({ src, alt, className = "" }) => {
   const [failed, setFailed] = useState(!src);
+
+  useEffect(() => {
+    setFailed(!src);
+  }, [src]);
+
   return (
     <div className={`mc-pic ${failed ? "mc-pic--empty" : ""} ${className}`}>
       {failed ? <ImageIcon /> : <img src={src} alt={alt} loading="lazy" onError={() => setFailed(true)} />}
@@ -427,7 +436,8 @@ const MedicalConsultation = () => {
       <section className="mc-section">
         <div className="mc-container mc-why">
           <Reveal direction="left" className="mc-why-media">
-            <Pic src={overviewImg} alt="Doctor consultation" className="mc-why-pic" />
+            <Pic src={overviewImg} alt="Doctor discussing a treatment plan with a patient" className="mc-why-pic" />
+            <Pic src={detailImg} alt="Specialist doctor" className="mc-why-inset" />
             <div className="mc-why-card">
               <strong>One team</strong>
               <span>from first call to follow-up</span>

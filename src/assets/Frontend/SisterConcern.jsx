@@ -420,26 +420,7 @@ const SisterConcern = () => {
         </div>
       </section>
 
-      {/* ================= CTA ================= */}
-      <section className="sc-cta-wrap">
-        <div className="sc-container">
-          <Reveal className="sc-cta">
-            <div className="sc-cta-logos" aria-hidden="true">
-              {concerns.map((c) => (
-                <Logo key={c.id} c={c} size="sm" />
-              ))}
-            </div>
-            <h2>Want to work with the Akashbari group?</h2>
-            <p>For partnerships, corporate services, or any question about our companies, we are happy to talk.</p>
-            <div className="sc-cta-actions">
-              <Link to="/contact" className="sc-btn sc-btn--white">
-                Contact Us <Icon name="arrow" size={16} />
-              </Link>
-          
-            </div>
-          </Reveal>
-        </div>
-      </section>
+     
     </main>
   );
 };

@@ -52,19 +52,15 @@ const faqs = [
   },
 ];
 
-const cities = [
-  "Dhaka",
-  "Chattogram",
-  "Sylhet",
-  "Delhi",
-  "Mumbai",
-  "Chennai",
-  "Kolkata",
-  "Bangkok",
-  "Kuala Lumpur",
-  "Singapore",
-  "Beijing",
-  "Shanghai",
+/* From / To dropdown er city list, desh onujayi group kora.
+   Notun city lagle shudhu ekhane add koro. */
+const cityGroups = [
+  { country: "Bangladesh", cities: ["Dhaka", "Chattogram", "Sylhet"] },
+  { country: "India", cities: ["Delhi", "Mumbai", "Chennai", "Kolkata"] },
+  { country: "Thailand", cities: ["Bangkok"] },
+  { country: "Malaysia", cities: ["Kuala Lumpur"] },
+  { country: "Singapore", cities: ["Singapore"] },
+  { country: "China", cities: ["Beijing", "Shanghai"] },
 ];
 
 /* ---------------------------- ICONS ---------------------------- */
@@ -198,11 +194,7 @@ const Reveal = ({ children, className = "", delay = 0 }) => {
   }, []);
 
   return (
-    <div
-      ref={ref}
-      className={`at-reveal ${shown ? "is-shown" : ""} ${className}`}
-      style={{ "--d": `${delay}s` }}
-    >
+    <div ref={ref} className={`at-reveal ${shown ? "is-shown" : ""} ${className}`} style={{ "--d": `${delay}s` }}>
       {children}
     </div>
   );
@@ -216,6 +208,24 @@ const Pic = ({ src, alt, className = "" }) => {
     </div>
   );
 };
+
+/* City dropdown (desh onujayi group). `other` = onno field er city, oita disable thakbe */
+const CitySelect = ({ id, name, value, other, placeholder, onChange }) => (
+  <select id={id} name={name} value={value} onChange={onChange}>
+    <option value="" disabled>
+      {placeholder}
+    </option>
+    {cityGroups.map((g) => (
+      <optgroup key={g.country} label={g.country}>
+        {g.cities.map((c) => (
+          <option key={c} value={c} disabled={c === other}>
+            {c}
+          </option>
+        ))}
+      </optgroup>
+    ))}
+  </select>
+);
 
 /* ---------------------------- PAGE ---------------------------- */
 const initial = {
@@ -254,21 +264,23 @@ const AirTicket = () => {
     set(name, type === "checkbox" ? checked : value);
   };
 
-  const swap = () => setForm((f) => ({ ...f, from: f.to, to: f.from }));
+  const swap = () => {
+    setForm((f) => ({ ...f, from: f.to, to: f.from }));
+    setErrors((er) => ({ ...er, from: "", to: "" }));
+  };
 
   // Route card e click korle "To" boshe jabe ar form e niye jabe
   const pickRoute = (city) => {
-    set("to", city);
+    setForm((f) => ({ ...f, to: city, from: f.from === city ? "Dhaka" : f.from }));
+    setErrors((er) => ({ ...er, to: "" }));
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
   const validate = () => {
     const er = {};
-    if (!form.from.trim()) er.from = "Enter departure city";
-    if (!form.to.trim()) er.to = "Enter destination";
-    if (form.from.trim() && form.from.trim().toLowerCase() === form.to.trim().toLowerCase()) {
-      er.to = "Destination must be different";
-    }
+    if (!form.from) er.from = "Select departure city";
+    if (!form.to) er.to = "Select destination";
+    if (form.from && form.from === form.to) er.to = "Destination must be different";
     if (!form.depart) er.depart = "Pick a date";
     if (form.trip === "round") {
       if (!form.ret) er.ret = "Pick a date";
@@ -384,7 +396,7 @@ const AirTicket = () => {
                 <div className={`at-grid at-grid--route ${form.trip === "oneway" ? "is-oneway" : ""}`}>
                   <div className={`at-field ${errors.from ? "has-error" : ""}`}>
                     <label htmlFor="at-from">From</label>
-                    <input id="at-from" name="from" list="at-cities" placeholder="Departure city" value={form.from} onChange={handleInput} />
+                    <CitySelect id="at-from" name="from" value={form.from} other={form.to} placeholder="Departure city" onChange={handleInput} />
                     {err("from")}
                   </div>
 
@@ -394,7 +406,7 @@ const AirTicket = () => {
 
                   <div className={`at-field ${errors.to ? "has-error" : ""}`}>
                     <label htmlFor="at-to">To</label>
-                    <input id="at-to" name="to" list="at-cities" placeholder="Destination city" value={form.to} onChange={handleInput} />
+                    <CitySelect id="at-to" name="to" value={form.to} other={form.from} placeholder="Select destination" onChange={handleInput} />
                     {err("to")}
                   </div>
 
@@ -421,12 +433,6 @@ const AirTicket = () => {
                     </select>
                   </div>
                 </div>
-
-                <datalist id="at-cities">
-                  {cities.map((c) => (
-                    <option key={c} value={c} />
-                  ))}
-                </datalist>
 
                 {/* Row 2: contact + submit */}
                 <div className="at-grid at-grid--contact">
