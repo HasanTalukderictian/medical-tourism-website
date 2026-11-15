@@ -199,9 +199,7 @@ function Header() {
                         <Link to="/services/doctor-appointment" className="cta-btn">
                             Book Appointment
                         </Link>
-                        <Link to="/partner" className="cta-btn">
-                            Become A Partner
-                        </Link>
+                       
                     </div>
                 </div>
             </nav>

@@ -23,6 +23,8 @@ import Hospital from './assets/Frontend/Hospital';
 import HospitalDetails from './assets/Frontend/HospitalDetails';
 import SisterConcern from './assets/Frontend/SisterConcern';
 import Partners from './assets/Frontend/Partners';
+import Package from './assets/Frontend/Package';
+import PackageDetails from './assets/Frontend/PackageDetails';
 
 function Services() {
     return <h2>Services Page</h2>;
@@ -76,15 +78,17 @@ function App() {
 
                     {/* Packages */}
 
-                      
 
-                    <Route path="packages/:slug" element={<ServicePage title="Package Details" />} />
+
+                    {/* Packages */}
+                    <Route path="packages" element={<Package />} />
+                    <Route path="packages/:slug" element={<PackageDetails />} />
 
                     {/* More */}
 
                     <Route path="about" element={<About />} />
                     <Route path="contact" element={<Contact />} />
-                     <Route path="partners" element={<Partners />} />
+                    <Route path="partners" element={<Partners />} />
                     <Route path="blog" element={<Blog />} />
                     <Route path="events" element={<Events />} />
                     <Route path="gallery" element={<Gallery />} />
