@@ -34,10 +34,11 @@ const packages = [
 
 const more = [
     { to: '/about', label: 'About Us' },
-    { to: '/contact', label: 'Contact' },
     { to: '/blog', label: 'Blog' },
     { to: '/events', label: 'Events' },
     { to: '/partners', label: 'Patners' },
+     { to: '/doctors', label: 'Doctors' },
+     { to: '/team', label: 'Team' },
 ];
 
 function SimpleDropdown({ id, label, items, openId, setOpenId }) {
@@ -192,6 +193,10 @@ function Header() {
 
                         <li>
                             <NavLink to="/sister-concern" end>Sister Concern</NavLink>
+                        </li>
+
+                          <li>
+                            <NavLink to="/contact" end>Contact</NavLink>
                         </li>
                     </ul>
 

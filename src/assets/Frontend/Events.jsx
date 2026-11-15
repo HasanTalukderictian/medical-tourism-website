@@ -3,10 +3,22 @@ import { Link } from "react-router-dom";
 import "../../Css/Events.css";
 
 /* ---------------------------- IMAGES ----------------------------
-   Event er image pele import kore `image` field e boshao. Jemon:
-   import campImg from "../Image/events/camp.jpg";   ->   image: campImg
-   Image na thakle sundor placeholder dekhabe.
+   Ekhon DEMO image (Unsplash online link) use kora hocche.
+   Nijer image dite chaile import kore IMG er link er jaygay boshao. Jemon:
+   import campImg from "../Image/events/camp.jpg";   ->   camp: campImg,
+   Image load na hole sundor placeholder dekhabe.
 ------------------------------------------------------------------- */
+const u = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1000&q=80`;
+
+const IMG = {
+  camp: u("photo-1576091160399-112ba8d25d1d"),
+  webinar: u("photo-1588196749597-9ff075ee6b5b"),
+  hospital: u("photo-1519494026892-80bbd2d6fd0d"),
+  workshop: u("photo-1552664730-d307ca884978"),
+  seminar: u("photo-1540575467063-178a50c2df87"),
+  doctor: u("photo-1579684385127-1ef15d508118"),
+  community: u("photo-1584515933487-779824d29309"),
+};
 
 /* ---------------------------- DATA ---------------------------- */
 /* Ei event gulo SAMPLE. Tomar asol event diye replace koro.
@@ -23,7 +35,7 @@ const events = [
     location: "Dhaka, Bangladesh",
     mode: "In-person",
     desc: "Meet our team, get a basic health check, and learn how to plan treatment at partner hospitals.",
-    image: null,
+    image: IMG.camp,
   },
   {
     id: 2,
@@ -34,7 +46,7 @@ const events = [
     location: "Live on Zoom",
     mode: "Online",
     desc: "Learn how treatment abroad works: hospitals, visa, cost estimates, and what support you get.",
-    image: null,
+    image: IMG.webinar,
   },
   {
     id: 3,
@@ -45,7 +57,7 @@ const events = [
     location: "India",
     mode: "In-person",
     desc: "A guided visit to our partner hospitals to see the facilities and meet the specialists.",
-    image: null,
+    image: IMG.hospital,
   },
   {
     id: 4,
@@ -56,7 +68,7 @@ const events = [
     location: "Dhaka, Bangladesh",
     mode: "In-person",
     desc: "Practical guidance for patients and families on preparing documents, travel, and recovery.",
-    image: null,
+    image: IMG.workshop,
   },
   {
     id: 5,
@@ -67,7 +79,7 @@ const events = [
     location: "Dhaka, Bangladesh",
     mode: "In-person",
     desc: "Specialists shared early signs, screening, and treatment options in an open Q&A session.",
-    image: null,
+    image: IMG.seminar,
   },
   {
     id: 6,
@@ -78,7 +90,7 @@ const events = [
     location: "Live on Zoom",
     mode: "Online",
     desc: "An online session where patients asked questions directly to partner hospital doctors.",
-    image: null,
+    image: IMG.doctor,
   },
   {
     id: 7,
@@ -89,7 +101,7 @@ const events = [
     location: "Chattogram, Bangladesh",
     mode: "In-person",
     desc: "Free check-ups and guidance for families, together with local doctors and volunteers.",
-    image: null,
+    image: IMG.community,
   },
 ];
 
@@ -225,9 +237,15 @@ const Countdown = ({ target }) => {
   );
 };
 
-/* Image na thakle placeholder */
+/* Image na thakle ba load na hole placeholder.
+   src bodlale abar try korbe (tab/filter bodlale dorkar). */
 const Cover = ({ src, alt, className = "" }) => {
   const [failed, setFailed] = useState(!src);
+
+  useEffect(() => {
+    setFailed(!src);
+  }, [src]);
+
   return (
     <div className={`ev-cover ${failed ? "ev-cover--empty" : ""} ${className}`}>
       {failed ? <CrossIcon /> : <img src={src} alt={alt} loading="lazy" onError={() => setFailed(true)} />}
@@ -332,7 +350,10 @@ const Events = () => {
           {featured && (
             <Reveal className="ev-featured-wrap">
               <article className="ev-featured">
-                <Cover src={featured.image} alt={featured.title} className="ev-featured-cover" />
+                <div className="ev-featured-media">
+                  <Cover src={featured.image} alt={featured.title} className="ev-featured-cover" />
+                  <span className="ev-type ev-type--featured">{featured.type}</span>
+                </div>
                 <div className="ev-featured-body">
                   <span className="ev-flag">Next Event</span>
                   <h2>{featured.title}</h2>

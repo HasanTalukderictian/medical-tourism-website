@@ -435,9 +435,7 @@ const SisterConcern = () => {
               <Link to="/contact" className="sc-btn sc-btn--white">
                 Contact Us <Icon name="arrow" size={16} />
               </Link>
-              <Link to="/partner" className="sc-btn sc-btn--outline-white">
-                Become A Partner
-              </Link>
+          
             </div>
           </Reveal>
         </div>
