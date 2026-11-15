@@ -15,6 +15,14 @@ import DoctorAppointment from './assets/Frontend/DoctorAppointment';
 import MedicalVisaAssistance from './assets/Frontend/MedicalVisaAssistance';
 import AirTicket from './assets/Frontend/AirTicket';
 import Accomation from './assets/Frontend/Accomation';
+import PatientSupport from './assets/Frontend/PatientSupport';
+import AirAmbulance from './assets/Frontend/AirAmbulance';
+import Transport from './assets/Frontend/Transport';
+import Training from './assets/Frontend/Training';
+import Hospital from './assets/Frontend/Hospital';
+import HospitalDetails from './assets/Frontend/HospitalDetails';
+import SisterConcern from './assets/Frontend/SisterConcern';
+import Partners from './assets/Frontend/Partners';
 
 function Services() {
     return <h2>Services Page</h2>;
@@ -43,33 +51,40 @@ function App() {
                     <Route index element={<Home />} />
 
                     {/* Services */}
-                 
-                
 
-                    <Route path="services/medical-consultation" element={<MedicalConsultation/>} />
+
+
+                    <Route path="services/medical-consultation" element={<MedicalConsultation />} />
                     <Route path="services/tele-consultation" element={<Telemedicine />} />
                     <Route path="services/doctor-appointment" element={<DoctorAppointment />} />
                     <Route path="services/medical-visa-assistance" element={<MedicalVisaAssistance />} />
                     <Route path="services/air-ticket" element={<AirTicket />} />
                     <Route path="services/medical-accommodation" element={<Accomation />} />
-                    <Route path="services/patient-support-service" element={<ServicePage title="Patient Support Service" />} />
-                    <Route path="services/air-ambulance-service" element={<ServicePage title="Air Ambulance Service" />} />
-                    <Route path="services/transport" element={<ServicePage title="Transport" />} />
-                    <Route path="services/training-development" element={<ServicePage title="Training & Development" />} />
+                    <Route path="services/patient-support-service" element={<PatientSupport />} />
+                    <Route path="services/air-ambulance-service" element={<AirAmbulance />} />
+                    <Route path="services/transport" element={<Transport />} />
+                    <Route path="services/training-development" element={<Training />} />
 
                     {/* Hospitals */}
-              
-                    <Route path="hospitals/:country" element={<HospitalPage />} />
-                    <Route path="hospitals/:country/:slug" element={<HospitalPage />} />
+
+                    <Route path="/hospitals" element={<Hospital />} />
+                    <Route path="/hospitals/:country" element={<Hospital />} />
+                    <Route path="/hospitals/:country/:hospital" element={<HospitalDetails />} />
+
+                    <Route path="/sister-concern" element={<SisterConcern />} />
+
 
                     {/* Packages */}
-               
+
+                      
+
                     <Route path="packages/:slug" element={<ServicePage title="Package Details" />} />
 
                     {/* More */}
-                  
+
                     <Route path="about" element={<About />} />
                     <Route path="contact" element={<Contact />} />
+                     <Route path="partners" element={<Partners />} />
                     <Route path="blog" element={<Blog />} />
                     <Route path="events" element={<Events />} />
                     <Route path="gallery" element={<Gallery />} />

@@ -20,16 +20,6 @@ const services = [
 ];
 
 const hospitals = {
-    Bangladesh: [
-        'Japan Bangladesh Friendship Hospital',
-        'Evercare',
-        'AMZ Hospital',
-        'Uttara Crescent Hospital',
-        'Anwer Khan Modern',
-        'Farazy',
-        'Gulshan Clinic',
-        'Prescription Point',
-    ],
     India: ['Apollo Hospitals', 'Fortis Healthcare', 'Max Healthcare'],
     Thailand: ['Bumrungrad Hospital', 'Bangkok Hospital'],
     Malaysia: ['Prince Court Medical Centre', 'Gleneagles Kuala Lumpur'],
@@ -47,6 +37,7 @@ const more = [
     { to: '/contact', label: 'Contact' },
     { to: '/blog', label: 'Blog' },
     { to: '/events', label: 'Events' },
+    { to: '/partners', label: 'Patners' },
 ];
 
 function SimpleDropdown({ id, label, items, openId, setOpenId }) {
@@ -197,6 +188,10 @@ function Header() {
 
                         <li>
                             <NavLink to="/gallery" end>Gallery</NavLink>
+                        </li>
+
+                        <li>
+                            <NavLink to="/sister-concern" end>Sister Concern</NavLink>
                         </li>
                     </ul>
 
