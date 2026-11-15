@@ -12,6 +12,9 @@ import ScrollToTop from './components/ScrollToTop';
 import Events from './assets/Frontend/Events';
 import MedicalConsultation from './assets/Frontend/MedicalConsultation';
 import DoctorAppointment from './assets/Frontend/DoctorAppointment';
+import MedicalVisaAssistance from './assets/Frontend/MedicalVisaAssistance';
+import AirTicket from './assets/Frontend/AirTicket';
+import Accomation from './assets/Frontend/Accomation';
 
 function Services() {
     return <h2>Services Page</h2>;
@@ -46,9 +49,9 @@ function App() {
                     <Route path="services/medical-consultation" element={<MedicalConsultation/>} />
                     <Route path="services/tele-consultation" element={<Telemedicine />} />
                     <Route path="services/doctor-appointment" element={<DoctorAppointment />} />
-                    <Route path="services/medical-visa-assistance" element={<ServicePage title="Medical Visa Assistance" />} />
-                    <Route path="services/air-ticket" element={<ServicePage title="Air Ticket" />} />
-                    <Route path="services/medical-accommodation" element={<ServicePage title="Medical Accommodation" />} />
+                    <Route path="services/medical-visa-assistance" element={<MedicalVisaAssistance />} />
+                    <Route path="services/air-ticket" element={<AirTicket />} />
+                    <Route path="services/medical-accommodation" element={<Accomation />} />
                     <Route path="services/patient-support-service" element={<ServicePage title="Patient Support Service" />} />
                     <Route path="services/air-ambulance-service" element={<ServicePage title="Air Ambulance Service" />} />
                     <Route path="services/transport" element={<ServicePage title="Transport" />} />
