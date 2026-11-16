@@ -321,7 +321,7 @@ const Accomation = () => {
           <div className="ac-hero-text">
             <span className="ac-badge ac-in" style={{ "--d": "0s" }}>Medical Accommodation</span>
             <h1 className="ac-hero-title ac-in" style={{ "--d": "0.1s" }}>
-              A comfortable stay <em>near your hospital</em>
+              A comfortable stay <em> as you choose</em>
             </h1>
             <p className="ac-hero-desc ac-in" style={{ "--d": "0.2s" }}>
               Recovering far from home should feel safe and easy. We arrange clean, comfortable, and affordable

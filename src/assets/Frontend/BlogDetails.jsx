@@ -328,13 +328,7 @@ const BlogDetails = () => {
       {/* ================= HERO ================= */}
       <header className="bd-hero">
         <div className="bd-container bd-narrow">
-          <nav className="bd-crumbs" aria-label="Breadcrumb">
-            <Link to="/">Home</Link>
-            <span aria-hidden="true">/</span>
-            <Link to="/blog">Blog</Link>
-            <span aria-hidden="true">/</span>
-            <span aria-current="page">{post.category}</span>
-          </nav>
+         
 
           <span className="bd-category">{post.category}</span>
           <h1 className="bd-title">{post.title}</h1>

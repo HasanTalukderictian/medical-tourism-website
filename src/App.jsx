@@ -29,6 +29,9 @@ import Doctors from './assets/Frontend/Doctors';
 import DoctorsProfile from './assets/Frontend/DoctorsProfile';
 import Team from './assets/Frontend/Team';
 import BlogDetails from './assets/Frontend/BlogDetails';
+import PickDrop from './assets/Frontend/PickDrop';
+import Hotel from './assets/Frontend/Hotel';
+import LocalGuide from './assets/Frontend/LocalGuide';
 
 function Services() {
     return <h2>Services Page</h2>;
@@ -92,7 +95,10 @@ function App() {
 
                     <Route path="about" element={<About />} />
                     <Route path="contact" element={<Contact />} />
-                    <Route path="partners" element={<Partners />} />
+                    {/* <Route path="partners" element={<Partners />} /> */}
+                    <Route path="services/pick-and-drop" element={<PickDrop />} />
+                    <Route path="services/hotel" element={<Hotel />} />
+                    <Route path="services/local-guide" element={<LocalGuide />} />
                     <Route path="blog" element={<Blog />} />
                     <Route path="blog/:slug" element={<BlogDetails />} />
                     <Route path="team" element={<Team />} />

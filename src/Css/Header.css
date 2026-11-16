@@ -286,7 +286,7 @@
 }
 
 .nv-menu--wide {
-    width: 560px;
+    width: 600px;
     padding: 16px;
 }
 
@@ -354,6 +354,92 @@
 .nv-mlink.active .nv-micon {
     background: var(--nv-primary);
     color: #fff;
+}
+
+
+/* ---- Services: Medical (bam) + Non Medical (dan) ---- */
+
+.nv-mega {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.nv-col {
+    min-width: 0;
+}
+
+.nv-col--non {
+    margin-left: 12px;
+    padding-left: 12px;
+    border-left: 1px solid var(--nv-border);
+}
+
+.nv-col-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 8px;
+    padding: 4px 10px 10px;
+    border-bottom: 1px dashed var(--nv-border);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nv-primary-dark);
+}
+
+.nv-col-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--nv-primary);
+    box-shadow: 0 0 0 3px var(--nv-primary-soft);
+}
+
+
+/* Non Medical: orange */
+
+.nv-col--non .nv-col-head {
+    color: var(--nv-accent-dark);
+}
+
+.nv-col--non .nv-col-dot {
+    background: var(--nv-accent);
+    box-shadow: 0 0 0 3px #fff1e6;
+}
+
+.nv-col--non .nv-micon {
+    background: #fff1e6;
+    color: var(--nv-accent-dark);
+}
+
+.nv-col--non .nv-mlink:hover .nv-micon,
+.nv-col--non .nv-mlink.active .nv-micon {
+    background: var(--nv-accent);
+    color: #fff;
+}
+
+.nv-col--non .nv-mlink:hover,
+.nv-col--non .nv-mlink.active {
+    background: #fff8f2;
+    color: var(--nv-accent-dark);
+}
+
+
+/* Patient Support er sub-menu */
+
+.nv-sub.nv-sub--service {
+    width: 230px;
+}
+
+.nv-sub--service .nv-slink svg {
+    color: var(--nv-accent);
+}
+
+.nv-sub--service .nv-slink:hover,
+.nv-sub--service .nv-slink.active {
+    background: #fff8f2;
+    color: var(--nv-accent-dark);
 }
 
 
@@ -782,11 +868,26 @@
     .nv-list--2 {
         grid-template-columns: 1fr;
     }
+    /* Services: Medical upore, Non Medical niche */
+    .nv-mega {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    .nv-col--non {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: 0;
+    }
+    .nv-col-head {
+        margin-bottom: 6px;
+        padding: 6px 8px 8px;
+    }
     .nv-mlink {
         padding: 8px;
         font-size: 14px;
     }
-    .nv-micon {
+    .nv-micon,
+    .nv-col--non .nv-micon {
         width: 32px;
         height: 32px;
         background: #fff;
@@ -812,7 +913,8 @@
         transform: rotate(180deg);
         color: var(--nv-primary-dark);
     }
-    .nv-sub {
+    .nv-sub,
+    .nv-sub.nv-sub--service {
         position: static;
         display: none;
         width: 100%;
@@ -826,6 +928,9 @@
         opacity: 1;
         visibility: visible;
         transform: none;
+    }
+    .nv-sub--service {
+        border-left-color: var(--nv-accent);
     }
     .nv-sub::before,
     .nv-sub-title {
