@@ -28,6 +28,7 @@ import PackageDetails from './assets/Frontend/PackageDetails';
 import Doctors from './assets/Frontend/Doctors';
 import DoctorsProfile from './assets/Frontend/DoctorsProfile';
 import Team from './assets/Frontend/Team';
+import BlogDetails from './assets/Frontend/BlogDetails';
 
 function Services() {
     return <h2>Services Page</h2>;
@@ -93,6 +94,7 @@ function App() {
                     <Route path="contact" element={<Contact />} />
                     <Route path="partners" element={<Partners />} />
                     <Route path="blog" element={<Blog />} />
+                    <Route path="blog/:slug" element={<BlogDetails />} />
                     <Route path="team" element={<Team />} />
                     <Route path="events" element={<Events />} />
                     <Route path="doctors" element={<Doctors />} />

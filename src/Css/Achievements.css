@@ -2,13 +2,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> */
 
 .ach-section {
-    --ach-navy: #14214f;
-    --ach-red: #e8202a;
+    /* Brand colors (Akashbari green + orange) */
+    --ach-heading: #1f2937;
+    --ach-green: #689f38;
+    --ach-green-dark: #4f7d29;
+    --ach-orange: #f58a3c;
     position: relative;
     overflow: hidden;
     padding: 56px 20px 64px;
-    background: #e0eefb;
+    /* halka shobuj gradient */
+    background: linear-gradient(135deg, #eef5e6 0%, #f6f9f1 55%, #fff4ea 100%);
     font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+
+/* padding jate card er width er bhetore thake (na hole 212px card 248px hoy) */
+
+.ach-section *,
+.ach-section *::before,
+.ach-section *::after {
+    box-sizing: border-box;
 }
 
 .ach-container {
@@ -34,14 +47,25 @@
     opacity: 0.55;
 }
 
+
+/* JSX er fill / stroke color CSS diye override (JSX change lagbe na) */
+
+.ach-bg--heart path {
+    fill: #d7e8c4;
+}
+
+.ach-bg--heart polyline {
+    stroke: #f2f8ea;
+}
+
 .ach-bg--ring {
     top: 18px;
     left: 17%;
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    border: 16px solid #c9e6ee;
-    box-shadow: 0 8px 20px rgba(120, 160, 190, 0.2);
+    border: 16px solid #fde3cd;
+    box-shadow: 0 8px 20px rgba(245, 138, 60, 0.15);
     opacity: 0.9;
 }
 
@@ -54,7 +78,7 @@
     font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--ach-navy);
+    color: var(--ach-orange);
 }
 
 .ach-heading {
@@ -62,7 +86,7 @@
     font-size: clamp(30px, 4.5vw, 42px);
     font-weight: 600;
     line-height: 1.2;
-    color: var(--ach-navy);
+    color: var(--ach-heading);
 }
 
 
@@ -72,7 +96,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 34px;
+    gap: 20px;
+    /* 34px e 5 ta card 1200px container e dhorto na, 4 + 1 hoye jeto */
 }
 
 .ach-card {
@@ -85,14 +110,21 @@
     padding: 0 18px;
     background: #fff;
     border-radius: 18px;
-    box-shadow: 0 8px 22px rgba(60, 100, 150, 0.14);
+    box-shadow: 0 8px 22px rgba(79, 125, 41, 0.12);
 }
 
 .ach-card__icon {
     flex: none;
     width: 46px;
     height: 46px;
-    color: var(--ach-red);
+    color: var(--ach-green);
+}
+
+
+/* ekta shobuj, ekta orange */
+
+.ach-card:nth-child(even) .ach-card__icon {
+    color: var(--ach-orange);
 }
 
 .ach-card__icon svg {
@@ -110,7 +142,7 @@
     font-size: 38px;
     font-weight: 600;
     line-height: 1;
-    color: var(--ach-navy);
+    color: var(--ach-heading);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
 }
@@ -121,13 +153,14 @@
     font-weight: 600;
     vertical-align: super;
     line-height: 0;
+    color: var(--ach-orange);
 }
 
 .ach-card__label {
     margin-top: 6px;
     font-size: 13px;
     line-height: 1.2;
-    color: var(--ach-navy);
+    color: var(--ach-green-dark);
 }
 
 
