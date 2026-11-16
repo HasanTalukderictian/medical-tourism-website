@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../Css/Telemedicine.css";
 
@@ -18,22 +18,27 @@ import imgMdt from "../Image/telemedicine/option-mdt.jpg";
 import imgStep1 from "../Image/telemedicine/step-1.jpg";
 import imgStep2 from "../Image/telemedicine/online-consultation-doctor-B4ejjnK1.jpg";
 import imgStep3 from "../Image/telemedicine/telemedicine-process-china-access-Bu2wCtqR_1.jpg";
-// step-2 theke step-5 er image pele ekhane import kore niche steps array te boshao
+// step-4, step-5 er alada image pele ekhane import kore niche steps array te boshao
 
 /* ---------------------------- DATA ---------------------------- */
+// Shob likha SAMPLE. Tomar asol service onujayi edit koro
+const BRAND = "Akashbari Medical";
+
+const heroPoints = ["Records reviewed by senior specialists", "English & Bangla coordination", "No obligation to travel"];
+
 const highlights = [
-  { no: "01", title: "Top Chinese Doctors", text: "Specialists are matched based on your condition." },
-  { no: "02", title: "Medical Records First", text: "Reports, scans, pathology, labs, and history come first." },
-  { no: "03", title: "Multilingual Coordination", text: "We organize, translate, and summarize your case." },
-  { no: "04", title: "Travel Optional", text: "Start online. Travel only if it fits your care." },
+  { icon: "doctor", title: "Top Chinese Doctors", text: "Specialists are matched based on your condition." },
+  { icon: "file", title: "Medical Records First", text: "Reports, scans, pathology, labs, and history come first." },
+  { icon: "language", title: "Multilingual Coordination", text: "We organize, translate, and summarize your case." },
+  { icon: "plane", title: "Travel Optional", text: "Start online. Travel only if it fits your care." },
 ];
 
 const specialties = [
+  "Reproductive medicine",
   "Oncology",
   "Cardiology",
   "Neurology",
   "Orthopaedics",
-  "Reproductive medicine",
   "Aesthetic surgery",
   "Stem cell therapy",
   "Dentistry",
@@ -42,7 +47,7 @@ const specialties = [
   "Endocrinology",
   "Ophthalmology",
 ];
-const VISIBLE_CHIPS = 5;
+const VISIBLE_CHIPS = 6;
 
 const doctors = [
   {
@@ -114,8 +119,9 @@ const options = [
     badge: "Essential",
     price: "$99",
     title: "Written Review",
-    tags: ["Written Report", "Record Review", "48-72 Hours"],
-    cta: "Book",
+    desc: "A specialist studies your records and sends a clear written opinion.",
+    features: ["Full record review", "Written report with next steps", "Delivered in 48-72 hours"],
+    cta: "Book Written Review",
     image: imgWritten,
   },
   {
@@ -123,8 +129,9 @@ const options = [
     badge: "Most Popular",
     price: "$399",
     title: "Video Consultation",
-    tags: ["Video Call", "Written Summary", "Doctor Q&A"],
-    cta: "Book",
+    desc: "Talk face to face with the specialist and ask all your questions.",
+    features: ["Live video call with specialist", "Interpreter on the call", "Written summary after the call"],
+    cta: "Book Video Consult",
     popular: true,
     image: imgVideo,
   },
@@ -133,61 +140,56 @@ const options = [
     badge: "Advanced Review",
     price: "$1,299",
     title: "Multidisciplinary Review",
-    tags: ["Multiple Specialists", "Complex Cases", "Advanced Summary"],
-    cta: "Request",
+    desc: "A team of specialists reviews complex cases together.",
+    features: ["Multiple specialists together", "For complex & cancer cases", "Detailed combined report"],
+    cta: "Request MDT Review",
     image: imgMdt,
   },
 ];
 
+// Compare table: true = ache, false = nai, string = text
+const compareRows = [
+  { label: "Specialist reviews your records", values: [true, true, true] },
+  { label: "Written report with next steps", values: [true, true, true] },
+  { label: "Live video call with the doctor", values: [false, true, "Optional"] },
+  { label: "Interpreter & case summary", values: [true, true, true] },
+  { label: "Multiple specialists", values: [false, false, true] },
+  { label: "Best for", values: ["Clear questions", "Discussing options", "Complex cases"] },
+  { label: "Typical timeline", values: ["48-72 hours", "By appointment", "Case-based"] },
+];
+
 const steps = [
   {
-    no: "01",
     title: "Submit Your Medical Records",
     text: "Upload diagnosis reports, imaging, pathology, lab results, treatment plans, and medication history.",
     image: imgStep1,
   },
   {
-    no: "02",
     title: "Case Intake & Medical Summary",
     text: "Our team organizes your documents, translates key information if needed, and prepares a structured case summary.",
-    image: imgStep2, // step-2 image pele import kore ekhane boshao
+    image: imgStep2,
   },
   {
-    no: "03",
     title: "Specialist Review or Consultation",
-    text: "Your case is reviewed by a specialist, discussed in a video consultation, or evaluated by a multidisciplinary oncology team.",
-    image: imgStep3, // step-3 image pele import kore ekhane boshao
+    text: "Your case is reviewed by a specialist, discussed in a video consultation, or evaluated by a multidisciplinary team.",
+    image: imgStep3,
   },
   {
-    no: "04",
     title: "Receive Your Second Opinion",
     text: "You receive a written summary with key observations, treatment considerations, and suggested next steps.",
-    image: imgStep1, // step-4 image pele import kore ekhane boshao
+    image: imgStep1, // step-4 er image pele bodlao
   },
   {
-    no: "05",
-    title: "Explore China Treatment Access, If Suitable",
-    text: "If your case may benefit from treatment in China, we can help with hospital matching, cost estimates, appointments, and travel support.",
-    image: imgStep2, // step-5 image pele import kore ekhane boshao
+    title: "Explore Treatment in China, If Suitable",
+    text: "If your case may benefit from treatment in China, we help with hospital matching, cost estimates, appointments, and travel.",
+    image: imgStep2, // step-5 er image pele bodlao
   },
 ];
 
 const notices = [
-  {
-    no: "01",
-    title: "Not Emergency Care",
-    text: "For urgent symptoms or emergencies, contact local emergency services immediately.",
-  },
-  {
-    no: "02",
-    title: "Records-Based Review",
-    text: "The review depends on the quality and completeness of the medical records provided.",
-  },
-  {
-    no: "03",
-    title: "Discuss With Your Local Doctor",
-    text: "Use the second opinion as an additional perspective for discussion with your treating physician.",
-  },
+  { title: "Not Emergency Care", text: "For urgent symptoms or emergencies, contact local emergency services immediately." },
+  { title: "Records-Based Review", text: "The review depends on the quality and completeness of the medical records provided." },
+  { title: "Discuss With Your Local Doctor", text: "Use the second opinion as an additional perspective for discussion with your treating physician." },
 ];
 
 const faqs = [
@@ -218,16 +220,8 @@ const faqs = [
 ];
 
 /* ---------------------------- ICONS ---------------------------- */
-const ArrowIcon = () => (
-  <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-    <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const iconProps = {
+const base = {
   viewBox: "0 0 24 24",
-  width: 13,
-  height: 13,
   fill: "none",
   stroke: "currentColor",
   strokeWidth: 1.8,
@@ -236,43 +230,44 @@ const iconProps = {
   "aria-hidden": true,
 };
 
-const ClockIcon = () => (
-  <svg {...iconProps}>
-    <circle cx="12" cy="12" r="9" />
-    <path d="M12 7v5l3 2" />
-  </svg>
-);
+const Icon = ({ name, size = 22 }) => {
+  const p = { ...base, width: size, height: size };
+  switch (name) {
+    case "doctor":
+      return <svg {...p}><circle cx="12" cy="7" r="3.5" /><path d="M5 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5" /><path d="M12 14.5v3M10.5 16h3" /></svg>;
+    case "file":
+      return <svg {...p}><path d="M7 3h7l5 5v13H7z" /><path d="M14 3v5h5M10 13h6M10 17h6" /></svg>;
+    case "language":
+      return <svg {...p}><path d="M4 5h9M8.5 3v2M6 5c.5 4 3 7 6 8M11 5c-.5 3-3 6-6.5 8" /><path d="M13 21l4-10 4 10M14.5 18h5" /></svg>;
+    case "plane":
+      return <svg {...p}><path d="M10.5 13.5L3 11l1.5-1.5 8 .5 4-4.5a2 2 0 0 1 3 3L15.5 13l.5 8L14.5 22.5 12 15" /></svg>;
+    case "video":
+      return <svg {...p}><rect x="3" y="6" width="13" height="12" rx="2" /><path d="M16 10l5-3v10l-5-3" /></svg>;
+    case "clock":
+      return <svg {...p}><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>;
+    case "target":
+      return <svg {...p}><circle cx="12" cy="12" r="8.5" /><circle cx="12" cy="12" r="4.5" /><circle cx="12" cy="12" r="1" fill="currentColor" /></svg>;
+    case "hospital":
+      return <svg {...p}><rect x="4" y="3" width="16" height="18" rx="2" /><path d="M12 7v6M9 10h6M9 21v-4h6v4" /></svg>;
+    case "shield":
+      return <svg {...p}><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z" /><path d="M9 12l2 2 4-4" /></svg>;
+    case "alert":
+      return <svg {...p}><path d="M12 3l9.5 17h-19z" /><path d="M12 10v4M12 17v.01" /></svg>;
+    case "arrow":
+      return <svg {...p}><path d="M5 12h14M13 6l6 6-6 6" /></svg>;
+    case "chevron":
+      return <svg {...p}><path d="M6 9l6 6 6-6" /></svg>;
+    case "x":
+      return <svg {...p}><path d="M7 7l10 10M17 7L7 17" /></svg>;
+    case "image":
+      return <svg {...p}><rect x="3" y="4" width="18" height="16" rx="2" /><circle cx="9" cy="10" r="1.8" /><path d="M21 16l-5-5-8 8" /></svg>;
+    default:
+      return <svg {...p}><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>;
+  }
+};
 
-const UserIcon = () => (
-  <svg {...iconProps}>
-    <circle cx="12" cy="8" r="4" />
-    <path d="M4 20c1.5-4 5-5 8-5s6.5 1 8 5" />
-  </svg>
-);
-
-const HospitalIcon = () => (
-  <svg {...iconProps}>
-    <path d="M5 3v6a5 5 0 0 0 10 0V3" />
-    <path d="M10 14v2a4 4 0 0 0 8 0v-1" />
-    <circle cx="18" cy="13" r="2" />
-  </svg>
-);
-
-const ShieldIcon = () => (
-  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z" />
-    <path d="M9 12l2 2 4-4" />
-  </svg>
-);
-
-const ChevronIcon = () => (
-  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-    <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-/* ------------------- Scroll reveal wrapper ------------------- */
-const Reveal = ({ children, className = "", direction = "up", delay = 0 }) => {
+/* ------------------- Scroll reveal ------------------- */
+const Reveal = ({ children, className = "", direction = "up", delay = 0, as: Tag = "div", ...rest }) => {
   const ref = useRef(null);
   const [shown, setShown] = useState(false);
 
@@ -297,298 +292,354 @@ const Reveal = ({ children, className = "", direction = "up", delay = 0 }) => {
   }, []);
 
   return (
-    <div
+    <Tag
       ref={ref}
-      className={`tm-reveal tm-reveal--${direction} ${shown ? "is-shown" : ""} ${className}`}
+      className={`te-reveal te-reveal--${direction} ${shown ? "is-shown" : ""} ${className}`}
       style={{ "--d": `${delay}s` }}
+      {...rest}
     >
       {children}
-    </div>
+    </Tag>
   );
 };
 
 /* Image: load na hole placeholder dekhabe */
 const Pic = ({ src, alt, className = "" }) => {
   const [failed, setFailed] = useState(!src);
-
+  useEffect(() => setFailed(!src), [src]);
   return (
-    <div className={`tm-pic ${failed ? "tm-pic--empty" : ""} ${className}`}>
-      {failed ? (
-        <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
-          <g fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="4" width="18" height="16" rx="2" />
-            <circle cx="9" cy="10" r="1.8" />
-            <path d="M21 16l-5-5-8 8" />
-          </g>
-        </svg>
-      ) : (
-        <img src={src} alt={alt} loading="lazy" onError={() => setFailed(true)} />
-      )}
+    <div className={`te-pic ${failed ? "te-pic--empty" : ""} ${className}`}>
+      {failed ? <Icon name="image" size={34} /> : <img src={src} alt={alt} loading="lazy" onError={() => setFailed(true)} />}
     </div>
   );
 };
 
+const Cell = ({ v }) => {
+  if (v === true) return <span className="te-yes" aria-label="Included"><Icon name="check" size={16} /></span>;
+  if (v === false) return <span className="te-no-x" aria-label="Not included"><Icon name="x" size={16} /></span>;
+  return <span className="te-cell-text">{v}</span>;
+};
+
 /* ---------------------------- PAGE ---------------------------- */
 const Telemedicine = () => {
-  const [active, setActive] = useState("Reproductive medicine");
+  const [active, setActive] = useState(specialties[0]);
   const [showAll, setShowAll] = useState(false);
-  const [openFaq, setOpenFaq] = useState(null);
+  const [openFaq, setOpenFaq] = useState(0);
+
+  const counts = useMemo(() => {
+    const c = {};
+    doctors.forEach((d) => (c[d.specialty] = (c[d.specialty] || 0) + 1));
+    return c;
+  }, []);
 
   const chips = showAll ? specialties : specialties.slice(0, VISIBLE_CHIPS);
   const filtered = doctors.filter((d) => d.specialty === active);
 
   return (
-    <main className="tm-page">
+    <main className="te-page">
       {/* ================= HERO ================= */}
-      <section className="tm-hero">
-        <Pic src={imgHero} alt="Chinese specialist on a video consultation" className="tm-hero-pic" />
-        <div className="tm-hero-fade" aria-hidden="true" />
+      <section className="te-hero">
+        <Pic src={imgHero} alt="Specialist doctor on a video consultation" className="te-hero-pic" />
+        <div className="te-hero-fade" aria-hidden="true" />
 
-        <div className="tm-container tm-hero-inner">
-          <p className="tm-eyebrow tm-anim-in" style={{ "--d": "0s" }}>
-            Online consultation with top Chinese specialists
+        <div className="te-container te-hero-inner">
+          <p className="te-eyebrow te-in" style={{ "--d": "0s" }}>
+            <span className="te-live" /> Online consultation with top Chinese specialists
           </p>
-          <h1 className="tm-hero-title tm-anim-in" style={{ "--d": "0.1s" }}>
-            Not sure about your diagnosis or treatment plan?
+          <h1 className="te-hero-title te-in" style={{ "--d": "0.1s" }}>
+            Not sure about your diagnosis or <em>treatment plan?</em>
           </h1>
-          <p className="tm-hero-text tm-anim-in" style={{ "--d": "0.2s" }}>
+          <p className="te-hero-text te-in" style={{ "--d": "0.2s" }}>
             Get a written review, video consultation, or multidisciplinary second opinion from top Chinese
-            specialists.
+            specialists. Upload your medical records and receive expert guidance before your next decision.
           </p>
-          <p className="tm-hero-text tm-hero-text--small tm-anim-in" style={{ "--d": "0.3s" }}>
-            Upload your medical records and receive expert guidance before making your next medical decision.
-          </p>
-          <a href="#options" className="tm-btn tm-anim-in" style={{ "--d": "0.4s" }}>
-            Book Online Consultation <ArrowIcon />
-          </a>
+
+          <ul className="te-hero-points te-in" style={{ "--d": "0.3s" }}>
+            {heroPoints.map((p) => (
+              <li key={p}>
+                <span><Icon name="check" size={12} /></span> {p}
+              </li>
+            ))}
+          </ul>
+
+          <div className="te-hero-actions te-in" style={{ "--d": "0.4s" }}>
+            <a href="#options" className="te-btn">
+              Book Online Consultation <Icon name="arrow" size={16} />
+            </a>
+            <a href="#specialists" className="te-btn te-btn--ghost">
+              Meet the Specialists
+            </a>
+          </div>
+        </div>
+
+        {/* Floating "video call" card */}
+        <div className="te-hero-card te-in" style={{ "--d": "0.5s" }} aria-hidden="true">
+          <span className="te-hero-card-icon"><Icon name="video" size={20} /></span>
+          <div>
+            <strong>Video consultation</strong>
+            <small>With interpreter support</small>
+          </div>
         </div>
       </section>
 
       {/* ================= HIGHLIGHTS ================= */}
-      <section className="tm-highlights">
-        <div className="tm-container tm-highlights-grid">
+      <section className="te-highlights">
+        <div className="te-container te-highlights-grid">
           {highlights.map((h, i) => (
-            <Reveal key={h.no} delay={i * 0.1} className="tm-highlight">
-              <span className="tm-no">{h.no}</span>
-              <h3>{h.title}</h3>
-              <p>{h.text}</p>
+            <Reveal key={h.title} delay={i * 0.08} className="te-highlight">
+              <span className="te-highlight-icon"><Icon name={h.icon} size={22} /></span>
+              <div>
+                <h3>{h.title}</h3>
+                <p>{h.text}</p>
+              </div>
             </Reveal>
           ))}
         </div>
       </section>
 
       {/* ================= SPECIALISTS ================= */}
-      <section className="tm-section tm-section--soft" id="specialists">
-        <div className="tm-container">
-          <Reveal className="tm-head">
-            <span className="tm-label">Specialist matching</span>
-            <h2 className="tm-title">Selected top Chinese specialists</h2>
-            <p className="tm-sub">
-              Medora matches your case with top Chinese specialists who can support written review, video
+      <section className="te-section te-section--soft" id="specialists">
+        <div className="te-container">
+          <Reveal className="te-head">
+            <span className="te-label">Specialist matching</span>
+            <h2 className="te-title">Selected top Chinese specialists</h2>
+            <p className="te-sub">
+              {BRAND} matches your case with top Chinese specialists who can support written review, video
               consultation, and treatment direction discussion.
             </p>
           </Reveal>
 
-          <Reveal className="tm-chips" delay={0.1}>
+          <Reveal className="te-chips" delay={0.1} role="group" aria-label="Filter by specialty">
             {chips.map((c) => (
               <button
                 key={c}
                 type="button"
-                className={`tm-chip ${active === c ? "is-active" : ""}`}
+                aria-pressed={active === c}
+                className={`te-chip ${active === c ? "is-active" : ""}`}
                 onClick={() => setActive(c)}
               >
                 {c}
+                {counts[c] ? <b>{counts[c]}</b> : null}
               </button>
             ))}
-            <button type="button" className="tm-chip tm-chip--more" onClick={() => setShowAll((v) => !v)}>
-              {showAll ? "Show less" : "Show more"}
+            <button type="button" className="te-chip te-chip--more" aria-expanded={showAll} onClick={() => setShowAll((v) => !v)}>
+              {showAll ? "Show less" : `+${specialties.length - VISIBLE_CHIPS} more`}
             </button>
           </Reveal>
 
           {/* key={active} → filter change korle animation abar chole */}
-          <div className="tm-doctors" key={active}>
+          <div className="te-doctors" key={active}>
             {filtered.map((d, i) => (
-              <Reveal
-                key={d.id}
-                delay={(i % 3) * 0.1}
-                className={`tm-doctor ${d.badge ? "is-featured" : ""}`}
-              >
-                {d.badge && <span className="tm-flag">{d.badge}</span>}
+              <article key={d.id} className={`te-doctor ${d.badge ? "is-featured" : ""}`} style={{ "--i": i }}>
+                {d.badge && <span className="te-flag">{d.badge}</span>}
 
-                <div className="tm-doctor-media">
-                  <Pic src={d.image} alt={d.name} className="tm-doctor-pic" />
-                  <span className="tm-shield">
-                    <ShieldIcon />
-                  </span>
+                <div className="te-doctor-media">
+                  <Pic src={d.image} alt={d.name} className="te-doctor-pic" />
+                  <span className="te-verified"><Icon name="shield" size={13} /> Verified</span>
                 </div>
 
-                <div className="tm-doctor-body">
+                <div className="te-doctor-body">
+                  <span className="te-doctor-spec">{d.specialty}</span>
                   <h3>{d.name}</h3>
-                  <span className="tm-doctor-spec">{d.specialty}</span>
-                  <p className="tm-doctor-hospital">{d.hospital}</p>
-                  <ul className="tm-doctor-facts">
-                    <li><ClockIcon /> {d.experience}</li>
-                    <li><UserIcon /> {d.focus}</li>
-                    <li><HospitalIcon /> {d.level}</li>
+                  <p className="te-doctor-hospital">{d.hospital}</p>
+
+                  <ul className="te-doctor-facts">
+                    <li><Icon name="clock" size={15} /> {d.experience}</li>
+                    <li><Icon name="target" size={15} /> {d.focus}</li>
+                    <li><Icon name="hospital" size={15} /> {d.level}</li>
                   </ul>
-                  <div className="tm-mini-tags">
+
+                  <p className="te-doctor-text">{d.text}</p>
+
+                  <div className="te-mini-tags">
                     {d.tags.map((t) => (
                       <span key={t}>{t}</span>
                     ))}
                   </div>
-                  <p className="tm-doctor-text">{d.text}</p>
-                  <a href="#options" className={`tm-btn tm-btn--sm tm-btn--block ${d.badge ? "" : "tm-btn--outline"}`}>
-                    View specialist
+
+                  <a href="#options" className={`te-btn te-btn--sm te-btn--block ${d.badge ? "" : "te-btn--outline"}`}>
+                    Consult this specialist <Icon name="arrow" size={15} />
                   </a>
                 </div>
-              </Reveal>
+              </article>
             ))}
 
-            <Reveal className="tm-doctor tm-doctor--help" delay={(filtered.length % 3) * 0.1}>
-              <div className="tm-help-body">
-                <h3>Need a different specialist?</h3>
+            <article className="te-doctor te-doctor--help" style={{ "--i": filtered.length }}>
+              <span className="te-help-icon"><Icon name="doctor" size={26} /></span>
+              <div className="te-help-body">
+                <h3>{filtered.length ? "Need a different specialist?" : `${active} specialist`}</h3>
                 <p>
-                  Tell us your diagnosis, records, preferred specialty, and consultation goal. Medora will
-                  suggest a more suitable doctor or specialist team.
+                  {filtered.length
+                    ? `Tell us your diagnosis, records, and consultation goal. ${BRAND} will suggest a more suitable doctor or specialist team.`
+                    : `We have not listed ${active.toLowerCase()} specialists here yet, but our team can match you with one. Share your reports and we will suggest the right doctor.`}
                 </p>
               </div>
-              <Link to="/contact" className="tm-btn tm-btn--block">
-                Tell us what you need <ArrowIcon />
+              <Link to="/contact" className="te-btn te-btn--block">
+                Tell us what you need <Icon name="arrow" size={16} />
               </Link>
-            </Reveal>
+            </article>
           </div>
-
-          <Reveal className="tm-match-bar">
-            <p>Tell us about your condition and we will suggest a more suitable specialist match.</p>
-            <Link to="/contact" className="tm-btn tm-btn--sm">
-              Get specialist matching advice <ArrowIcon />
-            </Link>
-          </Reveal>
         </div>
       </section>
 
       {/* ================= REVIEW OPTIONS ================= */}
-      <section className="tm-section" id="options">
-        <div className="tm-container">
-          <Reveal className="tm-head">
-            <span className="tm-label">Review options</span>
-            <h2 className="tm-title">Choose your second opinion option</h2>
-            <p className="tm-sub">
-              Start remotely with a written review, video consultation, or multidisciplinary case review
-              before making your next medical decision.
+      <section className="te-section" id="options">
+        <div className="te-container">
+          <Reveal className="te-head">
+            <span className="te-label">Review options</span>
+            <h2 className="te-title">Choose your second opinion option</h2>
+            <p className="te-sub">
+              Start remotely with a written review, video consultation, or multidisciplinary case review before
+              making your next medical decision.
             </p>
           </Reveal>
 
-          <div className="tm-options">
+          <div className="te-options">
             {options.map((o, i) => (
-              <Reveal
-                key={o.id}
-                delay={i * 0.12}
-                direction={i === 0 ? "left" : i === 2 ? "right" : "up"}
-                className={`tm-option ${o.popular ? "is-popular" : ""}`}
-              >
-                <Pic src={o.image} alt={o.title} className="tm-option-pic" />
-                <div className="tm-option-body">
-                  <div className="tm-option-top">
-                    <span className={`tm-pill ${o.popular ? "tm-pill--accent" : ""}`}>{o.badge}</span>
-                    <span className="tm-price">
-                      <small>From</small> {o.price}
-                    </span>
-                  </div>
+              <Reveal key={o.id} delay={i * 0.1} className={`te-option ${o.popular ? "is-popular" : ""}`}>
+                <div className="te-option-media">
+                  <Pic src={o.image} alt={o.title} className="te-option-pic" />
+                  <span className={`te-pill ${o.popular ? "te-pill--accent" : ""}`}>{o.badge}</span>
+                </div>
+                <div className="te-option-body">
                   <h3>{o.title}</h3>
-                  <div className="tm-mini-tags">
-                    {o.tags.map((t) => (
-                      <span key={t}>{t}</span>
+                  <p className="te-option-desc">{o.desc}</p>
+                  <div className="te-price">
+                    <small>From</small>
+                    <strong>{o.price}</strong>
+                  </div>
+                  <ul className="te-option-list">
+                    {o.features.map((f) => (
+                      <li key={f}><span><Icon name="check" size={12} /></span> {f}</li>
                     ))}
-                  </div>
-                  <div className="tm-option-actions">
-                    <Link to="/contact" className="tm-btn tm-btn--sm">{o.cta}</Link>
-                    <a href="#process" className="tm-btn tm-btn--sm tm-btn--soft">View Details</a>
-                  </div>
+                  </ul>
+                  <Link to="/contact" className={`te-btn te-btn--block ${o.popular ? "" : "te-btn--outline"}`}>
+                    {o.cta} <Icon name="arrow" size={16} />
+                  </Link>
                 </div>
               </Reveal>
             ))}
           </div>
 
-          <Reveal className="tm-center">
-            <a href="#process" className="tm-btn tm-btn--sm tm-btn--soft">Compare review options</a>
+          {/* Compare table */}
+          <Reveal className="te-compare" id="compare">
+            <h3 className="te-compare-title">Compare review options</h3>
+            <div className="te-table-wrap">
+              <table className="te-table">
+                <thead>
+                  <tr>
+                    <th scope="col"><span className="te-sr">Feature</span></th>
+                    {options.map((o) => (
+                      <th key={o.id} scope="col" className={o.popular ? "is-popular" : ""}>
+                        {o.title}
+                        <small>{o.price}</small>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {compareRows.map((r) => (
+                    <tr key={r.label}>
+                      <th scope="row">{r.label}</th>
+                      {r.values.map((v, i) => (
+                        <td key={i} className={options[i].popular ? "is-popular" : ""}>
+                          <Cell v={v} />
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </Reveal>
         </div>
       </section>
 
       {/* ================= PROCESS ================= */}
-      <section className="tm-section" id="process">
-        <div className="tm-container tm-container--narrow">
-          <Reveal className="tm-head">
-            <span className="tm-label">Process</span>
-            <h2 className="tm-title">How the second opinion process works</h2>
+      <section className="te-section te-section--soft" id="process">
+        <div className="te-container">
+          <Reveal className="te-head">
+            <span className="te-label">Process</span>
+            <h2 className="te-title">How the second opinion process works</h2>
           </Reveal>
 
-          <div className="tm-steps">
+          <ol className="te-steps">
             {steps.map((s, i) => (
-              <Reveal key={s.no} direction={i % 2 === 0 ? "left" : "right"} className="tm-step">
-                <Pic src={s.image} alt={s.title} className="tm-step-pic" />
-                <span className="tm-step-no">{s.no}</span>
-                <div className="tm-step-body">
-                  <span className="tm-step-label">Step {i + 1}</span>
+              <Reveal as="li" key={s.title} direction={i % 2 === 0 ? "left" : "right"} className="te-step">
+                <Pic src={s.image} alt={s.title} className="te-step-pic" />
+                <span className="te-step-no">{String(i + 1).padStart(2, "0")}</span>
+                <div className="te-step-body">
+                  <span className="te-step-label">Step {i + 1}</span>
                   <h3>{s.title}</h3>
                   <p>{s.text}</p>
                 </div>
               </Reveal>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
       {/* ================= NOTICE ================= */}
-      <section className="tm-section tm-section--soft">
-        <div className="tm-container tm-container--narrow">
-          <Reveal className="tm-head">
-            <span className="tm-label">Medical notice</span>
-            <h2 className="tm-title">Important medical notice</h2>
-            <p className="tm-sub">
-              Medora&apos;s second opinion service is based on the medical records you provide. It is not
-              emergency care and does not replace your local physician. Any treatment decision should be made
-              together with your licensed healthcare provider.
-            </p>
+      <section className="te-section">
+        <div className="te-container te-container--narrow">
+          <Reveal className="te-notice-box">
+            <div className="te-notice-head">
+              <span className="te-notice-icon"><Icon name="alert" size={24} /></span>
+              <div>
+                <h2>Important medical notice</h2>
+                <p>
+                  {BRAND}&apos;s second opinion service is based on the medical records you provide. It is not
+                  emergency care and does not replace your local physician. Any treatment decision should be
+                  made together with your licensed healthcare provider.
+                </p>
+              </div>
+            </div>
+            <div className="te-notices">
+              {notices.map((n, i) => (
+                <div key={n.title} className="te-notice">
+                  <span className="te-notice-no">0{i + 1}</span>
+                  <h3>{n.title}</h3>
+                  <p>{n.text}</p>
+                </div>
+              ))}
+            </div>
           </Reveal>
-
-          <div className="tm-notices">
-            {notices.map((n, i) => (
-              <Reveal key={n.no} delay={i * 0.1} className="tm-notice">
-                <span className="tm-no">{n.no}</span>
-                <h3>{n.title}</h3>
-                <p>{n.text}</p>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 
       {/* ================= FAQ ================= */}
-      <section className="tm-section">
-        <div className="tm-container tm-container--faq">
-          <Reveal className="tm-head">
-            <span className="tm-label">FAQ</span>
-            <h2 className="tm-title">Common questions</h2>
+      <section className="te-section te-section--soft">
+        <div className="te-container te-faq-grid">
+          <Reveal direction="left" className="te-faq-intro">
+            <span className="te-label">FAQ</span>
+            <h2 className="te-title">Common questions</h2>
+            <p>Can't find your answer? Our coordinators are happy to help you choose the right option.</p>
+            <Link to="/contact" className="te-btn te-btn--outline">
+              Ask our team <Icon name="arrow" size={16} />
+            </Link>
           </Reveal>
 
-          <div className="tm-faq">
+          <div className="te-faq">
             {faqs.map((f, i) => {
               const open = openFaq === i;
               return (
-                <Reveal key={f.q} delay={i * 0.05} className={`tm-faq-item ${open ? "is-open" : ""}`}>
-                  <button
-                    type="button"
-                    className="tm-faq-q"
-                    aria-expanded={open}
-                    onClick={() => setOpenFaq(open ? null : i)}
-                  >
-                    <span>{f.q}</span>
-                    <ChevronIcon />
-                  </button>
-                  <div className="tm-faq-a">
-                    <p>{f.a}</p>
+                <Reveal key={f.q} delay={i * 0.05} className={`te-faq-item ${open ? "is-open" : ""}`}>
+                  <h3>
+                    <button
+                      type="button"
+                      className="te-faq-q"
+                      aria-expanded={open}
+                      aria-controls={`te-faq-a-${i}`}
+                      onClick={() => setOpenFaq(open ? null : i)}
+                    >
+                      <span>{f.q}</span>
+                      <span className="te-chevron"><Icon name="chevron" size={18} /></span>
+                    </button>
+                  </h3>
+                  <div className="te-faq-a" id={`te-faq-a-${i}`} role="region">
+                    <div className="te-faq-inner">
+                      <p>{f.a}</p>
+                    </div>
                   </div>
                 </Reveal>
               );
@@ -598,24 +649,35 @@ const Telemedicine = () => {
       </section>
 
       {/* ================= FINAL CTA ================= */}
-      <section className="tm-section tm-cta-wrap">
-        <div className="tm-container tm-container--narrow">
-          <Reveal className="tm-cta">
-            <div className="tm-cta-text">
-              <span className="tm-label tm-label--left">Start remotely</span>
+      <section className="te-cta-wrap">
+        <div className="te-container">
+          <Reveal className="te-cta">
+            <div className="te-cta-text">
+              <span className="te-label te-label--light">Start remotely</span>
               <h2>Get another expert view before your next medical decision</h2>
               <p>
                 Choose a written review, video consultation, or multidisciplinary case review from selected
                 Chinese specialists.
               </p>
-              <a href="#options" className="tm-btn tm-btn--sm">
-                Book Online Consultation <ArrowIcon />
-              </a>
+              <div className="te-cta-actions">
+                <a href="#options" className="te-btn te-btn--white">
+                  Book Online Consultation <Icon name="arrow" size={16} />
+                </a>
+                <Link to="/contact" className="te-btn te-btn--outline-white">
+                  Talk to a Coordinator
+                </Link>
+              </div>
               <small>Start remotely. No obligation to travel.</small>
             </div>
-            <div className="tm-cta-art" aria-hidden="true">
-              <span className="tm-cta-card tm-cta-card--main" />
-              <span className="tm-cta-card tm-cta-card--side" />
+            <div className="te-cta-art" aria-hidden="true">
+              <Pic src={imgVideo} alt="" className="te-cta-pic" />
+              <div className="te-cta-float">
+                <span><Icon name="video" size={18} /></span>
+                <div>
+                  <strong>Live with specialist</strong>
+                  <small>Interpreter included</small>
+                </div>
+              </div>
             </div>
           </Reveal>
         </div>

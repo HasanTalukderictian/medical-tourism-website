@@ -1,115 +1,294 @@
-.offer-section {
-    --offer-navy: #12286b;
-    --offer-green: #5b8c35;
-    --offer-orange: #f28c4b;
-    --offer-ink: #1a1a1a;
-    background: #f0f4f9;
-    padding: 56px 20px 72px;
+/* =====================================================
+   HOME PAGE: What We Offer section
+   Class gula "ofr-" diye, onno page er sathe jhamela hobe na
+   ===================================================== */
+
+.ofr {
+    --ofr-green: #689f38;
+    --ofr-green-dark: #4f7d29;
+    --ofr-green-soft: #eef5e6;
+    --ofr-orange: #f58a3c;
+    --ofr-orange-soft: #fff1e6;
+    --ofr-heading: #1f2937;
+    --ofr-text: #5b6470;
+    --ofr-muted: #8a93a0;
+    --ofr-border: #e3e8df;
+    position: relative;
+    padding: 96px 0;
+    background: #f6f9f1;
+    color: var(--ofr-text);
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
 }
 
-.offer-container {
-    max-width: 1200px;
+
+/* halka dot pattern */
+
+.ofr::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(104, 159, 56, 0.16) 1.2px, transparent 1.2px);
+    background-size: 26px 26px;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 40%);
+    mask-image: linear-gradient(180deg, #000 0%, transparent 40%);
+    pointer-events: none;
+}
+
+.ofr *,
+.ofr *::before,
+.ofr *::after {
+    box-sizing: border-box;
+}
+
+:where(.ofr) h2,
+:where(.ofr) h3,
+:where(.ofr) p {
+    margin: 0;
+}
+
+:where(.ofr) a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.ofr a:focus-visible,
+.ofr button:focus-visible {
+    outline: 3px solid var(--ofr-orange);
+    outline-offset: 3px;
+}
+
+.ofr-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 1240px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 
-/* Heading */
+/* ---- Reveal ---- */
 
-.offer-head {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.ofr-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease var(--d, 0s), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
+}
+
+.ofr-reveal.is-shown {
+    opacity: 1;
+    transform: none;
+}
+
+
+/* ---- Heading ---- */
+
+.ofr-head {
+    max-width: 660px;
+    margin: 0 auto 52px;
     text-align: center;
-    margin-bottom: 44px;
 }
 
-.offer-badge {
-    background: var(--offer-green);
-    color: #fff;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1px;
+.ofr-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    padding: 7px 14px;
-    border: 1px solid #3f6b1f;
+    color: var(--ofr-orange);
 }
 
-.offer-heading {
-    margin: 10px 0 0;
-    font-family: 'Times New Roman', Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(30px, 5vw, 42px);
-    line-height: 1.2;
-    color: var(--offer-ink);
-}
-
-.offer-line {
-    display: block;
-    width: 40px;
+.ofr-label::before,
+.ofr-label::after {
+    content: "";
+    width: 26px;
     height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+}
+
+.ofr-heading {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ofr-heading);
+}
+
+.ofr-heading span {
+    color: var(--ofr-green);
+}
+
+.ofr-sub {
     margin-top: 14px;
-    background: var(--offer-orange);
+    font-size: 15.5px;
+    line-height: 1.75;
 }
 
 
-/* Grid */
+/* ---- Grid ---- */
 
-.offer-grid {
+.ofr-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
+    align-items: start;
+    /* ekta card "See More" e khulle baki card lomba hobe na */
+    gap: 24px;
 }
 
 
-/* Card */
+/* ---- Card ---- */
 
-.offer-card {
+.ofr-card {
+    position: relative;
     display: flex;
     flex-direction: column;
-    background: #fff;
-    border: 1px solid #111;
-    transition: box-shadow 0.25s;
-}
-
-.offer-card:hover {
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.14);
-}
-
-.offer-card__img {
-    aspect-ratio: 2 / 1;
     overflow: hidden;
-    background: #dfe5ee;
+    border: 1px solid var(--ofr-border);
+    border-radius: 22px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(31, 41, 55, 0.05);
+    transition-property: opacity, transform, box-shadow;
 }
 
-.offer-card__img img {
+
+/* niche sabuj line, hover e bhore uthe */
+
+.ofr-card::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--ofr-green), var(--ofr-orange));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.ofr-card.is-shown:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 26px 50px rgba(31, 41, 55, 0.13);
+}
+
+.ofr-card:hover::after {
+    transform: scaleX(1);
+}
+
+.ofr-media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: #e4e9e0;
+}
+
+.ofr-media img {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
+    transition: transform 0.7s ease;
 }
 
-.offer-card__body {
+.ofr-card:hover .ofr-media img {
+    transform: scale(1.08);
+}
+
+.ofr-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, transparent 40%);
+    pointer-events: none;
+}
+
+.ofr-img-empty {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    color: var(--ofr-green);
+    background: linear-gradient(135deg, var(--ofr-green-soft), #dbe8cc);
+}
+
+.ofr-img-empty svg {
+    opacity: 0.5;
+}
+
+.ofr-no {
+    position: absolute;
+    z-index: 1;
+    top: 12px;
+    left: 14px;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.ofr-body {
     display: flex;
-    flex-direction: column;
     flex: 1;
-    padding: 18px 16px 14px;
+    flex-direction: column;
+    padding: 0 20px 20px;
 }
 
-.offer-card__title {
-    margin: 0 0 12px;
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-    color: var(--offer-ink);
+
+/* Icon image er upor ektu uthe thake */
+
+.ofr-icon {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    margin-top: -28px;
+    margin-bottom: 14px;
+    border: 4px solid #fff;
+    border-radius: 16px;
+    background: var(--ofr-green);
+    color: #fff;
+    box-shadow: 0 10px 22px rgba(79, 125, 41, 0.3);
+    transition: transform 0.3s ease, background 0.3s ease;
 }
 
-.offer-card__text {
-    margin: 0 0 18px;
-    font-size: 12.5px;
-    line-height: 1.65;
-    color: #555;
-    /* collapsed: 3 line + ... */
+.ofr-card:nth-child(even) .ofr-icon {
+    background: var(--ofr-orange);
+    box-shadow: 0 10px 22px rgba(245, 138, 60, 0.3);
+}
+
+.ofr-card:hover .ofr-icon {
+    transform: rotate(-8deg) scale(1.05);
+}
+
+.ofr-title {
+    margin-bottom: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--ofr-heading);
+}
+
+.ofr-title a {
+    transition: color 0.2s ease;
+}
+
+.ofr-title a:hover {
+    color: var(--ofr-green-dark);
+}
+
+
+/* 3 line er por "..." */
+
+.ofr-text {
+    margin-bottom: 16px;
+    font-size: 13.5px;
+    line-height: 1.7;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
@@ -117,92 +296,258 @@
     overflow: hidden;
 }
 
-.offer-card__text.expanded {
+.ofr-text.is-expanded {
     display: block;
     -webkit-line-clamp: unset;
     line-clamp: unset;
     overflow: visible;
 }
 
-.offer-card__more {
+.ofr-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
     margin-top: auto;
-    align-self: flex-start;
-    padding: 4px 0;
-    background: none;
+    padding-top: 14px;
+    border-top: 1px dashed var(--ofr-border);
+}
+
+.ofr-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 0;
     border: 0;
-    cursor: pointer;
+    background: none;
+    color: var(--ofr-green-dark);
     font-family: inherit;
-    font-size: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.ofr-more-icon {
+    display: inline-grid;
+    transition: transform 0.25s ease;
+}
+
+.ofr-more[aria-expanded="true"] .ofr-more-icon {
+    transform: rotate(180deg);
+}
+
+.ofr-more:hover {
+    color: var(--ofr-orange);
+}
+
+.ofr-go {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--ofr-green-soft);
+    color: var(--ofr-green-dark);
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.ofr-card:hover .ofr-go {
+    background: var(--ofr-green);
+    color: #fff;
+    transform: rotate(-45deg);
+}
+
+
+/* ---- Help strip ---- */
+
+.ofr-help {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 48px;
+    padding: 26px 30px;
+    border-radius: 22px;
+    background: linear-gradient(120deg, var(--ofr-green) 0%, var(--ofr-green-dark) 100%);
+    color: #fff;
+    box-shadow: 0 20px 44px rgba(79, 125, 41, 0.28);
+}
+
+.ofr-help-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.ofr-help-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.ofr-help-text h3 {
+    font-size: 20px;
     font-weight: 700;
-    letter-spacing: 0.3px;
-    text-transform: uppercase;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    color: var(--offer-ink);
-    transition: color 0.2s;
 }
 
-.offer-card__more:hover {
-    color: #e53935;
+.ofr-help-text p {
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.88);
 }
 
-.offer-card__more:focus-visible {
-    outline: 2px solid var(--offer-navy);
-    outline-offset: 2px;
+.ofr-help-actions {
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.ofr-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 22px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ofr-green-dark) !important;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.ofr-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+}
+
+.ofr-btn svg {
+    transition: transform 0.25s ease;
+}
+
+.ofr-btn:hover svg {
+    transform: translateX(3px);
+}
+
+.ofr-btn--line {
+    background: transparent;
+    color: #fff !important;
+    box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.6);
+}
+
+.ofr-btn--line:hover {
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 0 0 1.5px #fff;
+}
+
+.ofr-btn--line:hover svg {
+    transform: none;
 }
 
 
 /* ============ LAPTOP ============ */
 
 @media (max-width: 1100px) {
-    .offer-grid {
-        gap: 14px;
-    }
-    .offer-card__body {
-        padding: 16px 14px 12px;
+    .ofr-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
 
-/* ============ TABLET: 2 column ============ */
+/* ============ TABLET ============ */
 
-@media (max-width: 900px) {
-    .offer-section {
-        padding: 44px 20px 56px;
+@media (max-width: 860px) {
+    .ofr {
+        padding: 72px 0;
     }
-    .offer-grid {
+    .ofr-heading {
+        font-size: 34px;
+    }
+    .ofr-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 18px;
+        gap: 20px;
     }
-    .offer-card__text {
-        font-size: 13px;
+    .ofr-help {
+        flex-wrap: wrap;
     }
-    .offer-card__more {
-        font-size: 11px;
+    .ofr-help-text {
+        flex-basis: calc(100% - 80px);
+    }
+    .ofr-help-actions {
+        width: 100%;
     }
 }
 
 
-/* ============ MOBILE: 1 column ============ */
+/* ============ MOBILE ============ */
 
 @media (max-width: 560px) {
-    .offer-section {
-        padding: 36px 16px 48px;
+    .ofr {
+        padding: 56px 0;
     }
-    .offer-head {
-        margin-bottom: 28px;
+    .ofr-wrap {
+        padding: 0 16px;
     }
-    .offer-grid {
+    .ofr-head {
+        margin-bottom: 34px;
+    }
+    .ofr-heading {
+        font-size: 28px;
+    }
+    .ofr-sub {
+        font-size: 14.5px;
+    }
+    .ofr-grid {
         grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 18px;
     }
-    .offer-card__img {
+    .ofr-media {
         aspect-ratio: 16 / 9;
     }
-    .offer-card__title {
-        font-size: 16px;
+    .ofr-title {
+        font-size: 18px;
     }
-    .offer-card__text {
+    .ofr-text {
         font-size: 14px;
+    }
+    .ofr-help {
+        padding: 22px 18px;
+        gap: 14px;
+    }
+    .ofr-help-icon {
+        width: 50px;
+        height: 50px;
+    }
+    .ofr-help-text {
+        flex-basis: calc(100% - 70px);
+    }
+    .ofr-help-text h3 {
+        font-size: 18px;
+    }
+    .ofr-help-actions {
+        flex-direction: column;
+    }
+    .ofr-btn {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ofr-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+    .ofr-media img,
+    .ofr-icon,
+    .ofr-go,
+    .ofr-card::after {
+        transition: none;
     }
 }

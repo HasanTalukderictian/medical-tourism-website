@@ -1,402 +1,924 @@
+/* =====================================================
+   HEADER (Akashbari Medical)
+   Class gula "nv-" diye shuru. Brand color ekhane bodlao.
+   Mobile breakpoint 1150px (Header.jsx er MOBILE_BP er sathe mil rakho)
+   ===================================================== */
+
+
+/* Purono variable (onno file e use hote pare, tai rakha holo) */
+
 :root {
     --navy: #12286b;
     --hover-red: #e53935;
 }
 
-.site-header {
+.nv {
+    --nv-primary: #689f38;
+    --nv-primary-dark: #4f7d29;
+    --nv-primary-deep: #24391a;
+    --nv-primary-soft: #eef5e6;
+    --nv-accent: #f58a3c;
+    --nv-accent-dark: #e0742a;
+    --nv-heading: #1f2937;
+    --nv-text: #4b5563;
+    --nv-border: #e7ebe3;
+    --nv-bar-h: 78px;
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    font-family: "Poppins", sans-serif;
 }
 
-.navbar {
+.nv *,
+.nv *::before,
+.nv *::after {
+    box-sizing: border-box;
+}
+
+.nv ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nv a {
+    text-decoration: none;
+}
+
+.nv a:focus-visible,
+.nv button:focus-visible {
+    outline: 3px solid var(--nv-accent);
+    outline-offset: 2px;
+    border-radius: 8px;
+}
+
+.nv-wrap {
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 28px;
+}
+
+
+/* ---- Top bar ---- */
+
+.nv-top {
+    background: var(--nv-primary-deep);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 12.5px;
+    height: 38px;
+    overflow: hidden;
+    transition: height 0.3s ease;
+}
+
+.nv-top-in {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    height: 75px;
-    padding: 0 40px;
+    gap: 16px;
+    height: 38px;
 }
 
-.logo-link {
+.nv-top-left,
+.nv-top-right {
     display: flex;
     align-items: center;
+    gap: 22px;
 }
 
-.logo-img {
+.nv-top a,
+.nv-top span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: inherit;
+    transition: color 0.2s ease;
+}
+
+.nv-top svg {
+    color: #a8d37f;
+}
+
+.nv-top a:hover {
+    color: #fff;
+}
+
+.nv-top .nv-top-wa {
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: #25d366;
+    color: #fff;
+    font-weight: 600;
+}
+
+.nv-top .nv-top-wa svg {
+    color: #fff;
+}
+
+
+/* Scroll korle top bar lukay */
+
+.nv.is-scrolled .nv-top {
+    height: 0;
+}
+
+
+/* ---- Main bar ---- */
+
+.nv-bar {
+    background: rgba(255, 255, 255, 0.97);
+    border-bottom: 1px solid var(--nv-border);
+    transition: box-shadow 0.3s ease;
+}
+
+.nv.is-scrolled .nv-bar {
+    box-shadow: 0 10px 30px rgba(31, 41, 55, 0.08);
+}
+
+.nv-bar-in {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: var(--nv-bar-h);
+    transition: height 0.3s ease;
+}
+
+.nv.is-scrolled .nv-bar-in {
+    height: 66px;
+}
+
+.nv-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.nv-logo img {
+    display: block;
     height: 50px;
     width: auto;
-    display: block;
+    transition: height 0.3s ease;
+}
+
+.nv.is-scrolled .nv-logo img {
+    height: 42px;
 }
 
 
-/* Desktop e wrapper ta layout e kono effect felbe na */
+/* Desktop e panel layout e kono box banabe na */
 
-.nav-collapse {
-    display: contents;
-}
-
-.nav-menu,
-.dropdown-menu,
-.sub-menu {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-menu {
+.nv-panel {
     display: flex;
-    gap: 26px;
-    height: 100%;
+    flex: 1;
     align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    height: 100%;
 }
 
-.nav-menu>li {
+.nv-menu-bar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 100%;
+    margin: 0 auto !important;
+}
+
+.nv-item {
     position: relative;
+    display: flex;
+    align-items: center;
     height: 100%;
+}
+
+.nv-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 9px 12px;
+    border: 0;
+    border-radius: 10px;
+    background: none;
+    color: var(--nv-heading);
+    font-family: inherit;
+    font-size: 14.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+
+/* Niche sabuj underline */
+
+.nv-link::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 2px;
+    height: 2.5px;
+    border-radius: 3px;
+    background: var(--nv-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.nv-link:hover {
+    color: var(--nv-primary-dark);
+    background: var(--nv-primary-soft);
+}
+
+.nv-link.active,
+.nv-dd.is-active>.nv-link {
+    color: var(--nv-primary-dark);
+}
+
+.nv-link.active::after,
+.nv-dd.is-active>.nv-link::after {
+    transform: scaleX(1);
+}
+
+.nv-caret {
+    display: inline-grid;
+    transition: transform 0.25s ease;
+}
+
+.nv-dd.is-open .nv-caret {
+    transform: rotate(180deg);
+}
+
+
+/* ---- Dropdown (desktop) ---- */
+
+.nv-menu {
+    position: absolute;
+    top: calc(100% - 6px);
+    left: 50%;
+    min-width: 250px;
+    padding: 10px;
+    border: 1px solid var(--nv-border);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 24px 50px rgba(31, 41, 55, 0.14);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, 10px);
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+}
+
+
+/* chhoto triangle */
+
+.nv-menu::before {
+    content: "";
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    border-top: 1px solid var(--nv-border);
+    border-left: 1px solid var(--nv-border);
+    background: #fff;
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.nv-menu--wide {
+    width: 560px;
+    padding: 16px;
+}
+
+.nv-menu-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 0 6px 10px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--nv-border);
+}
+
+.nv-menu-head strong {
+    font-size: 15px;
+    color: var(--nv-heading);
+}
+
+.nv-menu-head small {
+    font-size: 12px;
+    color: #8a93a0;
+}
+
+.nv-list {
+    display: grid;
+    gap: 2px;
+}
+
+.nv-list--2 {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 6px;
+}
+
+.nv-mlink {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 9px 10px;
+    border-radius: 12px;
+    color: var(--nv-heading);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nv-micon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: var(--nv-primary-soft);
+    color: var(--nv-primary-dark);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nv-mlink:hover,
+.nv-mlink.active {
+    background: #f6f9f1;
+    color: var(--nv-primary-dark);
+}
+
+.nv-mlink:hover .nv-micon,
+.nv-mlink.active .nv-micon {
+    background: var(--nv-primary);
+    color: #fff;
+}
+
+
+/* Hospitals: country list + side menu */
+
+.nv-countries {
+    min-width: 230px;
+}
+
+.nv-has-sub {
+    position: relative;
+}
+
+.nv-sub-row {
     display: flex;
     align-items: center;
 }
 
-.nav-menu a {
-    text-decoration: none;
-    color: var(--navy);
-    font-weight: 600;
-    transition: color 0.2s;
+.nv-sub-row .nv-mlink {
+    flex: 1;
 }
 
-
-/* Dropdown label button — NavLink er moto style */
-
-.dd-label {
-    background: none;
-    border: 0;
-    padding: 0;
-    margin: 0;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: 600;
-    color: var(--navy);
-    cursor: pointer;
-    line-height: inherit;
-    transition: color 0.2s;
-    text-align: left;
-}
-
-.dropdown:hover>.dd-label {
-    color: var(--hover-red);
-}
-
-.nav-menu>li>a:hover,
-.nav-menu>li>a.active {
-    color: var(--hover-red);
-}
-
-
-/* Toggle buttons (arrow) */
-
-.dd-toggle,
-.sub-toggle {
-    background: none;
-    border: 0;
-    color: var(--navy);
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 0 0 0 4px;
+.nv-flag {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: #f6f9f1;
+    font-size: 19px;
     line-height: 1;
 }
 
-.dropdown:hover>.dd-toggle {
-    color: var(--hover-red);
+.nv-right {
+    display: inline-grid;
+    margin-left: auto;
+    color: #a0a7b0;
 }
 
-.sub-toggle {
+.nv-sub-toggle {
     display: none;
 }
 
-.menu-toggle {
-    display: none;
-}
-
-
-/* Dropdown */
-
-.dropdown-menu {
-    display: none;
+.nv-sub {
     position: absolute;
-    top: 100%;
-    left: 0;
-    width: 260px;
+    top: -10px;
+    left: calc(100% + 12px);
+    width: 290px;
+    padding: 10px;
+    border: 1px solid var(--nv-border);
+    border-radius: 18px;
     background: #fff;
-    border-radius: 0 0 8px 8px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.dropdown-menu li {
-    border-bottom: 1px solid #eee;
-}
-
-.dropdown-menu li a {
-    display: block;
-    padding: 11px 18px;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.dropdown-menu li:hover {
-    background: #f7f8fc;
-}
-
-.dropdown-menu li:hover>a {
-    color: var(--hover-red);
+    box-shadow: 0 24px 50px rgba(31, 41, 55, 0.14);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
 }
 
 
-/* Buttons */
+/* hover er shomoy gap e mouse harabe na */
 
-.nav-actions {
-    display: flex;
-    gap: 12px;
-}
-
-.cta-btn {
-    background: var(--navy);
-    color: #fff !important;
-    padding: 11px 24px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 15px;
-    white-space: nowrap;
-    text-align: center;
-    transition: background 0.2s;
-}
-
-.cta-btn:hover {
-    background: #0b1a4a;
-}
-
-
-/* Hospitals nested menu */
-
-.country-menu {
-    width: 230px;
-    overflow: visible;
-    border-radius: 8px;
-}
-
-.has-sub {
-    position: relative;
-}
-
-.sub-row {
-    display: flex;
-    align-items: center;
-}
-
-.sub-row>a {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.arrow {
-    font-size: 11px;
-}
-
-.sub-menu {
-    display: none;
+.nv-sub::before {
+    content: "";
     position: absolute;
     top: 0;
-    left: 100%;
-    width: 300px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    bottom: 0;
+    left: -14px;
+    width: 14px;
+}
+
+.nv-sub-title {
+    padding: 6px 10px 8px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nv-accent);
+}
+
+.nv-slink {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px;
+    border-radius: 10px;
+    color: var(--nv-heading);
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nv-slink svg {
+    flex-shrink: 0;
+    color: var(--nv-primary);
+}
+
+.nv-slink:hover,
+.nv-slink.active {
+    background: #f6f9f1;
+    color: var(--nv-primary-dark);
+}
+
+.nv-all {
+    margin-top: 6px;
+    padding-top: 8px;
+    border-top: 1px solid var(--nv-border);
+}
+
+.nv-all a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px;
+    border-radius: 12px;
+    background: var(--nv-primary-soft);
+    color: var(--nv-primary-dark);
+    font-size: 13.5px;
+    font-weight: 600;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nv-all a:hover {
+    background: var(--nv-primary);
+    color: #fff;
 }
 
 
-/* ============ DESKTOP: hover ============ */
+/* ---- Right side actions ---- */
 
-@media (min-width: 993px) {
-    .dropdown:hover>.dropdown-menu {
-        display: block;
+.nv-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+}
+
+.nv-call {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--nv-heading);
+}
+
+.nv-call-icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--nv-primary-soft);
+    color: var(--nv-primary-dark);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nv-call:hover .nv-call-icon {
+    background: var(--nv-primary);
+    color: #fff;
+}
+
+.nv-call-text {
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.25;
+    white-space: nowrap;
+}
+
+.nv-call-text small {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    color: #8a93a0;
+}
+
+.nv-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: var(--nv-accent);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 10px 22px rgba(245, 138, 60, 0.32);
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nv-cta:hover {
+    transform: translateY(-2px);
+    background: var(--nv-accent-dark);
+    box-shadow: 0 14px 28px rgba(245, 138, 60, 0.4);
+}
+
+.nv-cta svg {
+    transition: transform 0.2s ease;
+}
+
+.nv-cta:hover svg {
+    transform: translateX(3px);
+}
+
+.nv-burger,
+.nv-overlay,
+.nv-panel-foot {
+    display: none;
+}
+
+
+/* ============ DESKTOP: hover / click e dropdown ============ */
+
+@media (min-width: 1151px) {
+    /* Shudhu desktop e blur (mobile e fixed drawer er sathe jhamela kore) */
+    .nv-bar {
+        backdrop-filter: blur(10px);
     }
-    .has-sub:hover>.sub-menu {
-        display: block;
+    .nv-dd:hover>.nv-menu,
+    .nv-dd.is-open>.nv-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, 0);
+    }
+    .nv-has-sub:hover>.nv-sub,
+    .nv-has-sub:focus-within>.nv-sub {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+    .nv-dd:hover .nv-caret {
+        transform: rotate(180deg);
     }
 }
 
 
-/* ============ LAPTOP / SMALL DESKTOP ============ */
+/* Laptop: phone number lekha lukay, shudhu icon */
 
-@media (max-width: 1200px) {
-    .navbar {
-        padding: 0 20px;
+@media (max-width: 1440px) and (min-width: 1151px) {
+    .nv-call-text {
+        display: none;
     }
-    .nav-menu {
-        gap: 16px;
-    }
-    .nav-menu a {
+    .nv-link {
+        padding: 9px 9px;
         font-size: 14px;
     }
-    .cta-btn {
-        padding: 9px 16px;
-        font-size: 13px;
+    .nv-bar-in {
+        gap: 16px;
     }
-    .nav-actions {
-        gap: 8px;
+    .nv-cta {
+        padding: 11px 18px;
+        font-size: 13.5px;
+    }
+    .nv-link::after {
+        left: 9px;
+        right: 9px;
+    }
+    .nv-wrap {
+        padding: 0 20px;
     }
 }
 
 
-/* ============ TABLET + MOBILE ============ */
+/* ============ TABLET + MOBILE (drawer) ============ */
 
-@media (max-width: 992px) {
-    .navbar {
-        height: 65px;
+@media (max-width: 1150px) {
+    .nv {
+        --nv-bar-h: 68px;
+    }
+    .nv-top {
+        display: none;
+    }
+    .nv-wrap {
         padding: 0 16px;
     }
-    .logo-img {
+    .nv-bar-in,
+    .nv.is-scrolled .nv-bar-in {
+        justify-content: space-between;
+        height: var(--nv-bar-h);
+    }
+    .nv-logo img,
+    .nv.is-scrolled .nv-logo img {
         height: 42px;
     }
     /* Hamburger */
-    .menu-toggle {
+    .nv-burger {
+        position: relative;
+        z-index: 3;
         display: flex;
         flex-direction: column;
         justify-content: center;
         gap: 5px;
-        width: 42px;
-        height: 42px;
-        padding: 9px;
-        background: none;
+        width: 44px;
+        height: 44px;
+        padding: 11px;
         border: 0;
+        border-radius: 12px;
+        background: var(--nv-primary-soft);
         cursor: pointer;
     }
-    .menu-toggle span {
+    .nv-burger span {
         display: block;
-        height: 3px;
-        width: 100%;
-        background: var(--navy);
+        height: 2.5px;
         border-radius: 3px;
-        transition: transform 0.3s, opacity 0.3s;
+        background: var(--nv-primary-dark);
+        transition: transform 0.3s ease, opacity 0.3s ease;
     }
-    .menu-toggle.active span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
+    .nv-burger.is-open span:nth-child(1) {
+        transform: translateY(7.5px) rotate(45deg);
     }
-    .menu-toggle.active span:nth-child(2) {
+    .nv-burger.is-open span:nth-child(2) {
         opacity: 0;
     }
-    .menu-toggle.active span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
+    .nv-burger.is-open span:nth-child(3) {
+        transform: translateY(-7.5px) rotate(-45deg);
     }
-    /* Slide-in panel */
-    .nav-collapse {
-        display: flex;
-        flex-direction: column;
+    /* Kalo overlay */
+    .nv-overlay {
         position: fixed;
-        top: 65px;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: #fff;
-        padding: 10px 20px 30px;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        transform: translateX(100%);
+        inset: var(--nv-bar-h) 0 0 0;
+        z-index: 1;
+        display: block;
+        background: rgba(15, 23, 15, 0.45);
+        opacity: 0;
         visibility: hidden;
-        transition: transform 0.3s ease, visibility 0.3s;
+        transition: opacity 0.3s ease, visibility 0.3s;
     }
-    .nav-collapse.open {
-        transform: translateX(0);
+    .nv-overlay.is-open {
+        opacity: 1;
         visibility: visible;
     }
-    .nav-menu {
+    /* Dan pash theke drawer */
+    .nv-panel {
+        position: fixed;
+        top: var(--nv-bar-h);
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 0;
+        width: min(400px, 100%);
+        height: auto;
+        padding: 12px 18px 24px;
+        overflow-y: auto;
+        background: #fff;
+        box-shadow: -20px 0 40px rgba(0, 0, 0, 0.12);
+        transform: translateX(100%);
+        visibility: hidden;
+        transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.35s;
+        -webkit-overflow-scrolling: touch;
+    }
+    .nv-panel.is-open {
+        transform: none;
+        visibility: visible;
+    }
+    .nv-menu-bar {
         flex-direction: column;
         align-items: stretch;
         gap: 0;
         height: auto;
+        margin: 0 !important;
     }
-    .nav-menu>li {
-        height: auto;
-        flex-wrap: wrap;
-        border-bottom: 1px solid #eee;
-    }
-    .nav-menu>li>a {
-        flex: 1;
-        padding: 15px 4px;
-        font-size: 16px;
-    }
-    .dd-toggle,
-    .sub-toggle {
-        display: block;
-        width: 44px;
-        height: 44px;
-        padding: 0;
-        font-size: 16px;
-        transition: transform 0.2s;
-    }
-    .dropdown.open>.dd-toggle,
-    .has-sub.open .sub-toggle {
-        transform: rotate(180deg);
-        color: var(--hover-red);
-    }
-    /* Dropdowns accordion */
-    .dropdown-menu,
-    .country-menu {
-        position: static;
-        display: none;
-        flex-basis: 100%;
-        width: 100%;
-        background: #f7f8fc;
-        border-radius: 8px;
-        box-shadow: none;
-        margin-bottom: 10px;
-    }
-    .dropdown.open>.dropdown-menu {
-        display: block;
-    }
-    .dropdown-menu li:last-child {
-        border-bottom: 0;
-    }
-    .dropdown-menu li a {
-        padding: 12px 16px;
-    }
-    /* Nested country -> hospitals */
-    .arrow {
-        display: none;
-    }
-    .sub-menu {
-        position: static;
-        width: 100%;
-        box-shadow: none;
-        border-radius: 0;
-        background: #eef1f9;
-        padding-left: 12px;
-    }
-    .has-sub.open>.sub-menu {
-        display: block;
-    }
-    /* Buttons niche full width */
-    .nav-actions {
+    .nv-item {
         flex-direction: column;
-        gap: 12px;
-        margin-top: 24px;
+        align-items: stretch;
+        height: auto;
+        border-bottom: 1px solid var(--nv-border);
     }
-    .cta-btn {
-        padding: 13px 24px;
+    .nv-link {
+        justify-content: space-between;
+        width: 100%;
+        padding: 15px 6px;
+        border-radius: 0;
+        font-size: 15.5px;
+    }
+    .nv-link:hover {
+        background: none;
+    }
+    .nv-link::after {
+        display: none;
+    }
+    .nv-link.active,
+    .nv-dd.is-active>.nv-link {
+        color: var(--nv-primary-dark);
+        font-weight: 600;
+    }
+    .nv-caret {
+        display: grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #f6f9f1;
+    }
+    .nv-dd.is-open .nv-caret {
+        background: var(--nv-primary);
+        color: #fff;
+    }
+    /* Accordion dropdown */
+    .nv-menu,
+    .nv-menu--wide {
+        position: static;
+        display: none;
+        width: 100%;
+        min-width: 0;
+        margin-bottom: 12px;
+        padding: 8px;
+        border: 0;
+        border-radius: 14px;
+        background: #f6f9f1;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+    .nv-menu::before,
+    .nv-menu-head {
+        display: none;
+    }
+    .nv-dd.is-open>.nv-menu {
+        display: block;
+        animation: nv-drop 0.25s ease;
+    }
+    .nv-list--2 {
+        grid-template-columns: 1fr;
+    }
+    .nv-mlink {
+        padding: 8px;
+        font-size: 14px;
+    }
+    .nv-micon {
+        width: 32px;
+        height: 32px;
+        background: #fff;
+    }
+    /* Country -> hospitals accordion */
+    .nv-right {
+        display: none;
+    }
+    .nv-sub-toggle {
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        border: 0;
+        border-radius: 10px;
+        background: #fff;
+        color: var(--nv-heading);
+        cursor: pointer;
+        transition: transform 0.25s ease;
+    }
+    .nv-has-sub.is-open .nv-sub-toggle {
+        transform: rotate(180deg);
+        color: var(--nv-primary-dark);
+    }
+    .nv-sub {
+        position: static;
+        display: none;
+        width: 100%;
+        margin: 2px 0 6px;
+        padding: 4px 4px 4px 14px;
+        border: 0;
+        border-left: 2px solid var(--nv-primary);
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+    .nv-sub::before,
+    .nv-sub-title {
+        display: none;
+    }
+    .nv-has-sub.is-open>.nv-sub {
+        display: block;
+    }
+    .nv-flag {
+        width: 32px;
+        height: 32px;
+        background: #fff;
+    }
+    .nv-all a {
+        background: #fff;
+    }
+    /* Niche button gula */
+    .nv-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        margin-top: 22px;
+    }
+    .nv-call {
+        padding: 12px 14px;
+        border: 1px solid var(--nv-border);
+        border-radius: 14px;
+    }
+    .nv-call-text {
+        display: block;
+    }
+    .nv-cta {
+        justify-content: center;
+        padding: 14px 22px;
         font-size: 15px;
+    }
+    .nv-panel-foot {
+        display: grid;
+        gap: 10px;
+        margin-top: 22px;
+        padding-top: 18px;
+        border-top: 1px solid var(--nv-border);
+    }
+    .nv-panel-foot a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--nv-text);
+        font-size: 14px;
+    }
+    .nv-panel-foot svg {
+        color: var(--nv-primary);
+    }
+}
+
+@keyframes nv-drop {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .nv-logo img,
+    .nv.is-scrolled .nv-logo img {
+        height: 36px;
+    }
+    .nv-panel {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nv *,
+    .nv *::before,
+    .nv *::after {
+        transition: none !important;
+        animation: none !important;
     }
 }
 
 
-/* ============ SMALL PHONE ============ */
+/* Choto laptop (1151-1280px): phone icon o lukay, jate Book button jayga pay */
 
-@media (max-width: 480px) {
-    .logo-img {
-        height: 36px;
+@media (max-width: 1280px) and (min-width: 1151px) {
+    .nv-call {
+        display: none;
+    }
+    .nv-logo img {
+        height: 44px;
     }
 }

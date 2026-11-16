@@ -1,255 +1,608 @@
-:root {
-    --b-green: #6a9f3e;
-    --b-orange: #ff8a3d;
-}
+/* =====================================================
+   HOME BANNER (class gula "bn-" diye, onno page er sathe jhamela hobe na)
+   ===================================================== */
 
-.banner {
+.bn {
+    --bn-green: #689f38;
+    --bn-green-dark: #4f7d29;
+    --bn-green-light: #a8d37f;
+    --bn-orange: #f58a3c;
+    --bn-orange-dark: #e0742a;
+    --bn-heading: #1f2937;
     position: relative;
-    min-height: 720px;
-    color: #fff;
-    overflow: hidden;
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 760px;
+    overflow: hidden;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
 }
 
+.bn *,
+.bn *::before,
+.bn *::after {
+    box-sizing: border-box;
+}
 
-/* Background slideshow */
+:where(.bn) h1,
+:where(.bn) p,
+:where(.bn) ul {
+    margin: 0;
+    padding: 0;
+}
 
-.banner-slides,
-.banner-slide,
-.banner-overlay {
+:where(.bn) ul {
+    list-style: none;
+}
+
+:where(.bn) a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.bn a:focus-visible,
+.bn button:focus-visible {
+    outline: 3px solid var(--bn-orange);
+    outline-offset: 3px;
+}
+
+.bn-sr {
     position: absolute;
-    inset: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
 }
 
-.banner-slide {
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out;
-}
-
-.banner-slide.active {
-    opacity: 1;
-}
-
-.banner-overlay {
-    background: rgba(20, 20, 20, 0.65);
-}
-
-
-/* Layout */
-
-.banner-container {
+.bn-wrap {
     position: relative;
     z-index: 2;
     width: 100%;
     max-width: 1320px;
     margin: 0 auto;
     padding: 0 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
-.banner-content {
-    padding-top: 150px;
+
+/* ---- Background slideshow ---- */
+
+.bn-slides,
+.bn-slide,
+.bn-overlay {
+    position: absolute;
+    inset: 0;
+}
+
+.bn-slide {
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1.12);
+    transition: opacity 1.2s ease-in-out, transform 7s linear;
+}
+
+
+/* Active slide dhire dhire zoom out (Ken Burns) */
+
+.bn-slide.is-active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.bn-overlay {
+    background: linear-gradient(95deg, rgba(14, 22, 10, 0.92) 0%, rgba(20, 32, 14, 0.78) 42%, rgba(20, 32, 14, 0.35) 100%), linear-gradient(0deg, rgba(14, 22, 10, 0.75) 0%, transparent 35%);
+}
+
+
+/* ---- Main content ---- */
+
+.bn-main {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    padding-top: 130px;
+    padding-bottom: 50px;
+}
+
+.bn-content {
     max-width: 700px;
 }
 
-.banner-tag {
-    display: inline-block;
-    background: var(--b-green);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
+.bn-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    background: rgba(104, 159, 56, 0.85);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    padding: 10px 20px;
+    backdrop-filter: blur(6px);
 }
 
-.banner-title {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-weight: 400;
-    font-size: 44px;
-    line-height: 1.15;
-    margin: 22px 0;
+.bn-title {
+    margin: 22px 0 18px;
+    font-size: 54px;
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: #fff;
 }
 
-.banner-title .highlight {
-    color: var(--b-green);
-}
-
-
-/* Blinking cursor */
-
-.cursor {
+.bn-typed {
     display: inline-block;
-    width: 2px;
-    height: 0.9em;
-    margin-left: 3px;
-    background: var(--b-green);
-    vertical-align: middle;
-    animation: blink 1s steps(1) infinite;
+    min-height: 1.12em;
+    color: var(--bn-green-light);
 }
 
-@keyframes blink {
+.bn-cursor {
+    display: inline-block;
+    width: 3px;
+    height: 0.85em;
+    margin-left: 4px;
+    border-radius: 2px;
+    background: var(--bn-orange);
+    vertical-align: -0.05em;
+    animation: bn-blink 0.9s steps(1) infinite;
+}
+
+@keyframes bn-blink {
     50% {
         opacity: 0;
     }
 }
 
-.banner-text {
-    font-size: 16px;
-    line-height: 1.8;
+.bn-text {
     max-width: 580px;
-    margin-bottom: 30px;
+    font-size: 16.5px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
 }
 
-.banner-buttons {
+.bn-trust {
     display: flex;
-    gap: 14px;
     flex-wrap: wrap;
+    gap: 10px 22px;
+    margin-top: 24px;
 }
 
-.btn {
-    padding: 15px 28px;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #fff;
-    transition: all 0.25s;
-}
-
-.btn-green {
-    background: var(--b-green);
-    border: 2px solid var(--b-green);
-}
-
-.btn-green:hover {
-    background: #567f31;
-    border-color: #567f31;
-}
-
-.btn-outline {
-    border: 2px solid #fff;
-}
-
-.btn-outline:hover {
-    background: #fff;
-    color: #222;
-}
-
-
-/* Info cards */
-
-.info-cards {
-    display: flex;
-    margin-top: 60px;
-    border-radius: 6px 6px 0 0;
-    overflow: hidden;
-    box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.25);
-}
-
-.info-card {
-    flex: 1;
-    display: flex;
-    gap: 18px;
-    align-items: flex-start;
-    margin-bottom: 5px;
-    padding: 28px;
-}
-
-.info-card.green {
-    background: var(--b-green);
-}
-
-.info-card.orange {
-    background: var(--b-orange);
-}
-
-.info-card.white {
-    background: #fff;
-    color: #222;
-}
-
-.info-card h3 {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-weight: 400;
-    font-size: 21px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-}
-
-.info-card p {
-    font-size: 15px;
-    line-height: 1.7;
-}
-
-.info-icon {
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    background: #fff;
-    border-radius: 4px;
+.bn-trust li {
     display: flex;
     align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.bn-trust li>span {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--bn-orange);
+}
+
+.bn-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 34px;
+}
+
+.bn-btn {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
+    gap: 10px;
+    padding: 15px 30px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
 }
 
-.info-card.green .info-icon {
-    color: var(--b-green);
+.bn-btn:hover {
+    transform: translateY(-2px);
 }
 
-.info-card.orange .info-icon {
-    color: var(--b-orange);
+.bn-btn svg {
+    transition: transform 0.25s ease;
 }
 
-.info-icon.outline {
-    border: 1px solid #d9322d;
-    color: #d9322d;
+.bn-btn:hover svg {
+    transform: translateX(4px);
 }
 
-.info-icon svg {
-    width: 20px;
-    height: 20px;
+.bn-btn--green {
+    background: var(--bn-green);
+    box-shadow: 0 14px 30px rgba(104, 159, 56, 0.4);
+}
+
+.bn-btn--green:hover {
+    background: var(--bn-green-dark);
+}
+
+.bn-btn--glass {
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(6px);
+}
+
+.bn-btn--glass:hover {
+    background: #fff;
+    color: var(--bn-heading);
 }
 
 
-/* Responsive */
+/* ---- Right side: stats + slider controls ---- */
 
-@media (max-width: 992px) {
-    .banner-container {
+.bn-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 22px;
+    flex-shrink: 0;
+}
+
+.bn-stats {
+    display: grid;
+    gap: 10px;
+}
+
+.bn-stats li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 210px;
+    padding: 14px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+}
+
+.bn-stats strong {
+    min-width: 58px;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--bn-green-light);
+}
+
+.bn-stats li:nth-child(2) strong {
+    color: #ffc79e;
+}
+
+.bn-stats span {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.bn-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bn-arrow {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border: 1.5px solid rgba(255, 255, 255, 0.45);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.bn-arrow:hover {
+    border-color: var(--bn-orange);
+    background: var(--bn-orange);
+}
+
+.bn-dots {
+    display: flex;
+    gap: 8px;
+}
+
+
+/* Dot er bhitore progress bar (slide er shomoy onujayi bhore) */
+
+.bn-dot {
+    position: relative;
+    width: 12px;
+    height: 6px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    transition: width 0.35s ease;
+}
+
+.bn-dot.is-active {
+    width: 42px;
+}
+
+.bn-dot i {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--bn-orange);
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+.bn-dot.is-active i {
+    animation: bn-progress var(--t) linear forwards;
+}
+
+.bn-dot.is-paused i {
+    animation-play-state: paused;
+}
+
+@keyframes bn-progress {
+    to {
+        transform: scaleX(1);
+    }
+}
+
+
+/* ---- Info cards ---- */
+
+.bn-cards {
+    display: grid;
+    grid-template-columns: 1.15fr 1.15fr 0.9fr;
+    overflow: hidden;
+    border-radius: 22px 22px 0 0;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.25);
+    margin-bottom: 8px;
+}
+
+.bn-card {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 26px 26px 30px;
+    transition: filter 0.25s ease;
+}
+
+a.bn-card:hover {
+    filter: brightness(1.06);
+}
+
+.bn-card--green {
+    background: var(--bn-green);
+}
+
+.bn-card--orange {
+    background: var(--bn-orange);
+}
+
+.bn-card--white {
+    background: #fff;
+    color: var(--bn-heading);
+}
+
+.bn-card-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: #fff;
+}
+
+.bn-card--green .bn-card-icon {
+    color: var(--bn-green);
+}
+
+.bn-card--orange .bn-card-icon {
+    color: var(--bn-orange);
+}
+
+.bn-card--white .bn-card-icon {
+    background: #fdecea;
+    color: #d93a2f;
+}
+
+.bn-card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.bn-card-body small {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+.bn-card--white .bn-card-body small {
+    color: #d93a2f;
+}
+
+.bn-card-body strong,
+.bn-card-body a {
+    font-size: 15.5px;
+    font-weight: 600;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.bn-card-body .bn-email {
+    overflow-wrap: normal;
+}
+
+.bn-card--white .bn-card-body a {
+    font-size: 17px;
+    transition: color 0.2s ease;
+}
+
+.bn-card--white .bn-card-body a:hover {
+    color: var(--bn-green-dark);
+}
+
+.bn-card-go {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    align-self: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: transform 0.25s ease, background 0.25s ease;
+}
+
+a.bn-card:hover .bn-card-go {
+    transform: translateX(4px);
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.bn-live {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #e53935;
+    animation: bn-pulse 1.6s ease-out infinite;
+}
+
+@keyframes bn-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 0 8px rgba(229, 57, 53, 0);
+    }
+}
+
+
+/* ---- Load animation ---- */
+
+.bn-in {
+    opacity: 0;
+    animation: bn-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) forwards;
+}
+
+@keyframes bn-in {
+    from {
+        opacity: 0;
+        transform: translateY(26px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+/* ---- Responsive ---- */
+
+@media (max-width: 1100px) {
+    .bn-title {
+        font-size: 44px;
+    }
+    .bn-stats {
+        display: none;
+    }
+}
+
+@media (max-width: 860px) {
+    .bn {
+        min-height: 0;
+    }
+    .bn-wrap {
         padding: 0 20px;
     }
-    .banner-content {
-        padding-top: 90px;
-    }
-    .banner-title {
-        font-size: 32px;
-    }
-    .info-cards {
+    .bn-main {
         flex-direction: column;
-        margin-top: 40px;
+        align-items: flex-start;
+        gap: 28px;
+        padding-top: 80px;
+        padding-bottom: 36px;
+    }
+    .bn-side {
+        align-items: flex-start;
+    }
+    .bn-title {
+        font-size: 36px;
+    }
+    .bn-cards {
+        grid-template-columns: 1fr;
+        border-radius: 20px 20px 0 0;
+    }
+    .bn-card {
+        padding: 20px;
     }
 }
 
-.banner-title {
-    color: #fff;
-    letter-spacing: 0;
-    text-align: left;
+@media (max-width: 520px) {
+    .bn-main {
+        padding-top: 56px;
+    }
+    .bn-title {
+        font-size: 28px;
+    }
+    .bn-typed {
+        display: block;
+        min-height: 2.3em;
+        /* lomba word 2 line e gele layout lafabe na */
+    }
+    .bn-text {
+        font-size: 15px;
+    }
+    .bn-buttons {
+        flex-direction: column;
+    }
+    .bn-btn {
+        width: 100%;
+    }
+    .bn-trust {
+        gap: 8px 16px;
+    }
+    .bn-trust li {
+        font-size: 13px;
+    }
+    .bn-card-icon {
+        width: 42px;
+        height: 42px;
+    }
 }
 
-.banner-title .highlight {
-    color: var(--b-green);
-}
-
-.banner-content {
-    text-align: left;
-}
-
-.banner-text {
-    text-align: left;
+@media (prefers-reduced-motion: reduce) {
+    .bn-slide,
+    .bn-slide.is-active {
+        transform: none;
+        transition: opacity 0.4s ease;
+    }
+    .bn-in {
+        opacity: 1;
+        animation: none;
+    }
+    .bn-cursor,
+    .bn-live,
+    .bn-dot.is-active i {
+        animation: none;
+    }
 }
