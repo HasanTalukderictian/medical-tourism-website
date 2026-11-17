@@ -32,6 +32,8 @@ import BlogDetails from './assets/Frontend/BlogDetails';
 import PickDrop from './assets/Frontend/PickDrop';
 import Hotel from './assets/Frontend/Hotel';
 import LocalGuide from './assets/Frontend/LocalGuide';
+import Career from './assets/Frontend/Career';
+import PlanTreatment from './assets/Frontend/PlanTreatment';
 
 function Services() {
     return <h2>Services Page</h2>;
@@ -103,7 +105,9 @@ function App() {
                     <Route path="blog/:slug" element={<BlogDetails />} />
                     <Route path="team" element={<Team />} />
                     <Route path="events" element={<Events />} />
+                    <Route path="plan/your/treatment" element={<PlanTreatment />} />
                     <Route path="doctors" element={<Doctors />} />
+                    <Route path="career" element={<Career />} />
                     <Route path="doctors/:slug" element={<DoctorsProfile />} />
                     <Route path="gallery" element={<Gallery />} />
 

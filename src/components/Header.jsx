@@ -637,6 +637,10 @@ function Header() {
                 <NavLink to="/" end className="nv-link">Home</NavLink>
               </li>
 
+               <li className="nv-item">
+                <NavLink to="/plan/your/treatment" end className="nv-link">Treatment Plan</NavLink>
+              </li>
+
               {/* Services: bam e Medical, dane Non Medical */}
               <Dropdown id="services" label="Services" active={path.startsWith("/services")} wide {...ddProps}>
                 <div className="nv-mega">
@@ -712,6 +716,9 @@ function Header() {
               </li>
               <li className="nv-item">
                 <NavLink to="/sister-concern" end className="nv-link">Sister Concern</NavLink>
+              </li>
+              <li className="nv-item">
+                <NavLink to="/career" end className="nv-link">Career</NavLink>
               </li>
               <li className="nv-item">
                 <NavLink to="/contact" end className="nv-link">Contact</NavLink>

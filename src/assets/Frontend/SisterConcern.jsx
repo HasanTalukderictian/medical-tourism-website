@@ -2,6 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../Css/SisterConcern.css";
 
+import akashbari from '../Image/logo/logo.png'
+import Rupkatha from '../Image/logo/Rupkotha-removebg-preview-COdq_v0G.png'
+import AGS from '../Image/logo/1785228461064_ags.jpg'
+import cholojai from '../Image/logo/logo (6).jpg'
+import resort from '../Image/logo/Akashbari-resort-logo-png-01.png'
+import medical from '../Image/logo/AKBH MEDICAL-01.png'
 /* =====================================================================
    SISTER CONCERN DATA
    ---------------------------------------------------------------------
@@ -21,11 +27,25 @@ const concerns = [
     domain: "akashbariholidays.com",
     category: "Travel & Holidays",
     color: "#689f38",
-    logo: null,
+    logo: akashbari,
     img: u("photo-1507525428034-b723cf961d3e"),
     tagline: "Holiday packages, made simple",
     text: "Complete holiday solutions for families, couples and groups, with tour packages, hotel booking and travel planning at home and abroad.",
     services: ["Tour packages", "Hotel booking", "Air tickets", "Visa support"],
+  },
+  {
+    id: "resort",
+    name: "Akashbari Resort",
+    short: "AR",
+    url: "https://akashbariresort.com/",
+    domain: "akashbariresort.com",
+    category: "Hotels & Resorts",
+    color: "#c2603a",
+    logo: resort,
+    img: u("photo-1566073771259-6a8506099945"),
+    tagline: "Relax, refresh, reconnect with nature",
+    text: "A peaceful resort for weekend getaways, family holidays and corporate events, with comfortable rooms, fresh food and natural surroundings.",
+    services: ["Rooms & cottages", "Restaurant", "Events & picnics", "Day-long packages"],
   },
   {
     id: "rupkatha",
@@ -35,25 +55,26 @@ const concerns = [
     domain: "rupkathatoursbd.com",
     category: "Tours & Travel",
     color: "#f58a3c",
-    logo: null,
+    logo: Rupkatha,
     img: u("photo-1469854523086-cc02fe5d8800"),
     tagline: "Explore the beauty of Bangladesh",
     text: "Guided tours and group trips to the most beautiful places in Bangladesh and beyond, planned with care so you can just enjoy the journey.",
     services: ["Group tours", "Domestic trips", "Corporate tours", "Guided travel"],
   },
+
   {
     id: "global",
     name: "Akashbari Global Service",
     short: "AG",
     url: "https://www.akashbariglobalservice.com/",
     domain: "akashbariglobalservice.com",
-    category: "Global Services",
+    category: "Student Consultancy",
     color: "#2f7f8f",
-    logo: null,
-    img: u("photo-1436491865332-7a61a109cc05"),
-    tagline: "Your trusted partner for going abroad",
-    text: "Professional support for international travel, including visa processing, documentation and consultancy for people travelling overseas.",
-    services: ["Visa processing", "Documentation", "Consultancy", "Ticketing"],
+    logo: AGS,
+    img: u("photo-1523050854058-8df90110c9f1"),
+    tagline: "Your trusted guide to studying abroad",
+    text: "Expert guidance for students who dream of studying abroad, from choosing the right country and university to admission, scholarships and student visa.",
+    services: ["University admission", "Student visa", "Scholarship guidance", "IELTS & test prep"],
   },
   {
     id: "cholojai",
@@ -63,26 +84,13 @@ const concerns = [
     domain: "cholojai.co",
     category: "Online Travel",
     color: "#7a5cc7",
-    logo: null,
+    logo: cholojai,
     img: u("photo-1488646953014-85cb44e25828"),
     tagline: "Let's go, anywhere, anytime",
     text: "An easy online platform to plan and book your next trip. Search, compare and book travel in just a few clicks.",
     services: ["Online booking", "Flights", "Hotels", "Travel deals"],
   },
-  {
-    id: "resort",
-    name: "Akashbari Resort",
-    short: "AR",
-    url: "https://akashbariresort.com/",
-    domain: "akashbariresort.com",
-    category: "Resort & Hospitality",
-    color: "#c2603a",
-    logo: null,
-    img: u("photo-1566073771259-6a8506099945"),
-    tagline: "Relax, refresh, reconnect with nature",
-    text: "A peaceful resort for weekend getaways, family holidays and corporate events, with comfortable rooms, fresh food and natural surroundings.",
-    services: ["Rooms & cottages", "Restaurant", "Events & picnics", "Day-long packages"],
-  },
+
 ];
 
 const stats = [
@@ -260,9 +268,7 @@ const SisterConcern = () => {
             <div className="sc-orbit-ring sc-orbit-ring--2" aria-hidden="true" />
             <div className="sc-orbit-center">
               <span className="sc-orbit-pulse" aria-hidden="true" />
-              <Icon name="heart" size={28} />
-              <strong>Akashbari</strong>
-              <small>Medical</small>
+              <img src={medical} alt="Akashbari Medical" className="sc-orbit-logo" />
             </div>
             <ul className="sc-orbit-track">
               {concerns.map((c, i) => (
@@ -420,7 +426,7 @@ const SisterConcern = () => {
         </div>
       </section>
 
-     
+
     </main>
   );
 };
