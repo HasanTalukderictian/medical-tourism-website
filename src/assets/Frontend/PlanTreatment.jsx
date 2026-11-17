@@ -101,11 +101,18 @@ const initials = (name) =>
     .slice(0, 2)
     .join("");
 
+/* Ekadhik department er khoroch jog kore (Others er dam nai, tai bad) */
+const estimateAll = (depts, rest) => {
+  const ranges = depts.map((d) => estimate({ dept: d, ...rest })).filter(Boolean);
+  if (!ranges.length) return null;
+  return ranges.reduce((sum, r) => [sum[0] + r[0], sum[1] + r[1]], [0, 0]);
+};
+
 /* Ekta select kora jay emon card (radio er moto) */
-const Choice = ({ selected, onClick, className = "", children, label }) => (
+const Choice = ({ selected, onClick, className = "", children, label, role = "radio" }) => (
   <button
     type="button"
-    role="radio"
+    role={role}
     aria-checked={selected}
     aria-label={label}
     className={`tp-choice ${selected ? "is-selected" : ""} ${className}`}
@@ -131,7 +138,7 @@ const emptyForm = { name: "", phone: "", email: "", age: "", travel: "", contact
 
 const PlanTreatment = () => {
   const [step, setStep] = useState(0);
-  const [deptId, setDeptId] = useState("");
+  const [deptIds, setDeptIds] = useState([]); // ekta ba ekadhik department
   const [otherText, setOtherText] = useState("");
   const [countryId, setCountryId] = useState("");
   const [hospitalId, setHospitalId] = useState("");
@@ -146,21 +153,35 @@ const PlanTreatment = () => {
   const wizardRef = useRef(null);
   const firstRender = useRef(true);
 
-  const dept = departments.find((d) => d.id === deptId);
+  // Bachai kora department gula (Others chhara)
+  const selectedDepts = departments.filter((d) => deptIds.includes(d.id) && d.id !== "others");
+  const realIds = selectedDepts.map((d) => d.id);
+  const isOther = deptIds.includes("others");
+  const onlyOther = isOther && selectedDepts.length === 0;
+  const deptNames = [...selectedDepts.map((d) => d.name), ...(isOther ? [otherText.trim() || "Others"] : [])].join(", ");
+
   const country = countries.find((c) => c.id === countryId);
   const hospital = hospitals.find((h) => h.id === hospitalId);
-  const isOther = deptId === "others";
+
+  // Hospital e bachai kora SHOB department thakte hobe
+  const supportsAll = (h, ids) => ids.every((id) => h.depts.includes(id));
 
   const hospitalList = useMemo(
-    () => hospitals.filter((h) => h.country === countryId && (isOther || h.depts.includes(deptId))),
-    [countryId, deptId, isOther]
+    () => hospitals.filter((h) => h.country === countryId && supportsAll(h, realIds)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [countryId, realIds.join(",")]
   );
 
-  const doctors = useMemo(() => (isOther ? [] : getDoctors(hospital, dept)), [hospital, dept, isOther]);
+  // Prottek department er doctor ekshathe
+  const doctors = useMemo(
+    () => selectedDepts.flatMap((d) => getDoctors(hospital, d)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [hospital, realIds.join(",")]
+  );
   const doctor = doctors.find((d) => d.id === doctorId);
   const pkg = packages.find((p) => p.id === pkgId);
 
-  const cost = estimate({ dept, country, hospital, pkg: planType === "package" ? pkg : null });
+  const cost = estimateAll(selectedDepts, { country, hospital, pkg: planType === "package" ? pkg : null });
 
   // Step bodlale wizard er upore scroll
   useEffect(() => {
@@ -172,12 +193,16 @@ const PlanTreatment = () => {
   }, [step]);
 
   /* ---------- Select korle porer gula reset ---------- */
+  // Click korle add / remove (ekta ba ekadhik)
   const chooseDept = (id) => {
-    setDeptId(id);
+    const nextIds = deptIds.includes(id) ? deptIds.filter((x) => x !== id) : [...deptIds, id];
+    setDeptIds(nextIds);
+    const nextReal = nextIds.filter((x) => x !== "others");
     const h = hospitals.find((x) => x.id === hospitalId);
-    if (h && id !== "others" && !h.depts.includes(id)) setHospitalId("");
+    if (h && !supportsAll(h, nextReal)) setHospitalId("");
     setDoctorId("");
-    if (id === "others") {
+    // Shudhu "Others" thakle package hoy na, custom plan
+    if (nextIds.length > 0 && nextReal.length === 0) {
       setPlanType("custom");
       setPkgId("");
     }
@@ -197,7 +222,7 @@ const PlanTreatment = () => {
   };
 
   const canNext = [
-    !!deptId && (!isOther || otherText.trim().length > 2),
+    deptIds.length > 0 && (!isOther || otherText.trim().length > 2),
     !!countryId,
     !!hospitalId,
     !!doctorId,
@@ -241,7 +266,7 @@ const PlanTreatment = () => {
 
     /* EKHANE tomar API call boshao. Pathano data:
        {
-         need: isOther ? otherText : dept.name,
+         needs: deptNames,  // ekta ba ekadhik department
          country: country.name, hospital: hospital.name,
          doctor: doctor.name, plan: planType === "package" ? pkg.name : "Custom plan",
          estimate: cost, ...form, reports: files
@@ -253,7 +278,7 @@ const PlanTreatment = () => {
   const restart = () => {
     setStep(0);
     setMaxReached(0);
-    setDeptId("");
+    setDeptIds([]);
     setOtherText("");
     setCountryId("");
     setHospitalId("");
@@ -268,7 +293,7 @@ const PlanTreatment = () => {
 
   /* ---------- Summary (sidebar) ---------- */
   const summary = [
-    { step: 0, icon: "sparkle", label: "Treatment", value: isOther ? otherText || "Others" : dept?.name },
+    { step: 0, icon: "sparkle", label: "Treatment", value: deptNames },
     { step: 1, icon: "globe", label: "Country", value: country ? `${country.flag} ${country.name}` : "" },
     { step: 2, icon: "hospital", label: "Hospital", value: hospital ? `${hospital.name}, ${hospital.city}` : "" },
     { step: 3, icon: "doctor", label: "Doctor", value: doctorId === "any" ? "Best available doctor" : doctor?.name },
@@ -362,10 +387,21 @@ const PlanTreatment = () => {
                   {/* ===== STEP 1: NEEDS ===== */}
                   {step === 0 && (
                     <>
-                      <StepHead no={1} title="Select your needs" text="Which treatment or department are you looking for?" />
-                      <div className="tp-grid tp-grid--depts" role="radiogroup" aria-label="Treatment">
+                      <StepHead
+                        no={1}
+                        title="Select your needs"
+                        text="Which treatment or department are you looking for? You can select one or more."
+                      />
+                      <div className="tp-grid tp-grid--depts" role="group" aria-label="Treatment">
                         {departments.map((d) => (
-                          <Choice key={d.id} selected={deptId === d.id} onClick={() => chooseDept(d.id)} className="tp-dept" label={d.name}>
+                          <Choice
+                            key={d.id}
+                            role="checkbox"
+                            selected={deptIds.includes(d.id)}
+                            onClick={() => chooseDept(d.id)}
+                            className="tp-dept"
+                            label={d.name}
+                          >
                             <span className="tp-dept-icon">
                               <Icon name={d.icon} size={26} />
                             </span>
@@ -375,12 +411,21 @@ const PlanTreatment = () => {
                         ))}
                       </div>
 
-                      {dept && !isOther && (
+                      {selectedDepts.length > 0 && (
                         <div className="tp-hint">
                           <Icon name="sparkle" size={18} />
                           <span>
-                            Common treatments: <b>{dept.examples.join(", ")}</b>. Starting from about{" "}
-                            <b>{money(dept.cost[0])}</b> in India.
+                            {selectedDepts.length === 1 ? (
+                              <>
+                                Common treatments: <b>{selectedDepts[0].examples.join(", ")}</b>. Starting from about{" "}
+                                <b>{money(selectedDepts[0].cost[0])}</b> in India.
+                              </>
+                            ) : (
+                              <>
+                                <b>{selectedDepts.length} treatments selected:</b> {selectedDepts.map((d) => d.name).join(", ")}.
+                                Combined cost starts from about <b>{money(estimateAll(selectedDepts, {})[0])}</b> in India.
+                              </>
+                            )}
                           </span>
                         </div>
                       )}
@@ -406,8 +451,8 @@ const PlanTreatment = () => {
                       <StepHead no={2} title="Choose a country" text="Where would you like to get treated?" />
                       <div className="tp-grid tp-grid--2" role="radiogroup" aria-label="Country">
                         {countries.map((c) => {
-                          const count = hospitals.filter((h) => h.country === c.id && (isOther || h.depts.includes(deptId))).length;
-                          const range = estimate({ dept, country: c });
+                          const count = hospitals.filter((h) => h.country === c.id && supportsAll(h, realIds)).length;
+                          const range = estimateAll(selectedDepts, { country: c });
                           return (
                             <Choice key={c.id} selected={countryId === c.id} onClick={() => chooseCountry(c.id)} className="tp-country" label={c.name}>
                               <span className="tp-flag" aria-hidden="true">
@@ -446,12 +491,12 @@ const PlanTreatment = () => {
                       <StepHead
                         no={3}
                         title="Choose a hospital"
-                        text={`Hospitals in ${country?.name} for ${isOther ? "your treatment" : dept?.name}.`}
+                        text={`Hospitals in ${country?.name} for ${onlyOther ? "your treatment" : deptNames}.`}
                       />
                       {hospitalList.length > 0 ? (
                         <div className="tp-grid tp-grid--2" role="radiogroup" aria-label="Hospital">
                           {hospitalList.map((h) => {
-                            const range = estimate({ dept, country, hospital: h });
+                            const range = estimateAll(selectedDepts, { country, hospital: h });
                             return (
                               <Choice key={h.id} selected={hospitalId === h.id} onClick={() => chooseHospital(h.id)} className="tp-hospital" label={h.name}>
                                 <HospitalPic src={h.image} alt={h.name} />
@@ -482,7 +527,7 @@ const PlanTreatment = () => {
                         <div className="tp-empty">
                           <Icon name="hospital" size={34} />
                           <p>
-                            No partner hospital for {dept?.name} in {country?.name} yet.
+                            No partner hospital for {deptNames} in {country?.name} yet.
                           </p>
                           <button type="button" className="tp-btn tp-btn--ghost" onClick={() => setStep(1)}>
                             <Icon name="left" size={16} /> Choose another country
@@ -498,7 +543,7 @@ const PlanTreatment = () => {
                       <StepHead
                         no={4}
                         title="Doctor & department"
-                        text={`${isOther ? "Your treatment" : dept?.name} at ${hospital?.name}. Pick a doctor or let us choose the best one for you.`}
+                        text={`${onlyOther ? "Your treatment" : deptNames} at ${hospital?.name}. Pick a doctor or let us choose the best one for you.`}
                       />
                       <div className="tp-grid tp-grid--2" role="radiogroup" aria-label="Doctor">
                         {doctors.map((d) => (
@@ -541,8 +586,8 @@ const PlanTreatment = () => {
                       <div className="tp-options" role="radiogroup" aria-label="Plan type">
                         <Choice
                           selected={planType === "package"}
-                          onClick={() => !isOther && setPlanType("package")}
-                          className={`tp-option ${isOther ? "is-disabled" : ""}`}
+                          onClick={() => !onlyOther && setPlanType("package")}
+                          className={`tp-option ${onlyOther ? "is-disabled" : ""}`}
                           label="Select your package"
                         >
                           <span className="tp-option-no">1</span>
@@ -550,7 +595,7 @@ const PlanTreatment = () => {
                             <Icon name="box" size={26} />
                           </span>
                           <strong>Select your package</strong>
-                          <small>{isOther ? "Not available for custom treatments" : "Fixed price packages with travel and stay"}</small>
+                          <small>{onlyOther ? "Not available for custom treatments" : "Fixed price packages with travel and stay"}</small>
                         </Choice>
                         <Choice
                           selected={planType === "custom"}
@@ -573,7 +618,7 @@ const PlanTreatment = () => {
                       {planType === "package" && (
                         <div className="tp-packages" role="radiogroup" aria-label="Package">
                           {packages.map((p) => {
-                            const range = estimate({ dept, country, hospital, pkg: p });
+                            const range = estimateAll(selectedDepts, { country, hospital, pkg: p });
                             return (
                               <Choice
                                 key={p.id}
@@ -786,7 +831,7 @@ const PlanTreatment = () => {
                       <span>{planType === "package" && pkg ? `${pkg.name} package` : "Treatment only"} · USD</span>
                     </>
                   ) : (
-                    <strong className="tp-estimate-na">{isOther ? "We will send a custom quote" : "Select a treatment"}</strong>
+                    <strong className="tp-estimate-na">{onlyOther ? "We will send a custom quote" : "Select a treatment"}</strong>
                   )}
                 </div>
                 <p className="tp-summary-note">Estimates are for guidance only. The hospital confirms the final cost after reviewing reports.</p>

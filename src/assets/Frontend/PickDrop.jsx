@@ -1,4 +1,4 @@
-import  { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../Css/PickDrop.css";
 
@@ -59,6 +59,7 @@ const vehicles = [
   { name: "Sedan", seats: "Up to 3 passengers", bags: "2 large bags", price: 25, icon: "car", best: "Patient + 1 companion" },
   { name: "SUV / Family Car", seats: "Up to 6 passengers", bags: "4 large bags", price: 40, icon: "suv", best: "Family travelling together", popular: true },
   { name: "Wheelchair Van", seats: "Patient + 2 companions", bags: "3 large bags", price: 60, icon: "wheelchair", best: "Limited mobility patients" },
+  { name: "Micro-Bus", seats: "Patient + 2 companions", bags: "3 large bags", price: 60, icon: "wheelchair", best: "Limited mobility patients" },
 ];
 
 const features = [

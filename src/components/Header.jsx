@@ -25,8 +25,9 @@ const medicalServices = [
   { to: "/services/medical-consultation", label: "Medical Consultation", icon: "stetho" },
   { to: "/services/doctor-appointment", label: "Doctor Appointment", icon: "calendar" },
   { to: "/services/tele-consultation", label: "Tele Consultation", icon: "video" },
-  { to: "/services/medical-accommodation", label: "Medical Accommodation", icon: "home" },
+  { to: "/services/medical-accommodation", label: "Hospitalizations (IPD)", icon: "home" },
   { to: "/services/air-ambulance-service", label: "Air Ambulance Service", icon: "cross" },
+     { to: "/services/medicine", label: "Overseas Pharmacy Support", icon: "pill" },
 ];
 
 const nonMedicalServices = [
@@ -93,6 +94,7 @@ const paths = {
   home: <><path d="M3 11l9-7 9 7" /><path d="M5 10v10h14V10M10 20v-5h4v5" /></>,
   heart: <path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.3 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z" />,
   cross: <path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z" />,
+    pill: <><rect x="3" y="8.5" width="18" height="7" rx="3.5" transform="rotate(-45 12 12)" /><path d="M9.5 9.5l5 5" /></>,
   car: <><path d="M5 16V11l2-5h10l2 5v5" /><path d="M3 16h18v3h-3M6 19H3v-3" /><circle cx="7.5" cy="16" r="1.5" /><circle cx="16.5" cy="16" r="1.5" /></>,
   bed: <><path d="M3 18V6M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5" /><circle cx="7" cy="11" r="2" /></>,
   pin: <><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" /><circle cx="12" cy="10" r="2.3" /></>,

@@ -36,6 +36,7 @@ import Career from './assets/Frontend/Career';
 import PlanTreatment from './assets/Frontend/PlanTreatment';
 import Interpreter from './assets/Frontend/Interpreter';
 import Login from './components/Login';
+import Medicine from './assets/Frontend/Medicine';
 
 function Services() {
     return <h2>Services Page</h2>;
@@ -76,6 +77,7 @@ function App() {
                     <Route path="services/patient-support-service" element={<PatientSupport />} />
                     <Route path="services/air-ambulance-service" element={<AirAmbulance />} />
                     <Route path="services/transport" element={<Transport />} />
+                    <Route path="services/medicine" element={<Medicine />} />
                     <Route path="services/training-development" element={<Training />} />
 
                     {/* Hospitals */}
@@ -110,15 +112,16 @@ function App() {
                     <Route path="plan/treatment" element={<PlanTreatment />} />
                     <Route path="services/interpreter" element={<Interpreter />} />
                     <Route path="doctors" element={<Doctors />} />
-                   
+
                     <Route path="career" element={<Career />} />
                     <Route path="doctors/:slug" element={<DoctorsProfile />} />
                     <Route path="gallery" element={<Gallery />} />
+                  
 
-                          
-                          {/* Login route  */}
 
-                       <Route path="/login" element={<Login />} />
+                    {/* Login route  */}
+
+                    <Route path="/login" element={<Login />} />
 
                 </Route>
             </Routes>

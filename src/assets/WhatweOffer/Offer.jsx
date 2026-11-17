@@ -46,7 +46,7 @@ const offers = [
   },
   {
     id: "accommodation",
-    title: "Medical Accommodation",
+    title: "Hospitalizations (IPD)",
     icon: "home",
     image: imgAccommodation,
     link: "/services/medical-accommodation",
