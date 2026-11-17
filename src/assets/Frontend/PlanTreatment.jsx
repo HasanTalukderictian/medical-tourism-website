@@ -280,11 +280,7 @@ const PlanTreatment = () => {
       {/* ================= HERO ================= */}
       <section className="tp-hero">
         <div className="tp-container">
-          <nav className="tp-crumbs" aria-label="Breadcrumb">
-            <Link to="/">Home</Link>
-            <span aria-hidden="true">/</span>
-            <span aria-current="page">Plan Your Treatment</span>
-          </nav>
+         
           <span className="tp-badge">
             <Icon name="sparkle" size={16} /> Free treatment planning
           </span>

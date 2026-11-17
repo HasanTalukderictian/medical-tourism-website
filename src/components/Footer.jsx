@@ -213,7 +213,7 @@ function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Developed by Hasan Talukder
+              Created By Hasan Talukder
             </a>
           </p>
         </div>

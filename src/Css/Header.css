@@ -22,7 +22,7 @@
     --nv-heading: #1f2937;
     --nv-text: #4b5563;
     --nv-border: #e7ebe3;
-    --nv-bar-h: 78px;
+    --nv-bar-h: 72px;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -52,11 +52,14 @@
     border-radius: 8px;
 }
 
+
+/* Page er container er shathe mil rekhe (1200px content) */
+
 .nv-wrap {
     width: 100%;
-    max-width: 1320px;
+    max-width: 1240px;
     margin: 0 auto;
-    padding: 0 28px;
+    padding: 0 20px;
 }
 
 
@@ -138,13 +141,13 @@
 .nv-bar-in {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 18px;
     height: var(--nv-bar-h);
     transition: height 0.3s ease;
 }
 
 .nv.is-scrolled .nv-bar-in {
-    height: 66px;
+    height: 62px;
 }
 
 .nv-logo {
@@ -155,13 +158,13 @@
 
 .nv-logo img {
     display: block;
-    height: 50px;
+    height: 42px;
     width: auto;
     transition: height 0.3s ease;
 }
 
 .nv.is-scrolled .nv-logo img {
-    height: 42px;
+    height: 38px;
 }
 
 
@@ -172,14 +175,14 @@
     flex: 1;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: 16px;
     height: 100%;
 }
 
 .nv-menu-bar {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
     height: 100%;
     margin: 0 auto !important;
 }
@@ -196,34 +199,17 @@
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    padding: 9px 12px;
+    padding: 8px 11px;
     border: 0;
     border-radius: 10px;
     background: none;
     color: var(--nv-heading);
     font-family: inherit;
-    font-size: 14.5px;
+    font-size: 14px;
     font-weight: 500;
     white-space: nowrap;
     cursor: pointer;
     transition: color 0.2s ease, background 0.2s ease;
-}
-
-
-/* Niche sabuj underline */
-
-.nv-link::after {
-    content: "";
-    position: absolute;
-    left: 12px;
-    right: 12px;
-    bottom: 2px;
-    height: 2.5px;
-    border-radius: 3px;
-    background: var(--nv-primary);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
 }
 
 .nv-link:hover {
@@ -231,14 +217,13 @@
     background: var(--nv-primary-soft);
 }
 
+
+/* Selected page: shudhu shobuj lekha (underline nai) */
+
 .nv-link.active,
 .nv-dd.is-active>.nv-link {
     color: var(--nv-primary-dark);
-}
-
-.nv-link.active::after,
-.nv-dd.is-active>.nv-link::after {
-    transform: scaleX(1);
+    font-weight: 600;
 }
 
 .nv-caret {
@@ -619,11 +604,11 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 22px;
+    padding: 11px 18px;
     border-radius: 999px;
     background: var(--nv-accent);
     color: #fff;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 600;
     white-space: nowrap;
     box-shadow: 0 10px 22px rgba(245, 138, 60, 0.32);
@@ -676,29 +661,22 @@
 }
 
 
-/* Laptop: phone number lekha lukay, shudhu icon */
+/* Choto laptop: menu ektu ghono */
 
-@media (max-width: 1440px) and (min-width: 1151px) {
+@media (max-width: 1260px) and (min-width: 1151px) {
     .nv-call-text {
         display: none;
     }
     .nv-link {
-        padding: 9px 9px;
-        font-size: 14px;
-    }
-    .nv-bar-in {
-        gap: 16px;
-    }
-    .nv-cta {
-        padding: 11px 18px;
+        padding: 8px 8px;
         font-size: 13.5px;
     }
-    .nv-link::after {
-        left: 9px;
-        right: 9px;
+    .nv-bar-in {
+        gap: 14px;
     }
-    .nv-wrap {
-        padding: 0 20px;
+    .nv-cta {
+        padding: 10px 16px;
+        font-size: 13px;
     }
 }
 
@@ -722,7 +700,7 @@
     }
     .nv-logo img,
     .nv.is-scrolled .nv-logo img {
-        height: 42px;
+        height: 40px;
     }
     /* Hamburger */
     .nv-burger {
@@ -819,9 +797,6 @@
     }
     .nv-link:hover {
         background: none;
-    }
-    .nv-link::after {
-        display: none;
     }
     .nv-link.active,
     .nv-dd.is-active>.nv-link {
@@ -1024,6 +999,6 @@
         display: none;
     }
     .nv-logo img {
-        height: 44px;
+        height: 40px;
     }
 }

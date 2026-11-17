@@ -226,7 +226,7 @@ const Offer = () => {
             <p>Choose your treatment, country, hospital and doctor, see the estimated cost, and get a free personalised plan.</p>
           </div>
           <div className="ofr-help-actions">
-            <Link to="/plan/your/treatment" className="ofr-btn">
+            <Link to="/plan/treatment" className="ofr-btn">
               Plan Your Treatment <Icon name="arrow" size={16} />
             </Link>
             <Link to="/contact" className="ofr-btn ofr-btn--line">
