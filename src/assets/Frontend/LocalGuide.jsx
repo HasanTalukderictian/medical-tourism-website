@@ -212,13 +212,7 @@ const LocalGuide = () => {
       <section className="lg-hero">
         <div className="lg-container lg-hero-grid">
           <div className="lg-hero-text">
-            <nav className="lg-crumbs" aria-label="Breadcrumb">
-              <Link to="/">Home</Link>
-              <span aria-hidden="true">/</span>
-              <span>Patient Support</span>
-              <span aria-hidden="true">/</span>
-              <span aria-current="page">Local Guide</span>
-            </nav>
+          
             <span className="lg-badge">
               <Icon name="compass" size={16} /> Local Guide Service
             </span>

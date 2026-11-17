@@ -11,6 +11,10 @@ import imgSupport from "../Image/Offer/image5.jpeg";
 import imgInterpreter from "../Image/Offer/image6.jpeg";
 import imgTele from "../Image/Offer/image7.jpeg";
 import imgTransport from "../Image/Offer/image8.jpeg";
+import pickdrop from "../Image/Offer/car.jfif";
+import hotel from "../Image/Offer/Hotel.jfif";
+import Appointment from "../Image/Offer/Appoint.jfif";
+import guide from "../Image/Offer/guide.png";
 
 /* ---------------------------- DATA ----------------------------
    link: card er "Learn More" kon page e jabe
@@ -61,7 +65,7 @@ const offers = [
     title: "Interpreter Service",
     icon: "language",
     image: imgInterpreter,
-    link: "/services/patient-support-service",
+    link: "/services/interpreter",
     text: "We provide language interpretation services for patients in any country, as well as tour guide services. This helps patients communicate clearly with doctors and hospital staff.",
   },
   {
@@ -78,6 +82,39 @@ const offers = [
     icon: "car",
     image: imgTransport,
     link: "/services/transport",
+    text: "We provide safe, reliable, and comfortable transportation services to ensure patients reach their medical appointments and hospitals on time.",
+  },
+
+  {
+    id: "localguide",
+    title: "Local Guide",
+    icon: "car",
+    image: guide,
+    link: "/services/local-guide",
+    text: "We provide safe, reliable, and comfortable transportation services to ensure patients reach their medical appointments and hospitals on time.",
+  },
+   {
+    id: "pick&drop",
+    title: "Pick & Drop",
+    icon: "car",
+    image: pickdrop,
+    link: "/services/pick-and-drop",
+    text: "We provide safe, reliable, and comfortable transportation services to ensure patients reach their medical appointments and hospitals on time.",
+  },
+    {
+    id: "hotel",
+    title: "Hotel",
+    icon: "car",
+    image: hotel,
+    link: "/services/hotel",
+    text: "We provide safe, reliable, and comfortable transportation services to ensure patients reach their medical appointments and hospitals on time.",
+  },
+     {
+    id: "appointment",
+    title: "Doctor Appointment",
+    icon: "car",
+    image: Appointment,
+    link: "/services/doctor-appointment",
     text: "We provide safe, reliable, and comfortable transportation services to ensure patients reach their medical appointments and hospitals on time.",
   },
 ];

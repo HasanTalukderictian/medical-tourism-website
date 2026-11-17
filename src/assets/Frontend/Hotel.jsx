@@ -264,13 +264,7 @@ const Hotel = () => {
       <section className="htl-hero">
         <div className="htl-container htl-hero-grid">
           <div className="htl-hero-text">
-            <nav className="htl-crumbs" aria-label="Breadcrumb">
-              <Link to="/">Home</Link>
-              <span aria-hidden="true">/</span>
-              <span>Services</span>
-              <span aria-hidden="true">/</span>
-              <span aria-current="page">Hotel</span>
-            </nav>
+          
             <span className="htl-badge">
               <Icon name="bed" size={16} /> Patient &amp; Family Stay
             </span>

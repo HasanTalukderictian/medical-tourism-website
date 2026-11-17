@@ -240,13 +240,7 @@ const Interpreter = () => {
       <section className="ip-hero">
         <div className="ip-container ip-hero-grid">
           <div className="ip-hero-text">
-            <nav className="ip-crumbs" aria-label="Breadcrumb">
-              <Link to="/">Home</Link>
-              <span aria-hidden="true">/</span>
-              <span>Patient Support</span>
-              <span aria-hidden="true">/</span>
-              <span aria-current="page">Interpreter</span>
-            </nav>
+            
             <span className="ip-badge">
               <Icon name="lang" size={16} /> Medical Interpreter Service
             </span>
