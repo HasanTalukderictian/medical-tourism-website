@@ -35,6 +35,7 @@ import LocalGuide from './assets/Frontend/LocalGuide';
 import Career from './assets/Frontend/Career';
 import PlanTreatment from './assets/Frontend/PlanTreatment';
 import Interpreter from './assets/Frontend/Interpreter';
+import Login from './components/Login';
 
 function Services() {
     return <h2>Services Page</h2>;
@@ -109,9 +110,15 @@ function App() {
                     <Route path="plan/treatment" element={<PlanTreatment />} />
                     <Route path="services/interpreter" element={<Interpreter />} />
                     <Route path="doctors" element={<Doctors />} />
+                   
                     <Route path="career" element={<Career />} />
                     <Route path="doctors/:slug" element={<DoctorsProfile />} />
                     <Route path="gallery" element={<Gallery />} />
+
+                          
+                          {/* Login route  */}
+
+                       <Route path="/login" element={<Login />} />
 
                 </Route>
             </Routes>
