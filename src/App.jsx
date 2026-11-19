@@ -10,7 +10,6 @@ import Blog from './assets/Frontend/Blog';
 import Gallery from './assets/Frontend/Gallery';
 import ScrollToTop from './components/ScrollToTop';
 import Events from './assets/Frontend/Events';
-import MedicalConsultation from './assets/Frontend/MedicalConsultation';
 import DoctorAppointment from './assets/Frontend/DoctorAppointment';
 import MedicalVisaAssistance from './assets/Frontend/MedicalVisaAssistance';
 import AirTicket from './assets/Frontend/AirTicket';
@@ -39,6 +38,8 @@ import Login from './components/Login';
 import Medicine from './assets/Frontend/Medicine';
 import AdminLayout from './assets/Backend/AdminLayout';
 import Dashboard from './assets/Backend/Dashboard';
+import MedicalConsultations from './assets/Frontend/MedicalConsulation';
+import MedicalConsultation from './assets/Frontend/MedicalConsulation';
 
 function Services() {
     return <h2>Services Page</h2>;

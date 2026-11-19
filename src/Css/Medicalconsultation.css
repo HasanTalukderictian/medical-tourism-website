@@ -5,7 +5,7 @@
     --mc-primary-dark: #4f7d29;
     --mc-primary-soft: #eef5e6;
     --mc-accent: #ee3123;
-    --mc-accent-soft: #df1122;
+    --mc-accent-soft: #a09d9d;
     --mc-heading: #1f2937;
     --mc-text: #5b6470;
     --mc-muted: #8a93a0;
@@ -331,7 +331,6 @@
 .mc-hero-title em {
     font-style: normal;
     color: var(--mc-primary);
-    background: linear-gradient(transparent 68%, var(--mc-accent-soft) 68%);
 }
 
 .mc-hero-desc {

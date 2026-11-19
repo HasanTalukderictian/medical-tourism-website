@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import "../../Css/MedicalConsultation.css";
+import  '../../Css/Medicalconsultation.css'
 
 /* ---------------------------- IMAGES ----------------------------
    Ekhon DEMO image (Unsplash online link) use kora hocche.
