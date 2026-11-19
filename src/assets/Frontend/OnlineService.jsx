@@ -35,7 +35,7 @@ const OnlineService = () => {
             second opinion from world class Chinese specialists.
           </p>
 
-          <a href="/online-consultation" className="os-btn">
+          <a href="/services/tele-consultation" className="os-btn">
             <span>Book Online Consultation</span>
             <ArrowIcon />
           </a>

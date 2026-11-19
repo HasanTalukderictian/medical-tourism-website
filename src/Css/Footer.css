@@ -8,7 +8,7 @@
     --ft-bg-2: #24391a;
     --ft-primary: #689f38;
     --ft-primary-light: #a8d37f;
-    --ft-accent: #f58a3c;
+    --ft-accent: #ee3123;
     --ft-accent-light: #ffc79e;
     --ft-text: rgba(255, 255, 255, 0.72);
     --ft-line: rgba(255, 255, 255, 0.1);
@@ -433,7 +433,7 @@
 
 .ft-top:hover {
     transform: translateY(-3px);
-    background: #e0742a;
+    background: #ee3123;
 }
 
 

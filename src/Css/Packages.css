@@ -7,7 +7,7 @@
     --hpk-green: #689f38;
     --hpk-green-dark: #4f7d29;
     --hpk-green-soft: #eef5e6;
-    --hpk-orange: #f58a3c;
+    --hpk-orange: #ee3123;
     --hpk-orange-soft: #fff1e6;
     --hpk-heading: #1f2937;
     --hpk-text: #5b6470;
@@ -389,7 +389,7 @@
 }
 
 .hpk-btn--lg:hover {
-    background: #e0742a;
+    background: #ee3123;
     box-shadow: 0 16px 32px rgba(245, 138, 60, 0.4);
 }
 

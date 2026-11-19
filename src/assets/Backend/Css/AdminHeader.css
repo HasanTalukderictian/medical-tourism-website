@@ -1,0 +1,442 @@
+/* =====================================================
+   ADMIN HEADER ("adh-")
+   Rong: Akashbari Medical logo theke (shobuj + lal)
+   ===================================================== */
+
+.adh {
+    --adh-green: #00924c;
+    --adh-green-dark: #016837;
+    --adh-green-soft: #e6f5ec;
+    --adh-red: #ee3123;
+    --adh-red-soft: #fdecea;
+    --adh-heading: #1f2937;
+    --adh-text: #5b6470;
+    --adh-muted: #8a93a0;
+    --adh-border: #e4ebe7;
+    --adh-hover: #f3f7f5;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: 72px;
+    padding: 0 28px;
+    border-bottom: 1px solid var(--adh-border);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--adh-text);
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.adh *,
+.adh *::before,
+.adh *::after {
+    box-sizing: border-box;
+}
+
+.adh a {
+    text-decoration: none;
+}
+
+.adh button {
+    font-family: inherit;
+}
+
+.adh a:focus-visible,
+.adh button:focus-visible {
+    outline: 3px solid rgba(0, 146, 76, 0.35);
+    outline-offset: 2px;
+}
+
+
+/* ---------- Bam ---------- */
+
+.adh-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.adh-heading {
+    min-width: 0;
+}
+
+.adh-title {
+    margin: 0;
+    overflow: hidden;
+    color: var(--adh-heading);
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.adh-crumbs {
+    margin: 2px 0 0;
+    overflow: hidden;
+    color: var(--adh-muted);
+    font-size: 12px;
+    white-space: pre;
+    text-overflow: ellipsis;
+}
+
+
+/* ---------- Icon button ---------- */
+
+.adh-icon-btn {
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid var(--adh-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--adh-heading);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.adh-icon-btn:hover,
+.adh-icon-btn[aria-expanded="true"] {
+    border-color: transparent;
+    background: var(--adh-green-soft);
+    color: var(--adh-green-dark);
+}
+
+.adh-dot {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    display: grid;
+    place-items: center;
+    min-width: 19px;
+    height: 19px;
+    padding: 0 5px;
+    border: 2px solid #fff;
+    border-radius: 999px;
+    background: var(--adh-red);
+    color: #fff;
+    font-size: 10.5px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+
+/* ---------- Dan ---------- */
+
+.adh-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: none;
+}
+
+.adh-sep {
+    width: 1px;
+    height: 30px;
+    margin: 0 4px;
+    background: var(--adh-border);
+}
+
+.adh-dd {
+    position: relative;
+}
+
+.adh-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 46px;
+    padding: 4px 10px 4px 4px;
+    border: 0;
+    border-radius: 14px;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.adh-user:hover,
+.adh-user[aria-expanded="true"] {
+    background: var(--adh-hover);
+}
+
+.adh-avatar {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 38px;
+    height: 38px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--adh-green), var(--adh-green-dark));
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.adh-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.adh-user-text strong {
+    display: block;
+    color: var(--adh-heading);
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.25;
+    white-space: nowrap;
+}
+
+.adh-user-text small {
+    display: block;
+    color: var(--adh-muted);
+    font-size: 11.5px;
+    white-space: nowrap;
+}
+
+.adh-user-caret {
+    display: grid;
+    color: var(--adh-muted);
+    transition: transform 0.2s ease;
+}
+
+.adh-user[aria-expanded="true"] .adh-user-caret {
+    transform: rotate(180deg);
+}
+
+
+/* ---------- Dropdown ---------- */
+
+.adh-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 10;
+    border: 1px solid var(--adh-border);
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 18px 40px rgba(15, 40, 28, 0.14);
+    animation: adh-in 0.18s ease;
+}
+
+@keyframes adh-in {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.adh-menu--user {
+    width: 220px;
+    padding: 8px;
+}
+
+.adh-menu-head {
+    margin-bottom: 6px;
+    padding: 8px 10px 12px;
+    border-bottom: 1px solid var(--adh-border);
+}
+
+.adh-menu-head strong {
+    display: block;
+    color: var(--adh-heading);
+    font-size: 14px;
+}
+
+.adh-menu-head small {
+    color: var(--adh-muted);
+    font-size: 12px;
+}
+
+.adh-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    border-radius: 10px;
+    background: none;
+    color: var(--adh-heading);
+    font-size: 13.5px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.adh-menu-item:hover {
+    background: var(--adh-green-soft);
+    color: var(--adh-green-dark);
+}
+
+.adh-menu-item--danger {
+    margin-top: 4px;
+    border-top: 1px solid var(--adh-border);
+    border-radius: 0 0 10px 10px;
+}
+
+.adh-menu-item--danger:hover {
+    background: var(--adh-red-soft);
+    color: var(--adh-red);
+}
+
+
+/* Notification */
+
+.adh-menu--notes {
+    width: 340px;
+    overflow: hidden;
+}
+
+.adh-notes-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--adh-border);
+}
+
+.adh-notes-head strong {
+    color: var(--adh-heading);
+    font-size: 14.5px;
+}
+
+.adh-notes-head button {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--adh-green);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.adh-notes {
+    max-height: 320px;
+    margin: 0;
+    padding: 6px;
+    overflow-y: auto;
+    list-style: none;
+}
+
+.adh-notes li {
+    position: relative;
+    padding: 10px 12px 10px 26px;
+    border-radius: 10px;
+    transition: background 0.2s ease;
+}
+
+.adh-notes li:hover {
+    background: var(--adh-hover);
+}
+
+.adh-notes li::before {
+    content: "";
+    position: absolute;
+    left: 11px;
+    top: 16px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d5dcd8;
+}
+
+.adh-notes li.is-unread::before {
+    background: var(--adh-red);
+}
+
+.adh-notes strong {
+    display: block;
+    color: var(--adh-heading);
+    font-size: 13.5px;
+    font-weight: 600;
+}
+
+.adh-notes p {
+    margin: 1px 0 2px;
+    font-size: 12.5px;
+}
+
+.adh-notes small {
+    color: var(--adh-muted);
+    font-size: 11.5px;
+}
+
+.adh-notes-all {
+    display: block;
+    padding: 12px;
+    border-top: 1px solid var(--adh-border);
+    color: var(--adh-green) !important;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.adh-notes-all:hover {
+    background: var(--adh-hover);
+}
+
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1024px) {
+    .adh {
+        height: 64px;
+        padding: 0 16px;
+    }
+}
+
+@media (max-width: 640px) {
+    .adh {
+        gap: 10px;
+    }
+    .adh-crumbs,
+    .adh-user-text,
+    .adh-user-caret,
+    .adh-site,
+    .adh-sep {
+        display: none;
+    }
+    .adh-title {
+        font-size: 17px;
+    }
+    .adh-right {
+        gap: 6px;
+    }
+    .adh-user {
+        padding: 4px;
+    }
+    .adh-dd {
+        position: static;
+    }
+    .adh-menu {
+        right: 12px;
+    }
+    .adh-menu--notes {
+        left: 12px;
+        width: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .adh *,
+    .adh-menu {
+        transition: none !important;
+        animation: none !important;
+    }
+}

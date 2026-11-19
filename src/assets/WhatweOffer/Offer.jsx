@@ -256,21 +256,7 @@ const Offer = () => {
         </div>
 
                {/* Help strip: Treatment plan page e niye jabe */}
-        <Reveal className="ofr-help">
-          <span className="ofr-help-icon"><Icon name="chat" size={26} /></span>
-          <div className="ofr-help-text">
-            <h3>Make your treatment plan in 5 easy steps</h3>
-            <p>Choose your treatment, country, hospital and doctor, see the estimated cost, and get a free personalised plan.</p>
-          </div>
-          <div className="ofr-help-actions">
-            <Link to="/plan/treatment" className="ofr-btn">
-              Plan Your Treatment <Icon name="arrow" size={16} />
-            </Link>
-            <Link to="/contact" className="ofr-btn ofr-btn--line">
-              <Icon name="phone" size={16} /> Contact Us
-            </Link>
-          </div>
-        </Reveal>
+    
       </div>
     </section>
   );

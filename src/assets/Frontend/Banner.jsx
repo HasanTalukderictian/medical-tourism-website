@@ -164,6 +164,9 @@ const Banner = () => {
             <Link to="/packages" className="bn-btn bn-btn--green">
               Explore Packages <Icon name="arrow" size={17} />
             </Link>
+            <Link to="/plan/treatment" className="bn-btn bn-btn--green">
+              Plan Your Treatment <Icon name="arrow" size={17} />
+            </Link>
             <Link to="/contact" className="bn-btn bn-btn--glass">
               Contact Us
             </Link>

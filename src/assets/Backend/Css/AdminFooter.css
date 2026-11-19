@@ -1,0 +1,82 @@
+/* =====================================================
+   ADMIN FOOTER ("adf-")
+   Rong: Akashbari Medical logo theke (shobuj + lal)
+   ===================================================== */
+
+.adf {
+    --adf-green: #00924c;
+    --adf-green-soft: #e6f5ec;
+    --adf-text: #5b6470;
+    --adf-border: #e4ebe7;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 20px;
+    padding: 16px 28px;
+    border-top: 1px solid var(--adf-border);
+    background: #fff;
+    color: var(--adf-text);
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 13.5px;
+}
+
+.adf p {
+    margin: 0;
+}
+
+.adf p a {
+    color: var(--adf-green);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.adf p a:hover {
+    text-decoration: underline;
+}
+
+.adf-social {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.adf-social a {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--adf-border);
+    border-radius: 10px;
+    background: #fff;
+    transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.adf-social a:hover {
+    transform: translateY(-2px);
+    border-color: transparent;
+    background: var(--adf-green-soft);
+}
+
+.adf a:focus-visible {
+    outline: 3px solid rgba(0, 146, 76, 0.35);
+    outline-offset: 2px;
+}
+
+
+/* ---- Mobile ---- */
+
+@media (max-width: 1024px) {
+    .adf {
+        padding: 14px 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .adf {
+        flex-direction: column;
+        justify-content: center;
+        font-size: 13px;
+        text-align: center;
+    }
+}

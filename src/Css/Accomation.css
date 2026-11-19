@@ -4,7 +4,7 @@
     --ac-primary: #689f38;
     --ac-primary-dark: #4f7d29;
     --ac-primary-soft: #eef5e6;
-    --ac-accent: #f58a3c;
+    --ac-accent: #ee3123;
     --ac-accent-soft: #fff1e6;
     --ac-heading: #1f2937;
     --ac-text: #5b6470;
@@ -643,7 +643,7 @@
 }
 
 .ac-steps li:nth-child(2) .ac-step-no {
-    background: linear-gradient(135deg, var(--ac-accent), #e0742a);
+    background: linear-gradient(135deg, var(--ac-accent), #ee3123);
     box-shadow: 0 10px 22px rgba(245, 138, 60, 0.3);
 }
 

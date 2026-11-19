@@ -6,12 +6,12 @@ import logo from "../assets/Image/AKBH MEDICAL-01.png";
    Contact info, social link ar menu ekhane bodlao.
 ---------------------------------------------------------------- */
 const CONTACT = {
-  phone: "+880 1234-567890",
-  phoneLink: "tel:+8801234567890",
-  whatsapp: "https://wa.me/8801234567890",
-  email: "info@akashbarimedical.com",
-  address: "Akashbari, Bangladesh",
-  hours: "Sat – Thu: 8AM – 10PM",
+  phone: "+8801335-146058",
+  phoneLink: "tel:++8801335-146058",
+  whatsapp: "https://wa.me/8801335075563",
+  email: "medicalservice.akbh@gmail.com",
+  address: "House 43, Road 7, Block G, Banani Dhaka 1213",
+  hours: "Sat – Thu: 10.30 AM – 7.00 PM",
 };
 
 const socials = [

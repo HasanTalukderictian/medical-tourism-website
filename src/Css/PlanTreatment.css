@@ -8,8 +8,8 @@
     --tp-green-dark: #4f7d29;
     --tp-green-deep: #24391a;
     --tp-green-soft: #eef5e6;
-    --tp-orange: #f58a3c;
-    --tp-orange-dark: #e0742a;
+    --tp-orange: #ee3123;
+    --tp-orange-dark: #ee3123;
     --tp-orange-soft: #fff1e6;
     --tp-heading: #1f2937;
     --tp-text: #5b6470;
@@ -17,7 +17,7 @@
     --tp-border: #e3e8df;
     --tp-bg-soft: #f6f9f1;
     --tp-red: #dc3545;
-    --tp-star: #f5b301;
+    --tp-star: #ee3123;
     /* Sticky header er height onujayi bodlao */
     --tp-sticky-top: 100px;
     background: #fff;

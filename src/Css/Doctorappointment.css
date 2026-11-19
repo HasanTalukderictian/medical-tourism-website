@@ -4,7 +4,7 @@
     --da-primary: #689f38;
     --da-primary-dark: #4f7d29;
     --da-primary-soft: #eef5e6;
-    --da-accent: #f58a3c;
+    --da-accent: #ee3123;
     --da-accent-soft: #fff1e6;
     --da-heading: #1f2937;
     --da-text: #5b6470;
@@ -931,7 +931,7 @@
 }
 
 .da-how-item:nth-child(2) .da-how-no {
-    background: linear-gradient(135deg, var(--da-accent), #e0742a);
+    background: linear-gradient(135deg, var(--da-accent), #ee3123);
     box-shadow: 0 10px 22px rgba(245, 138, 60, 0.3);
 }
 

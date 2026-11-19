@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route, useParams } from 'react-router-dom';
+import { Routes, Route, Navigate, useParams } from 'react-router-dom';
 
 import MainLayout from './layouts/MainLayout';
 import Home from './assets/Home';
@@ -37,6 +37,8 @@ import PlanTreatment from './assets/Frontend/PlanTreatment';
 import Interpreter from './assets/Frontend/Interpreter';
 import Login from './components/Login';
 import Medicine from './assets/Frontend/Medicine';
+import AdminLayout from './assets/Backend/AdminLayout';
+import Dashboard from './assets/Backend/Dashboard';
 
 function Services() {
     return <h2>Services Page</h2>;
@@ -55,19 +57,27 @@ function HospitalPage() {
     return <h2>{slug ? `${slug} (${country})` : `Hospitals in ${country}`}</h2>;
 }
 
+/* Je admin page ekhono banano hoy nai, sheta te eta dekhabe */
+function AdminComingSoon() {
+    return (
+        <div style={{ padding: '40px 0', textAlign: 'center', color: '#5b6470' }}>
+            <h2 style={{ margin: '0 0 6px', color: '#1f2937' }}>Coming soon</h2>
+            <p style={{ margin: 0 }}>Ei page ekhono banano hoy nai.</p>
+        </div>
+    );
+}
+
 function App() {
     return (
         <>
             <ScrollToTop />
 
             <Routes>
+                {/* ================= WEBSITE (website er Header + Footer shoho) ================= */}
                 <Route path="/" element={<MainLayout />}>
                     <Route index element={<Home />} />
 
                     {/* Services */}
-
-
-
                     <Route path="services/medical-consultation" element={<MedicalConsultation />} />
                     <Route path="services/tele-consultation" element={<Telemedicine />} />
                     <Route path="services/doctor-appointment" element={<DoctorAppointment />} />
@@ -79,50 +89,54 @@ function App() {
                     <Route path="services/transport" element={<Transport />} />
                     <Route path="services/medicine" element={<Medicine />} />
                     <Route path="services/training-development" element={<Training />} />
+                    <Route path="services/pick-and-drop" element={<PickDrop />} />
+                    <Route path="services/hotel" element={<Hotel />} />
+                    <Route path="services/local-guide" element={<LocalGuide />} />
+                    <Route path="services/interpreter" element={<Interpreter />} />
 
                     {/* Hospitals */}
+                    <Route path="hospitals" element={<Hospital />} />
+                    <Route path="hospitals/:country" element={<Hospital />} />
+                    <Route path="hospitals/:country/:hospital" element={<HospitalDetails />} />
 
-                    <Route path="/hospitals" element={<Hospital />} />
-                    <Route path="/hospitals/:country" element={<Hospital />} />
-                    <Route path="/hospitals/:country/:hospital" element={<HospitalDetails />} />
-
-                    <Route path="/sister-concern" element={<SisterConcern />} />
-
-
-                    {/* Packages */}
-
-
+                    <Route path="sister-concern" element={<SisterConcern />} />
 
                     {/* Packages */}
                     <Route path="packages" element={<Package />} />
                     <Route path="packages/:slug" element={<PackageDetails />} />
 
                     {/* More */}
-
                     <Route path="about" element={<About />} />
                     <Route path="contact" element={<Contact />} />
                     {/* <Route path="partners" element={<Partners />} /> */}
-                    <Route path="services/pick-and-drop" element={<PickDrop />} />
-                    <Route path="services/hotel" element={<Hotel />} />
-                    <Route path="services/local-guide" element={<LocalGuide />} />
                     <Route path="blog" element={<Blog />} />
                     <Route path="blog/:slug" element={<BlogDetails />} />
                     <Route path="team" element={<Team />} />
                     <Route path="events" element={<Events />} />
                     <Route path="plan/treatment" element={<PlanTreatment />} />
-                    <Route path="services/interpreter" element={<Interpreter />} />
+                    <Route path="plan-your-treatment" element={<PlanTreatment />} />
                     <Route path="doctors" element={<Doctors />} />
-
-                    <Route path="career" element={<Career />} />
                     <Route path="doctors/:slug" element={<DoctorsProfile />} />
+                    <Route path="career" element={<Career />} />
                     <Route path="gallery" element={<Gallery />} />
-                  
+                </Route>
 
+                {/* ================= ADMIN (website er Header / Footer NAI) ================= */}
 
-                    {/* Login route  */}
+                {/* Admin login: MainLayout er bahire, tai website er header nai */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/admin/login" element={<Login />} />
 
-                    <Route path="/login" element={<Login />} />
+                <Route path="/admin" element={<AdminLayout />}>
+                    {/* /admin e gele dashboard e jabe */}
+                    <Route index element={<Navigate to="dashboard" replace />} />
+                    <Route path="dashboard" element={<Dashboard />} />
 
+                    {/* baki admin page ekhane add koro, jemon:
+                        <Route path="home/banner" element={<BannerAdmin />} /> */}
+
+                    {/* Menu er je page ekhono nai, sheta "Coming soon" dekhabe */}
+                    <Route path="*" element={<AdminComingSoon />} />
                 </Route>
             </Routes>
         </>

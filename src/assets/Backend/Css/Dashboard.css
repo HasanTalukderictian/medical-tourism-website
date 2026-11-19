@@ -1,0 +1,782 @@
+/* =====================================================
+   ADMIN DASHBOARD ("dsh-")
+   Rong: Akashbari Medical logo theke (shobuj + lal)
+   ===================================================== */
+
+.dsh {
+    --dsh-green: #00924c;
+    --dsh-green-dark: #016837;
+    --dsh-green-soft: #e6f5ec;
+    --dsh-red: #ee3123;
+    --dsh-red-dark: #d91100;
+    --dsh-red-soft: #fdecea;
+    --dsh-heading: #1f2937;
+    --dsh-text: #5b6470;
+    --dsh-muted: #8a93a0;
+    --dsh-border: #e4ebe7;
+    --dsh-grid: #edf1ee;
+    display: grid;
+    gap: 22px;
+    color: var(--dsh-text);
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.dsh *,
+.dsh *::before,
+.dsh *::after {
+    box-sizing: border-box;
+}
+
+:where(.dsh) h2,
+:where(.dsh) h3,
+:where(.dsh) p,
+:where(.dsh) ul {
+    margin: 0;
+    padding: 0;
+}
+
+:where(.dsh) ul {
+    list-style: none;
+}
+
+:where(.dsh) a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.dsh a:focus-visible,
+.dsh button:focus-visible,
+.dsh rect:focus-visible {
+    outline: 3px solid rgba(0, 146, 76, 0.35);
+    outline-offset: 2px;
+}
+
+
+/* ---------- Buttons ---------- */
+
+.dsh-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 42px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--dsh-green);
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.dsh-btn:hover {
+    transform: translateY(-1px);
+    background: var(--dsh-green-dark);
+}
+
+.dsh-btn--ghost {
+    border: 1px solid var(--dsh-border);
+    background: #fff;
+    color: var(--dsh-heading);
+}
+
+.dsh-btn--ghost:hover {
+    background: var(--dsh-green-soft);
+    color: var(--dsh-green-dark);
+}
+
+.dsh-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--dsh-green) !important;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.dsh-link svg {
+    transition: transform 0.2s ease;
+}
+
+.dsh-link:hover svg {
+    transform: translateX(3px);
+}
+
+
+/* ================= WELCOME ================= */
+
+.dsh-welcome {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 26px 28px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: radial-gradient(circle at 100% 0%, rgba(238, 49, 35, 0.35), transparent 38%), linear-gradient(120deg, #0b3a22 0%, var(--dsh-green-dark) 60%, var(--dsh-green) 100%);
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.dsh-welcome small {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.dsh-welcome h2 {
+    margin: 4px 0 6px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.dsh-welcome p {
+    font-size: 14px;
+}
+
+.dsh-welcome-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.dsh-welcome .dsh-btn {
+    background: var(--dsh-red);
+    box-shadow: 0 10px 22px rgba(238, 49, 35, 0.35);
+}
+
+.dsh-welcome .dsh-btn:hover {
+    background: var(--dsh-red-dark);
+}
+
+.dsh-welcome .dsh-btn--ghost {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    box-shadow: none;
+}
+
+.dsh-welcome .dsh-btn--ghost:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+
+/* ================= KPI ================= */
+
+.dsh-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.dsh-kpi {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px solid var(--dsh-border);
+    border-radius: 18px;
+    background: #fff;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.dsh-kpi:hover {
+    transform: translateY(-3px);
+    border-color: transparent;
+    box-shadow: 0 16px 34px rgba(1, 104, 55, 0.12);
+}
+
+.dsh-kpi-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.dsh-kpi-icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: var(--dsh-green-soft);
+    color: var(--dsh-green-dark);
+}
+
+.dsh-kpi:nth-child(even) .dsh-kpi-icon {
+    background: var(--dsh-red-soft);
+    color: var(--dsh-red);
+}
+
+
+/* Bere gele shobuj, kome gele lal (arrow + lekha shoho) */
+
+.dsh-change {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.dsh-change.is-up {
+    background: var(--dsh-green-soft);
+    color: var(--dsh-green-dark);
+}
+
+.dsh-change.is-down {
+    background: var(--dsh-red-soft);
+    color: var(--dsh-red-dark);
+}
+
+.dsh-kpi-value {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--dsh-heading);
+    font-variant-numeric: tabular-nums;
+}
+
+.dsh-kpi-label {
+    margin-top: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dsh-heading);
+}
+
+.dsh-kpi-note {
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--dsh-muted);
+}
+
+
+/* ================= CARDS / ROWS ================= */
+
+.dsh-row {
+    display: grid;
+    gap: 22px;
+}
+
+.dsh-row--charts {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+}
+
+.dsh-row--table {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+}
+
+.dsh-row--bottom {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.dsh-card {
+    min-width: 0;
+    padding: 22px;
+    border: 1px solid var(--dsh-border);
+    border-radius: 18px;
+    background: #fff;
+}
+
+.dsh-card--flush {
+    padding: 22px 0 6px;
+}
+
+.dsh-card--flush .dsh-card-head {
+    padding: 0 22px;
+}
+
+.dsh-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.dsh-card-head h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--dsh-heading);
+}
+
+.dsh-card-head p {
+    margin-top: 2px;
+    font-size: 12.5px;
+    color: var(--dsh-muted);
+}
+
+
+/* ================= COLUMN CHART ================= */
+
+.dsh-chart {
+    position: relative;
+}
+
+
+/* Dan kinare tooltip ta ektu bam e shore (kete jabe na) */
+
+.dsh-tip.is-right {
+    transform: translate(-85%, calc(-100% - 10px));
+}
+
+.dsh-tip.is-right::after {
+    left: 85%;
+}
+
+.dsh-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.dsh-grid {
+    stroke: var(--dsh-grid);
+    stroke-width: 1;
+}
+
+.dsh-axis {
+    fill: var(--dsh-muted);
+    font-family: inherit;
+    font-size: 11px;
+}
+
+
+/* Ekta series, tai ekta rong (sada background e 3:1 er beshi contrast) */
+
+.dsh-bar {
+    fill: var(--dsh-green);
+    transition: fill 0.2s ease;
+}
+
+.dsh-bar.is-hover {
+    fill: var(--dsh-green-dark);
+}
+
+.dsh-bar-label {
+    fill: var(--dsh-heading);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.dsh-chart rect {
+    cursor: pointer;
+    outline: none;
+}
+
+.dsh-tip {
+    position: absolute;
+    z-index: 2;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: var(--dsh-heading);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 12.5px;
+    white-space: nowrap;
+    pointer-events: none;
+    transform: translate(-50%, calc(-100% - 10px));
+    box-shadow: 0 10px 24px rgba(31, 41, 55, 0.25);
+}
+
+.dsh-tip strong {
+    color: #fff;
+    font-size: 14px;
+}
+
+.dsh-tip small {
+    display: block;
+    font-size: 11.5px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.dsh-tip::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 10px;
+    height: 10px;
+    background: var(--dsh-heading);
+    transform: translateX(-50%) rotate(45deg);
+}
+
+
+/* ================= HORIZONTAL BARS ================= */
+
+.dsh-hbars,
+.dsh-countries {
+    display: grid;
+    gap: 16px;
+}
+
+.dsh-hbar-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 6px;
+    font-size: 13.5px;
+    color: var(--dsh-heading);
+}
+
+.dsh-hbar-top strong {
+    font-size: 13.5px;
+    font-variant-numeric: tabular-nums;
+}
+
+.dsh-hbar-track {
+    height: 8px;
+    border-radius: 999px;
+    background: var(--dsh-grid);
+    overflow: hidden;
+}
+
+.dsh-hbar-track span {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+    background: var(--dsh-green);
+    transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dsh-hbars li:hover .dsh-hbar-track span {
+    background: var(--dsh-green-dark);
+}
+
+.dsh-countries li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dsh-flag {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    background: #f4f7f5;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.dsh-country-body {
+    flex: 1;
+    min-width: 0;
+}
+
+
+/* ================= TABLE ================= */
+
+.dsh-table-wrap {
+    overflow-x: auto;
+}
+
+.dsh-table {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: collapse;
+    font-size: 13.5px;
+}
+
+.dsh-table th {
+    padding: 10px 22px;
+    background: #f7faf8;
+    color: var(--dsh-muted);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.dsh-table td {
+    padding: 12px 22px;
+    border-top: 1px solid var(--dsh-border);
+    color: var(--dsh-heading);
+    white-space: nowrap;
+}
+
+.dsh-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.dsh-table tbody tr:hover {
+    background: #f9fbfa;
+}
+
+.dsh-person {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dsh-avatar {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--dsh-green-soft);
+    color: var(--dsh-green-dark);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.dsh-person strong {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 600;
+}
+
+.dsh-person small {
+    font-size: 11.5px;
+    color: var(--dsh-muted);
+}
+
+
+/* Status: rong + icon + lekha (shudhu rong er upor nirbhor kore na) */
+
+.dsh-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.dsh-status--new {
+    background: #e6f0fb;
+    color: #1d5fa0;
+}
+
+.dsh-status--progress {
+    background: #fff4dc;
+    color: #8a5a00;
+}
+
+.dsh-status--confirmed {
+    background: var(--dsh-green-soft);
+    color: var(--dsh-green-dark);
+}
+
+.dsh-status--closed {
+    background: #eef0f2;
+    color: #5b6470;
+}
+
+
+/* ================= APPOINTMENTS ================= */
+
+.dsh-appts {
+    display: grid;
+    gap: 10px;
+}
+
+.dsh-appts li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    border: 1px solid var(--dsh-border);
+    border-radius: 14px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.dsh-appts li:hover {
+    border-color: #cfe3d7;
+    background: #f9fbfa;
+}
+
+.dsh-appt-time {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 58px;
+    height: 56px;
+    border-radius: 12px;
+    background: var(--dsh-green-soft);
+    text-align: center;
+}
+
+.dsh-appts li:nth-child(even) .dsh-appt-time {
+    background: var(--dsh-red-soft);
+}
+
+.dsh-appt-time strong {
+    font-size: 15px;
+    line-height: 1;
+    color: var(--dsh-heading);
+}
+
+.dsh-appt-time small {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--dsh-muted);
+}
+
+.dsh-appt-body {
+    min-width: 0;
+}
+
+.dsh-appt-body strong {
+    display: block;
+    font-size: 14px;
+    color: var(--dsh-heading);
+}
+
+.dsh-appt-body span {
+    display: block;
+    font-size: 12.5px;
+}
+
+.dsh-appt-body small {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--dsh-muted);
+}
+
+
+/* ================= SERVICE BOOKINGS ================= */
+
+.dsh-services {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.dsh-service {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding: 16px;
+    border-radius: 14px;
+    background: #f7faf8;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.dsh-service:hover {
+    transform: translateY(-2px);
+    background: var(--dsh-green-soft);
+}
+
+.dsh-service-icon {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 10px;
+    border-radius: 11px;
+    background: #fff;
+    color: var(--dsh-green-dark);
+}
+
+.dsh-service:nth-child(even) .dsh-service-icon {
+    color: var(--dsh-red);
+}
+
+.dsh-service strong {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--dsh-heading);
+}
+
+.dsh-service span:last-child {
+    font-size: 12.5px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1280px) {
+    .dsh-kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .dsh-row--charts,
+    .dsh-row--table {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .dsh-row--bottom {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .dsh {
+        gap: 16px;
+    }
+    .dsh-welcome {
+        padding: 22px 18px;
+    }
+    .dsh-welcome h2 {
+        font-size: 20px;
+    }
+    .dsh-welcome-actions,
+    .dsh-welcome-actions .dsh-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .dsh-kpis {
+        gap: 12px;
+    }
+    .dsh-kpi {
+        padding: 16px;
+    }
+    .dsh-kpi-value {
+        font-size: 23px;
+    }
+    .dsh-kpi-note {
+        display: none;
+    }
+    .dsh-card {
+        padding: 18px 16px;
+    }
+    .dsh-card--flush {
+        padding: 18px 0 4px;
+    }
+    .dsh-card--flush .dsh-card-head {
+        padding: 0 16px;
+    }
+    .dsh-services {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    /* Mobile e chart pashe scroll hoy, jate lekha chhoto na hoy */
+    .dsh-chart-scroll {
+        overflow-x: auto;
+        padding-top: 50px;
+        margin-top: -50px;
+    }
+    .dsh-chart {
+        min-width: 520px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dsh *,
+    .dsh *::before,
+    .dsh *::after {
+        transition: none !important;
+    }
+}
