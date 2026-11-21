@@ -26,3 +26,15 @@ export const MEDICAL_SECTIONS = [
     { path: "medicine", site: "/services/medicine", file: "Medicine.jsx", label: "Medicine", icon: "pill", text: "Overseas pharmacy and medicine request page." },
     { path: "training-development", site: "/services/training-development", file: "TrainingDevelopment.jsx", label: "Training & Development", icon: "cap", text: "Training programs page content." },
 ];
+
+
+export const NON_MEDICAL_SECTIONS = [
+    { path: "patient-support", site: "/services/patient-support-service", file: "PatientSupport.jsx", label: "Patient Support", icon: "support", text: "Patient support service page content." },
+    { path: "pick-and-drop", site: "/services/pick-and-drop", file: "PickDrop.jsx", label: "Pick & Drop", icon: "car", text: "Airport pick up and drop service page." },
+    { path: "transport", site: "/services/transport", file: "Transport.jsx", label: "Transport", icon: "bus", text: "Local transport service page content." },
+    { path: "interpreter", site: "/services/interpreter", file: "Interpreter.jsx", label: "Interpreter", icon: "lang", text: "Interpreter service page content." },
+    { path: "local-guide", site: "/services/local-guide", file: "LocalGuide.jsx", label: "Local Guide", icon: "map", text: "Local guide service page content." },
+    { path: "medical-visa", site: "/services/medical-visa-assistance", file: "MedicalVisa.jsx", label: "Medical Visa", icon: "passport", text: "Medical visa assistance page content." },
+    { path: "air-ticket", site: "/services/air-ticket", file: "AirTicket.jsx", label: "Air Ticket", icon: "plane", text: "Air ticket booking page content." },
+    { path: "hotel", site: "/services/hotel", file: "Hotel.jsx", label: "Hotel", icon: "bed", text: "Hotel booking page content." },
+];

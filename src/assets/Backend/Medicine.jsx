@@ -2,6 +2,7 @@
 import { MEDICAL_SECTIONS } from "./sections";
 import SectionShell from "./SectionShell";
 
+
 /* =====================================================
    MEDICAL SERVICES > MEDICINE   (/admin/medical-services/medicine)
    Rakhbe: src/assets/Backend/MedicalServices/Medicine.jsx

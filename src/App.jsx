@@ -64,6 +64,15 @@ import MedicalAccommodationAdmin from './assets/Backend/MedicalAccommodationAdmi
 import AirAmbulanceAdmin from './assets/Backend/AirAmbulance';
 import MedicineAdmin from './assets/Backend/Medicine';
 import TrainingDevelopmentAdmin from './assets/Backend/TrainingDevelopment';
+import AdminNonMedicalServices from './assets/Backend/AdminNonMedicalServices';
+import PatientSupportAdmin from './assets/Backend/PatientSupport';
+import PickDropAdmin from './assets/Backend/PickDrop';
+import TransportAdmin from './assets/Backend/Transport';
+import LocalGuideAdmin from './assets/Backend/LocalGuide';
+import MedicalVisaAdmin from './assets/Backend/MedicalVisa';
+import AirTicketAdmin from './assets/Backend/AirTicket';
+import HotelAdmin from './assets/Backend/Hotel';
+import InterpreterAdmin from './assets/Backend/InterpreterAdmin';
 
 function Services() {
     return <h2>Services Page</h2>;
@@ -189,6 +198,21 @@ function App() {
                         <Route path="medicine" element={<MedicineAdmin />} />
                         <Route path="training-development" element={<TrainingDevelopmentAdmin />} />
                     </Route>
+
+                    {/* Non Medical Services: /admin/non-medical-services -> prothom page. Proti service alada page */}
+                    <Route path="non-medical-services" element={<AdminGuard perm="non_medical_services"><AdminNonMedicalServices /></AdminGuard>}>
+                        <Route index element={<Navigate to="patient-support" replace />} />
+                        <Route path="patient-support" element={<PatientSupportAdmin />} />
+                        <Route path="pick-and-drop" element={<PickDropAdmin />} />
+                        <Route path="transport" element={<TransportAdmin />} />
+                        <Route path="interpreter" element={<InterpreterAdmin />} />
+                        <Route path="local-guide" element={<LocalGuideAdmin />} />
+                        <Route path="medical-visa" element={<MedicalVisaAdmin />} />
+                        <Route path="air-ticket" element={<AirTicketAdmin />} />
+                        <Route path="hotel" element={<HotelAdmin />} />
+                    </Route>
+
+
 
                     {/* baki admin page ekhane add koro, jemon:
                         <Route path="queries" element={<AdminGuard perm="queries"><PatientQueries /></AdminGuard>} /> */}
