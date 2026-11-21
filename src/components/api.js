@@ -1,6 +1,6 @@
 /* =====================================================
    API HELPER (shob API call ekhan theke hobe)
-   Rakhbe: src/services/api.js
+   Rakhbe: src/components/api.js
 
    Backend er URL .env file e dao (project er root e):
    VITE_API_URL=http://127.0.0.1:8000/api
@@ -71,7 +71,8 @@ const toFormData = (obj) => {
     Object.keys(obj).forEach((k) => {
         const v = obj[k];
         if (v === undefined || v === null) return;
-        if (typeof v === "boolean") fd.append(k, v ? "1" : "0");
+        if (Array.isArray(v)) v.forEach((item) => fd.append(`${k}[]`, item)); // permissions[] = ...
+        else if (typeof v === "boolean") fd.append(k, v ? "1" : "0");
         else fd.append(k, v);
     });
     return fd;
@@ -86,9 +87,16 @@ export const apiRequest = async(path, { method = "GET", body, auth = true } = {}
     if (body instanceof FormData) payload = body;
     else if (body) payload = toFormData(body);
 
+    /* Laravel PUT/PATCH e form-data porte pare na, tai POST + _method pathai */
+    let sendMethod = method;
+    if (payload && (method === "PUT" || method === "PATCH")) {
+        payload.append("_method", method);
+        sendMethod = "POST";
+    }
+
     let res;
     try {
-        res = await fetch(`${API_URL}${path}`, { method, headers, body: payload });
+        res = await fetch(`${API_URL}${path}`, { method: sendMethod, headers, body: payload });
     } catch {
         // Server bondho / internet nai / CORS block
         throw new ApiError("Cannot reach the server. Please check your connection and try again.", 0, null);
@@ -99,6 +107,11 @@ export const apiRequest = async(path, { method = "GET", body, auth = true } = {}
         data = await res.json();
     } catch {
         data = null;
+    }
+
+    // 403 = ei kaj er permission nai
+    if (res.status === 403) {
+        throw new ApiError((data && data.message) || "You do not have permission to do this.", 403, data);
     }
 
     // Token er meyad shesh / bhul hole login e pathai
@@ -148,4 +161,37 @@ export const adminLogout = async() => {
         /* ignore */
     }
     clearAuth();
+};
+
+/* Login kora user er tottho update (jemon role bodlale) */
+export const updateSavedUser = (user) =>
+    safe(() => {
+        const store = localStorage.getItem(TOKEN_KEY) ? localStorage : sessionStorage;
+        store.setItem(USER_KEY, JSON.stringify(user));
+    });
+
+/* =====================================================
+   USERS & ROLES API
+   Backend e ei route gula lagbe (BACKEND-API.md dekho)
+   ===================================================== */
+export const usersApi = {
+    list: () => apiRequest("/admin/users"),
+    create: (body) => apiRequest("/admin/users", { method: "POST", body }),
+    update: (id, body) => apiRequest(`/admin/users/${id}`, { method: "PUT", body }),
+    remove: (id) => apiRequest(`/admin/users/${id}`, { method: "DELETE" }),
+};
+
+export const rolesApi = {
+    list: () => apiRequest("/admin/roles"),
+    create: (body) => apiRequest("/admin/roles", { method: "POST", body }),
+    update: (id, body) => apiRequest(`/admin/roles/${id}`, { method: "PUT", body }),
+    remove: (id) => apiRequest(`/admin/roles/${id}`, { method: "DELETE" }),
+};
+
+/* Laravel kokhono { data: [...] }, kokhono shoja [...] dey. Duita-i dhori. */
+export const listOf = (res) => {
+    if (Array.isArray(res)) return res;
+    if (res && Array.isArray(res.data)) return res.data;
+    if (res && res.data && Array.isArray(res.data.data)) return res.data.data; // paginate
+    return [];
 };

@@ -3,6 +3,7 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import "../Backend/Css/AdminMenu.css";
 // Logo er path tomar folder onujayi bodlao
 import logo from "../Image/logo/AKBH MEDICAL-01.png";
+import { can } from "./permissions";
 
 /* =====================================================
    ADMIN SIDEBAR MENU ("adm-" class)

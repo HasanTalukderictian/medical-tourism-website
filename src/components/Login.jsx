@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import "../Css/Login.css";
-import { adminLogin, isLoggedIn } from "../components/api";
+import { adminLogin, isLoggedIn } from "./api";
+import { firstAllowedPath } from "../assets/Backend/permissions";
 
 // Logo: tomar project er path (SisterConcern e je path use korecho)
 import logo from "../assets/Image/logo/AKBH MEDICAL-01.png";

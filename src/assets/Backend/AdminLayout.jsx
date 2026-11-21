@@ -4,6 +4,7 @@ import Menu from "./Menu";
 import Header from "./Header";
 import Footer from "./Footer";
 import { adminLogout, getUser } from "../../components/api";
+import { roleLabel } from "./permissions";
 
 /* =====================================================
    ADMIN LAYOUT: Header + Menu + Footer ekshathe

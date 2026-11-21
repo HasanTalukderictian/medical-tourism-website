@@ -21,7 +21,6 @@ import Training from './assets/Frontend/Training';
 import Hospital from './assets/Frontend/Hospital';
 import HospitalDetails from './assets/Frontend/HospitalDetails';
 import SisterConcern from './assets/Frontend/SisterConcern';
-import Partners from './assets/Frontend/Partners';
 import Package from './assets/Frontend/Package';
 import PackageDetails from './assets/Frontend/PackageDetails';
 import Doctors from './assets/Frontend/Doctors';
@@ -36,10 +35,15 @@ import PlanTreatment from './assets/Frontend/PlanTreatment';
 import Interpreter from './assets/Frontend/Interpreter';
 import Login from './components/Login';
 import Medicine from './assets/Frontend/Medicine';
+import MedicalConsultation from './assets/Frontend/MedicalConsulation';
+
+// Admin
 import AdminLayout from './assets/Backend/AdminLayout';
 import Dashboard from './assets/Backend/Dashboard';
-import MedicalConsultations from './assets/Frontend/MedicalConsulation';
-import MedicalConsultation from './assets/Frontend/MedicalConsulation';
+import UsersRoles from './assets/Backend/UsersRoles';
+
+import { firstAllowedPath } from './assets/Backend/permissions';
+import AdminGuard, { NoAccess } from './assets/Backend/AdminGuard';
 
 function Services() {
     return <h2>Services Page</h2>;
@@ -66,6 +70,11 @@ function AdminComingSoon() {
             <p style={{ margin: 0 }}>Ei page ekhono banano hoy nai.</p>
         </div>
     );
+}
+
+/* /admin e gele role er prothom page e jabe (Dashboard er access na thakleo) */
+function AdminHome() {
+    return <Navigate to={firstAllowedPath()} replace />;
 }
 
 function App() {
@@ -124,20 +133,25 @@ function App() {
 
                 {/* ================= ADMIN (website er Header / Footer NAI) ================= */}
 
-                {/* Admin login: MainLayout er bahire, tai website er header nai */}
+                {/* Admin login: guard er BAHIRE, tai login chhara-o khola jay */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/admin/login" element={<Login />} />
 
-                <Route path="/admin" element={<AdminLayout />}>
-                    {/* /admin e gele dashboard e jabe */}
-                    <Route index element={<Navigate to="dashboard" replace />} />
-                    <Route path="dashboard" element={<Dashboard />} />
+                {/* Login na thakle AdminGuard login page e pathay */}
+                <Route path="/admin" element={<AdminGuard><AdminLayout /></AdminGuard>}>
+                    <Route index element={<AdminHome />} />
+
+                    {/* perm = permissions.js er key. Role e oi key na thakle "No access" dekhabe */}
+                    <Route path="dashboard" element={<AdminGuard perm="dashboard"><Dashboard /></AdminGuard>} />
+                    <Route path="users" element={<AdminGuard perm="users"><UsersRoles /></AdminGuard>} />
+                    <Route path="no-access" element={<NoAccess />} />
 
                     {/* baki admin page ekhane add koro, jemon:
-                        <Route path="home/banner" element={<BannerAdmin />} /> */}
+                        <Route path="queries" element={<AdminGuard perm="queries"><PatientQueries /></AdminGuard>} /> */}
 
-                    {/* Menu er je page ekhono nai, sheta "Coming soon" dekhabe */}
-                    <Route path="*" element={<AdminComingSoon />} />
+                    {/* Menu er je page ekhono nai, sheta "Coming soon" dekhabe.
+                        perm="auto" = URL dekhe permission check kore */}
+                    <Route path="*" element={<AdminGuard perm="auto"><AdminComingSoon /></AdminGuard>} />
                 </Route>
             </Routes>
         </>
