@@ -1,6 +1,7 @@
-import  { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import "../Css/Login.css";
+import { adminLogin, isLoggedIn } from "../components/api";
 
 // Logo: tomar project er path (SisterConcern e je path use korecho)
 import logo from "../assets/Image/logo/AKBH MEDICAL-01.png";
@@ -8,8 +9,7 @@ import logo from "../assets/Image/logo/AKBH MEDICAL-01.png";
 /* =====================================================
    ADMIN PORTAL LOGIN
    - Shudhu staff/admin der jonno. Register / Google login nai.
-   - Asol password check SERVER e korte hobe. Frontend e kono
-     password ba "admin/admin" likhe rakhbe na.
+   - Password check SERVER e hoy (POST /api/admin/login).
    ===================================================== */
 
 /* ---------------------------- ICONS ---------------------------- */
@@ -25,6 +25,7 @@ const base = {
 
 const paths = {
   user: <><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" /></>,
+  mail: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></>,
   lock: <><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></>,
   eye: <><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" /></>,
   eyeOff: <><path d="M3 3l18 18" /><path d="M10.6 5.1A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.6 6.6A17 17 0 0 0 2 12s3.5 7 10 7a9.7 9.7 0 0 0 5.4-1.6" /><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" /></>,
@@ -53,11 +54,15 @@ const features = [
   { icon: "chart", title: "Reports", text: "Daily leads, bookings and team performance." },
 ];
 
+// Ei koybar bhul hole form bondho (shudhu ei browser e; asol lock server e korte hobe)
 const MAX_TRIES = 5;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /* ---------------------------- PAGE ---------------------------- */
 const Login = () => {
-  const [form, setForm] = useState({ username: "", password: "", remember: false });
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [form, setForm] = useState({ email: "", password: "", remember: false });
   const [showPass, setShowPass] = useState(false);
   const [capsOn, setCapsOn] = useState(false);
   const [errors, setErrors] = useState({});
@@ -66,6 +71,14 @@ const Login = () => {
   const [tries, setTries] = useState(0);
 
   const locked = tries >= MAX_TRIES;
+
+  // Login er age je admin page e jete cheyechilo, login er por shekhane jabe
+  const from = (location.state && location.state.from) || "/admin/dashboard";
+
+  // Age thekei login kora thakle shoja dashboard e
+  if (isLoggedIn() && !message) {
+    return <Navigate to={from} replace />;
+  }
 
   const setField = (key) => (e) => {
     const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
@@ -81,7 +94,7 @@ const Login = () => {
 
   const validate = () => {
     const er = {};
-    if (form.username.trim().length < 3) er.username = "Please enter your email or staff ID.";
+    if (!EMAIL_RE.test(form.email.trim())) er.email = "Please enter a valid email address.";
     if (!form.password) er.password = "Please enter your password.";
     setErrors(er);
     return Object.keys(er).length === 0;
@@ -93,25 +106,21 @@ const Login = () => {
     setLoading(true);
     setMessage(null);
 
-    /* EKHANE tomar admin login API call boshao. Jemon:
-       const res = await fetch("/api/admin/login", {
-         method: "POST",
-         headers: { "Content-Type": "application/json" },
-         credentials: "include",
-         body: JSON.stringify({ username: form.username, password: form.password, remember: form.remember }),
-       });
-       if (!res.ok) {
-         setTries((t) => t + 1);
-         setMessage({ type: "error", text: "Wrong email/staff ID or password." });
-         setLoading(false);
-         return;
-       }
-       navigate("/admin/dashboard");
-
-       Ekhon shudhu DEMO: 1 second por success dekhay. */
-    await new Promise((r) => setTimeout(r, 1000));
-    setLoading(false);
-    setMessage({ type: "success", text: "Login successful! Opening the admin dashboard..." });
+    try {
+      const user = await adminLogin({
+        email: form.email.trim(),
+        password: form.password,
+        remember: form.remember,
+      });
+      setMessage({ type: "success", text: `Welcome, ${user.name}! Opening the admin dashboard...` });
+      setTimeout(() => navigate(from, { replace: true }), 700);
+    } catch (err) {
+      // 0 = server e pouchano jay nai, tai etake bhul password hishebe gona hobe na
+      if (err.status !== 0) setTries((t) => t + 1);
+      setMessage({ type: "error", text: err.message });
+      setForm((f) => ({ ...f, password: "" }));
+      setLoading(false);
+    }
   };
 
   return (
@@ -192,20 +201,20 @@ const Login = () => {
             )}
 
             <form onSubmit={handleSubmit} noValidate className="lgn-form">
-              <label className={`lgn-field ${errors.username ? "has-error" : ""}`}>
-                <span>Email or Staff ID</span>
+              <label className={`lgn-field ${errors.email ? "has-error" : ""}`}>
+                <span>Email</span>
                 <div className="lgn-input">
-                  <Icon name="user" size={18} />
+                  <Icon name="mail" size={18} />
                   <input
-                    type="text"
-                    value={form.username}
-                    onChange={setField("username")}
+                    type="email"
+                    value={form.email}
+                    onChange={setField("email")}
                     placeholder="admin@akashbarimedical.com"
                     autoComplete="username"
-                    disabled={locked}
+                    disabled={locked || loading}
                   />
                 </div>
-                {errors.username && <em>{errors.username}</em>}
+                {errors.email && <em>{errors.email}</em>}
               </label>
 
               <label className={`lgn-field ${errors.password ? "has-error" : ""}`}>
@@ -220,7 +229,7 @@ const Login = () => {
                     onKeyDown={checkCaps}
                     placeholder="Enter your password"
                     autoComplete="current-password"
-                    disabled={locked}
+                    disabled={locked || loading}
                   />
                   <button
                     type="button"

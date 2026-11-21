@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import  { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../Backend/Css/AdminHeader.css";
 
@@ -118,7 +118,7 @@ const Header = ({
         </button>
         <div className="adh-heading">
           <h1 className="adh-title">{title}</h1>
-          <p className="adh-crumbs">{crumbs.join("  /  ")}</p>
+         
         </div>
       </div>
 

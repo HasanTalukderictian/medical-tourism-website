@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import "../Backend/Css/AdminMenu.css";
 // Logo er path tomar folder onujayi bodlao
-import logo from "../Image/logo/Akashbari-resort-logo-png-01.png";
+import logo from "../Image/logo/AKBH MEDICAL-01.png";
 
 /* =====================================================
    ADMIN SIDEBAR MENU ("adm-" class)

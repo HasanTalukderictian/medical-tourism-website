@@ -1,20 +1,14 @@
-import  { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Menu from "./Menu";
 import Header from "./Header";
 import Footer from "./Footer";
-
+import { adminLogout, getUser } from "../../components/api";
 
 /* =====================================================
    ADMIN LAYOUT: Header + Menu + Footer ekshathe
    Admin er shob page eitar bhitore <Outlet /> e dekhabe.
    Layout er CSS AdminMenu.css e ache (.adl- class).
-
-   App.jsx e:
-   <Route path="/admin" element={<AdminLayout />}>
-     <Route path="dashboard" element={<Dashboard />} />
-     ...
-   </Route>
    ===================================================== */
 
 const MOBILE_BP = 1024; // AdminMenu.css er @media (max-width: 1024px) er shathe mil rakho
@@ -31,6 +25,7 @@ const AdminLayout = () => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(readCollapsed);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
 
   const toggleMenu = () => {
     if (window.innerWidth <= MOBILE_BP) {
@@ -49,13 +44,25 @@ const AdminLayout = () => {
 
   const closeMobile = useCallback(() => setMobileOpen(false), []);
 
-  const logout = () => {
-    /* EKHANE tomar logout API / token muchar kaj koro */
-    navigate("/admin/login");
+  /* LOGOUT
+     1. POST /api/admin/logout (Bearer token shoho) -> server e token muche
+     2. Browser theke token ar user muche
+     3. Login page e pathay
+     Server e error holeo browser theke logout hoye jabe. */
+  const logout = async () => {
+    if (loggingOut) return; // duibar click korle duibar call hobe na
+    setLoggingOut(true);
+    await adminLogout();
+    navigate("/admin/login", { replace: true });
   };
 
-  // DEMO user. Login er por asol user er tottho dao.
-  const user = { name: "Admin User", role: "Super Admin", photo: null };
+  // Login er shomoy API theke asha user
+  const saved = getUser() || {};
+  const user = {
+    name: saved.name || "Admin",
+    role: saved.role ? saved.role.charAt(0).toUpperCase() + saved.role.slice(1) : "Admin",
+    photo: saved.photo || null,
+  };
 
   return (
     <div className={`adl ${collapsed ? "is-collapsed" : ""}`}>
