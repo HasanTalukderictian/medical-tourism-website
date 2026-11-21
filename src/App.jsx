@@ -73,6 +73,7 @@ import MedicalVisaAdmin from './assets/Backend/MedicalVisa';
 import AirTicketAdmin from './assets/Backend/AirTicket';
 import HotelAdmin from './assets/Backend/Hotel';
 import InterpreterAdmin from './assets/Backend/InterpreterAdmin';
+import HospitalsAdmin from './assets/Backend/Hospitals';
 
 function Services() {
     return <h2>Services Page</h2>;
@@ -211,6 +212,9 @@ function App() {
                         <Route path="air-ticket" element={<AirTicketAdmin />} />
                         <Route path="hotel" element={<HotelAdmin />} />
                     </Route>
+
+
+                       <Route path="hospitals" element={<AdminGuard perm="hospitals"><HospitalsAdmin /></AdminGuard>} />
 
 
 
