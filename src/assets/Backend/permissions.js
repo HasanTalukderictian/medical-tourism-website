@@ -1,6 +1,6 @@
 /* =====================================================
    PERMISSIONS (role-based access)
-   Rakhbe: src/services/permissions.js
+   Rakhbe: src/assets/Backend/permissions.js
 
    - Admin menu er proti ta item er ekta "key" ache.
    - Role e je key gula thakbe, shei menu / page dekhte parbe.
@@ -19,7 +19,7 @@ export const PERMISSION_GROUPS = [{
         title: "Website Pages",
         items: [
             { key: "home", label: "Home Page", path: "/admin/home/banner" },
-            { key: "medical_services", label: "Medical Services", path: "/admin/services/medical-consultation" },
+            { key: "medical_services", label: "Medical Services", path: "/admin/medical-services/medical-consultation" },
             { key: "non_medical_services", label: "Non Medical Services", path: "/admin/services/patient-support" },
             { key: "hospitals", label: "Hospitals", path: "/admin/hospitals" },
             { key: "doctors", label: "Doctors", path: "/admin/doctors" },
@@ -107,13 +107,7 @@ export const firstAllowedPath = (user) => {
 const PATH_PERMS = [
     ["/admin/dashboard", "dashboard"],
     ["/admin/home", "home"],
-    ["/admin/services/medical-consultation", "medical_services"],
-    ["/admin/services/tele-consultation", "medical_services"],
-    ["/admin/services/doctor-appointment", "medical_services"],
-    ["/admin/services/medical-accommodation", "medical_services"],
-    ["/admin/services/air-ambulance", "medical_services"],
-    ["/admin/services/medicine", "medical_services"],
-    ["/admin/services/training-development", "medical_services"],
+    ["/admin/medical-services", "medical_services"],
     ["/admin/services", "non_medical_services"],
     ["/admin/hospitals", "hospitals"],
     ["/admin/doctors", "doctors"],

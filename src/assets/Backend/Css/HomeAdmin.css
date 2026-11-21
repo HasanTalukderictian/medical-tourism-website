@@ -1,0 +1,300 @@
+/* =====================================================
+   ADMIN > HOME PAGE ("hma-")
+   Rong: Akashbari Medical logo (shobuj + lal), Dashboard er moto
+   ===================================================== */
+
+.hma {
+    --hma-green: #00924c;
+    --hma-green-dark: #016837;
+    --hma-green-soft: #e6f5ec;
+    --hma-red: #ee3123;
+    --hma-heading: #1f2937;
+    --hma-text: #5b6470;
+    --hma-muted: #8a93a0;
+    --hma-border: #e4ebe7;
+    --hma-soft: #f7faf8;
+    display: grid;
+    gap: 18px;
+    color: var(--hma-text);
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.hma *,
+.hma *::before,
+.hma *::after {
+    box-sizing: border-box;
+}
+
+:where(.hma) h2,
+:where(.hma) h3,
+:where(.hma) p {
+    margin: 0;
+}
+
+.hma a {
+    text-decoration: none;
+}
+
+.hma a:focus-visible,
+.hma button:focus-visible {
+    outline: 3px solid rgba(0, 146, 76, 0.35);
+    outline-offset: 2px;
+}
+
+
+/* ---------- Header ---------- */
+
+.hma-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 24px 26px;
+    border-radius: 20px;
+    background: radial-gradient(circle at 100% 0%, rgba(238, 49, 35, 0.3), transparent 40%), linear-gradient(120deg, #0b3a22 0%, var(--hma-green-dark) 60%, var(--hma-green) 100%);
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.hma-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.hma-head h2 {
+    margin: 4px 0 6px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.hma-head p {
+    max-width: 560px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* ---------- Buttons ---------- */
+
+.hma-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 42px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--hma-green);
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.hma-btn:hover {
+    background: var(--hma-green-dark);
+}
+
+.hma-btn--ghost {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.hma-btn--ghost:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+
+/* ---------- Section tabs ---------- */
+
+.hma-tabs {
+    display: flex;
+    gap: 8px;
+    padding: 6px;
+    overflow-x: auto;
+    border: 1px solid var(--hma-border);
+    border-radius: 16px;
+    background: #fff;
+    scrollbar-width: thin;
+}
+
+.hma-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex: none;
+    padding: 10px 14px;
+    border-radius: 12px;
+    color: var(--hma-text);
+    font-size: 13.5px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.hma-tab:hover {
+    background: var(--hma-soft);
+    color: var(--hma-heading);
+}
+
+.hma-tab-no {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--hma-soft);
+    color: var(--hma-muted);
+    font-size: 11.5px;
+}
+
+.hma-tab.active {
+    background: var(--hma-green);
+    color: #fff;
+}
+
+.hma-tab.active .hma-tab-no {
+    background: rgba(255, 255, 255, 0.22);
+    color: #fff;
+}
+
+
+/* ---------- Section card ---------- */
+
+.hma-body {
+    animation: hma-in 0.3s ease;
+}
+
+@keyframes hma-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+}
+
+.hma-card {
+    border: 1px solid var(--hma-border);
+    border-radius: 18px;
+    background: #fff;
+}
+
+.hma-card-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 22px;
+    border-bottom: 1px solid var(--hma-border);
+}
+
+.hma-card-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: var(--hma-green-soft);
+    color: var(--hma-green-dark);
+}
+
+.hma-card-title {
+    flex: 1;
+    min-width: 180px;
+}
+
+.hma-card-title h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--hma-heading);
+}
+
+.hma-card-title p {
+    margin-top: 2px;
+    font-size: 13px;
+}
+
+.hma-card-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.hma-card-body {
+    padding: 22px;
+}
+
+.hma-empty {
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    padding: 40px 16px;
+    border: 1.5px dashed var(--hma-border);
+    border-radius: 14px;
+    text-align: center;
+}
+
+.hma-empty span {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--hma-soft);
+    color: var(--hma-muted);
+}
+
+.hma-empty strong {
+    color: var(--hma-heading);
+    font-size: 15px;
+}
+
+.hma-empty p {
+    max-width: 420px;
+    font-size: 13.5px;
+    line-height: 1.6;
+}
+
+.hma-empty code {
+    padding: 1px 6px;
+    border-radius: 6px;
+    background: var(--hma-soft);
+    color: var(--hma-green-dark);
+    font-size: 12.5px;
+    word-break: break-all;
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 640px) {
+    .hma-head {
+        padding: 20px 18px;
+    }
+    .hma-head h2 {
+        font-size: 20px;
+    }
+    .hma-head .hma-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .hma-card-head,
+    .hma-card-body {
+        padding: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hma-body {
+        animation: none;
+    }
+}

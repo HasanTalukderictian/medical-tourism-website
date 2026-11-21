@@ -44,13 +44,13 @@ const MENU = [
         label: "Medical Services",
         icon: "heart",
         children: [
-          { to: "/admin/services/medical-consultation", label: "Medical Consultation" },
-          { to: "/admin/services/tele-consultation", label: "Tele Consultation" },
-          { to: "/admin/services/doctor-appointment", label: "Doctor Appointment" },
-          { to: "/admin/services/medical-accommodation", label: "Medical Accommodation" },
-          { to: "/admin/services/air-ambulance", label: "Air Ambulance" },
-          { to: "/admin/services/medicine", label: "Medicine" },
-          { to: "/admin/services/training-development", label: "Training & Development" },
+          { to: "/admin/medical-services/medical-consultation", label: "Medical Consultation" },
+          { to: "/admin/medical-services/tele-consultation", label: "Tele Consultation" },
+          { to: "/admin/medical-services/doctor-appointment", label: "Doctor Appointment" },
+          { to: "/admin/medical-services/medical-accommodation", label: "Medical Accommodation" },
+          { to: "/admin/medical-services/air-ambulance", label: "Air Ambulance" },
+          { to: "/admin/medical-services/medicine", label: "Medicine" },
+          { to: "/admin/medical-services/training-development", label: "Training & Development" },
         ],
       },
       {
@@ -231,7 +231,7 @@ const Menu = ({ collapsed = false, mobileOpen = false, onClose = () => {}, onLog
         className={`adm ${collapsed ? "is-collapsed" : ""} ${mobileOpen ? "is-open" : ""}`}
         aria-label="Admin menu"
       >
-        {/* Logo: role er prothom page e niye jay */}
+        {/* Logo */}
         <div className="adm-brand">
           <Link to={firstAllowedPath()} className="adm-logo">
             <img src={logo} alt="Akashbari Medical" />
@@ -242,7 +242,7 @@ const Menu = ({ collapsed = false, mobileOpen = false, onClose = () => {}, onLog
           </button>
         </div>
 
-        {/* Links (shudhu permission ache emon gula) */}
+        {/* Links */}
         <nav className="adm-nav">
           {visibleMenu.map((sec) => (
             <div key={sec.title} className="adm-section">

@@ -41,9 +41,29 @@ import MedicalConsultation from './assets/Frontend/MedicalConsulation';
 import AdminLayout from './assets/Backend/AdminLayout';
 import Dashboard from './assets/Backend/Dashboard';
 import UsersRoles from './assets/Backend/UsersRoles';
-
 import { firstAllowedPath } from './assets/Backend/permissions';
 import AdminGuard, { NoAccess } from './assets/Backend/AdminGuard';
+
+// Admin > Home Page (proti section alada page)
+import AdminHome from './assets/Backend/AdminHome';
+import BannerAdmin from './assets/Backend/Banner';
+import OfferAdmin from './assets/Backend/Offer';
+import HomePackagesAdmin from './assets/Backend/HomePackages';
+import AchievementsAdmin from './assets/Backend/Achievements';
+import HowWeWorkAdmin from './assets/Backend/HowWeWork';
+import TestimonialsAdmin from './assets/Backend/Testimonials';
+
+// Admin > Medical Services (proti service alada page)
+
+
+import AdminMedicalServices from './assets/Backend/AdminMedicalServices';
+import MedicalConsultationAdmin from './assets/Backend/MedicalConsultation';
+import TeleConsultationAdmin from './assets/Backend/TeleConsultation';
+import DoctorAppointmentAdmin from './assets/Backend/DoctorAppointment';
+import MedicalAccommodationAdmin from './assets/Backend/MedicalAccommodationAdmin';
+import AirAmbulanceAdmin from './assets/Backend/AirAmbulance';
+import MedicineAdmin from './assets/Backend/Medicine';
+import TrainingDevelopmentAdmin from './assets/Backend/TrainingDevelopment';
 
 function Services() {
     return <h2>Services Page</h2>;
@@ -72,8 +92,9 @@ function AdminComingSoon() {
     );
 }
 
-/* /admin e gele role er prothom page e jabe (Dashboard er access na thakleo) */
-function AdminHome() {
+/* /admin e gele role er prothom page e jabe (Dashboard er access na thakleo)
+   (Naam AdminIndex, karon AdminHome naame Home Page er admin page ache) */
+function AdminIndex() {
     return <Navigate to={firstAllowedPath()} replace />;
 }
 
@@ -139,12 +160,35 @@ function App() {
 
                 {/* Login na thakle AdminGuard login page e pathay */}
                 <Route path="/admin" element={<AdminGuard><AdminLayout /></AdminGuard>}>
-                    <Route index element={<AdminHome />} />
+                    <Route index element={<AdminIndex />} />
 
                     {/* perm = permissions.js er key. Role e oi key na thakle "No access" dekhabe */}
                     <Route path="dashboard" element={<AdminGuard perm="dashboard"><Dashboard /></AdminGuard>} />
                     <Route path="users" element={<AdminGuard perm="users"><UsersRoles /></AdminGuard>} />
                     <Route path="no-access" element={<NoAccess />} />
+
+                    {/* Home Page: /admin/home -> /admin/home/banner. Proti section alada page */}
+                    <Route path="home" element={<AdminGuard perm="home"><AdminHome /></AdminGuard>}>
+                        <Route index element={<Navigate to="banner" replace />} />
+                        <Route path="banner" element={<BannerAdmin />} />
+                        <Route path="offer" element={<OfferAdmin />} />
+                        <Route path="packages" element={<HomePackagesAdmin />} />
+                        <Route path="achievements" element={<AchievementsAdmin />} />
+                        <Route path="how-we-work" element={<HowWeWorkAdmin />} />
+                        <Route path="testimonials" element={<TestimonialsAdmin />} />
+                    </Route>
+
+                    {/* Medical Services: /admin/medical-services -> prothom page. Proti service alada page */}
+                    <Route path="medical-services" element={<AdminGuard perm="medical_services"><AdminMedicalServices /></AdminGuard>}>
+                        <Route index element={<Navigate to="medical-consultation" replace />} />
+                        <Route path="medical-consultation" element={<MedicalConsultationAdmin />} />
+                        <Route path="tele-consultation" element={<TeleConsultationAdmin />} />
+                        <Route path="doctor-appointment" element={<DoctorAppointmentAdmin />} />
+                        <Route path="medical-accommodation" element={<MedicalAccommodationAdmin />} />
+                        <Route path="air-ambulance" element={<AirAmbulanceAdmin />} />
+                        <Route path="medicine" element={<MedicineAdmin />} />
+                        <Route path="training-development" element={<TrainingDevelopmentAdmin />} />
+                    </Route>
 
                     {/* baki admin page ekhane add koro, jemon:
                         <Route path="queries" element={<AdminGuard perm="queries"><PatientQueries /></AdminGuard>} /> */}
