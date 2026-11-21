@@ -3,18 +3,21 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import "../Backend/Css/AdminMenu.css";
 // Logo er path tomar folder onujayi bodlao
 import logo from "../Image/logo/AKBH MEDICAL-01.png";
-import { can } from "./permissions";
+import { can, firstAllowedPath } from "./permissions";
 
 /* =====================================================
    ADMIN SIDEBAR MENU ("adm-" class)
    - Menu item ekhane add / bodlao.
    - `badge` = notun koyta ache (API theke ashle oikhane boshao).
    - `children` thakle sub-menu hoy.
+   - `perm` = permissions.js er key. Login kora user er role e oi key
+     na thakle menu ta dekhabe na. Kono section e kichu na thakle
+     section er title o lukay.
    ===================================================== */
 const MENU = [
   {
     title: "Main",
-    items: [{ to: "/admin/dashboard", label: "Dashboard", icon: "grid" }],
+    items: [{ to: "/admin/dashboard", perm: "dashboard", label: "Dashboard", icon: "grid" }],
   },
 
   /* ---------- Website er page gula (frontend) ---------- */
@@ -23,6 +26,7 @@ const MENU = [
     items: [
       {
         id: "home",
+        perm: "home",
         label: "Home Page",
         icon: "home",
         children: [
@@ -36,6 +40,7 @@ const MENU = [
       },
       {
         id: "medical",
+        perm: "medical_services",
         label: "Medical Services",
         icon: "heart",
         children: [
@@ -50,6 +55,7 @@ const MENU = [
       },
       {
         id: "nonmedical",
+        perm: "non_medical_services",
         label: "Non Medical Services",
         icon: "hand",
         children: [
@@ -63,12 +69,13 @@ const MENU = [
           { to: "/admin/services/hotel", label: "Hotel" },
         ],
       },
-      { to: "/admin/hospitals", label: "Hospitals", icon: "hospital" },
-      { to: "/admin/doctors", label: "Doctors", icon: "doctor" },
-      { to: "/admin/packages", label: "Packages", icon: "box" },
-      { to: "/admin/plan-setup", label: "Treatment Plan Setup", icon: "route" },
+      { to: "/admin/hospitals", perm: "hospitals", label: "Hospitals", icon: "hospital" },
+      { to: "/admin/doctors", perm: "doctors", label: "Doctors", icon: "doctor" },
+      { to: "/admin/packages", perm: "packages", label: "Packages", icon: "box" },
+      { to: "/admin/plan-setup", perm: "plan_setup", label: "Treatment Plan Setup", icon: "route" },
       {
         id: "company",
+        perm: "company",
         label: "Company",
         icon: "building",
         children: [
@@ -80,6 +87,7 @@ const MENU = [
       },
       {
         id: "media",
+        perm: "media",
         label: "Media",
         icon: "image",
         children: [
@@ -88,8 +96,8 @@ const MENU = [
           { to: "/admin/media/gallery", label: "Gallery" },
         ],
       },
-      { to: "/admin/career", label: "Career / Jobs", icon: "briefcase" },
-      { to: "/admin/contact-page", label: "Contact Page", icon: "phone" },
+      { to: "/admin/career", perm: "career", label: "Career / Jobs", icon: "briefcase" },
+      { to: "/admin/contact-page", perm: "contact_page", label: "Contact Page", icon: "phone" },
     ],
   },
 
@@ -97,13 +105,14 @@ const MENU = [
   {
     title: "Requests",
     items: [
-      { to: "/admin/queries", label: "Patient Queries", icon: "inbox", badge: 12 },
-      { to: "/admin/treatment-plans", label: "Treatment Plans", icon: "plan", badge: 5 },
-      { to: "/admin/appointments", label: "Appointments", icon: "calendar" },
-      { to: "/admin/consultations", label: "Consultations", icon: "video" },
-      { to: "/admin/medicine-requests", label: "Medicine Requests", icon: "pill", badge: 3 },
+      { to: "/admin/queries", perm: "queries", label: "Patient Queries", icon: "inbox", badge: 12 },
+      { to: "/admin/treatment-plans", perm: "treatment_plans", label: "Treatment Plans", icon: "plan", badge: 5 },
+      { to: "/admin/appointments", perm: "appointments", label: "Appointments", icon: "calendar" },
+      { to: "/admin/consultations", perm: "consultations", label: "Consultations", icon: "video" },
+      { to: "/admin/medicine-requests", perm: "medicine_requests", label: "Medicine Requests", icon: "pill", badge: 3 },
       {
         id: "bookings",
+        perm: "bookings",
         label: "Service Bookings",
         icon: "ticket",
         children: [
@@ -116,18 +125,18 @@ const MENU = [
           { to: "/admin/bookings/air-ambulance", label: "Air Ambulance" },
         ],
       },
-      { to: "/admin/visa", label: "Visa Processing", icon: "doc" },
-      { to: "/admin/job-applications", label: "Job Applications", icon: "users" },
-      { to: "/admin/messages", label: "Contact Messages", icon: "mail" },
+      { to: "/admin/visa", perm: "visa", label: "Visa Processing", icon: "doc" },
+      { to: "/admin/job-applications", perm: "job_applications", label: "Job Applications", icon: "users" },
+      { to: "/admin/messages", perm: "messages", label: "Contact Messages", icon: "mail" },
     ],
   },
 
   {
     title: "System",
     items: [
-      { to: "/admin/reports", label: "Reports", icon: "chart" },
-      { to: "/admin/users", label: "Users & Roles", icon: "shield" },
-      { to: "/admin/settings", label: "Settings", icon: "settings" },
+      { to: "/admin/reports", perm: "reports", label: "Reports", icon: "chart" },
+      { to: "/admin/users", perm: "users", label: "Users & Roles", icon: "shield" },
+      { to: "/admin/settings", perm: "settings", label: "Settings", icon: "settings" },
     ],
   },
 ];
@@ -202,6 +211,11 @@ const Menu = ({ collapsed = false, mobileOpen = false, onClose = () => {}, onLog
   };
   const [open, setOpen] = useState(() => groupOf(pathname));
 
+  // Role e je menu er permission ache shudhu sheta dekhabe. Faka section lukabe.
+  const visibleMenu = MENU.map((sec) => ({ ...sec, items: sec.items.filter((it) => can(it.perm)) })).filter(
+    (sec) => sec.items.length > 0
+  );
+
   useEffect(() => {
     const g = groupOf(pathname);
     if (g) setOpen(g);
@@ -217,9 +231,9 @@ const Menu = ({ collapsed = false, mobileOpen = false, onClose = () => {}, onLog
         className={`adm ${collapsed ? "is-collapsed" : ""} ${mobileOpen ? "is-open" : ""}`}
         aria-label="Admin menu"
       >
-        {/* Logo */}
+        {/* Logo: role er prothom page e niye jay */}
         <div className="adm-brand">
-          <Link to="/admin/dashboard" className="adm-logo">
+          <Link to={firstAllowedPath()} className="adm-logo">
             <img src={logo} alt="Akashbari Medical" />
           </Link>
           <span className="adm-brand-tag">Admin</span>
@@ -228,9 +242,9 @@ const Menu = ({ collapsed = false, mobileOpen = false, onClose = () => {}, onLog
           </button>
         </div>
 
-        {/* Links */}
+        {/* Links (shudhu permission ache emon gula) */}
         <nav className="adm-nav">
-          {MENU.map((sec) => (
+          {visibleMenu.map((sec) => (
             <div key={sec.title} className="adm-section">
               <p className="adm-section-title">
                 <span>{sec.title}</span>
